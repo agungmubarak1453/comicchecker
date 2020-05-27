@@ -7,5 +7,5 @@ package comicchecker;
  *
  */
 public class WebScraper {
-
+	
 }

@@ -9,4 +9,47 @@ package comicchecker;
 
 public class Snippet {
 
+		private String title;
+		private img thumbnail;
+		private String description;
+		
+		public Snippet(String title) {
+			this.title = title;
+			update(title);
+		}
+		
+		public void update(String title) {
+			
+		}
+
+		/**
+		 * @return the thumbnail
+		 */
+		public img getThumbnail() {
+			return thumbnail;
+		}
+		/**
+		 * @param thumbnail the thumbnail to set
+		 */
+		public void setThumbnail(img thumbnail) {
+			this.thumbnail = thumbnail;
+		}
+		/**
+		 * @return the description
+		 */
+		public String getDescription() {
+			return description;
+		}
+		/**
+		 * @param description the description to set
+		 */
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		/**
+		 * @param title the title to set
+		 */
+		public void setTitle(String title) {
+			this.title = title;
+		}
 }
