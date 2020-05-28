@@ -3,7 +3,7 @@ package comicchecker;
 /**
  * Class for application object
  * 
- * @author Agung Muabrak
+ * @author Agung Mubarak
  *
  */
 public class ComicCheckerApplication {

@@ -1,11 +1,17 @@
 package comicchecker;
 
+import java.util.ArrayList;
+
 /**
  * Class for get data from comic website
  * 
- * @author Muzakki Akbar
+ * @author AgungMubarak
  *
  */
 public class WebScraper {
+	ArrayList<String> listOfSite;
 	
+	public void check(String title) {
+		
+	}
 }

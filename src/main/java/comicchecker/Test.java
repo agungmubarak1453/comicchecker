@@ -12,6 +12,7 @@ public class Test {
 		try {
 			doc = Jsoup.connect("https://www.wikihow.com/Prevent-Coronavirus-if-You-Are-at-Risk").get();
 			String title = doc.title();
+			System.out.print(title);
 
 		} catch (IOException e) {
 			e.printStackTrace();
