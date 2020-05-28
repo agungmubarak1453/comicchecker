@@ -11,7 +11,6 @@ public class ComicCheckerApplication {
 	private WebScraper webScraper;
 	
 	public ComicCheckerApplication() {
-		snippet = new Snippet();
 		webScraper = new WebScraper();
 	}
 }

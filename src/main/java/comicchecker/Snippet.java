@@ -1,5 +1,7 @@
 package comicchecker;
 
+import javafx.scene.image.Image;
+
 /**
  * Class that contains title, thumbnail, description, link
  * 
@@ -10,7 +12,7 @@ package comicchecker;
 public class Snippet {
 
 		private String title;
-		private img thumbnail;
+		private Image thumbnail;
 		private String description;
 		
 		public Snippet(String title) {
@@ -25,13 +27,13 @@ public class Snippet {
 		/**
 		 * @return the thumbnail
 		 */
-		public img getThumbnail() {
+		public Image getThumbnail() {
 			return thumbnail;
 		}
 		/**
 		 * @param thumbnail the thumbnail to set
 		 */
-		public void setThumbnail(img thumbnail) {
+		public void setThumbnail(Image thumbnail) {
 			this.thumbnail = thumbnail;
 		}
 		/**
