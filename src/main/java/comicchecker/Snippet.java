@@ -1,20 +1,29 @@
 package comicchecker;
 
+import java.util.ArrayList;
+
+import javafx.scene.image.Image;
+
 /**
  * Class that contains title, thumbnail, description, link
  * 
- * @author Agung Mubaraks
+ * @author Agung Mubarak
  *
  */
 
 public class Snippet {
 
 		private String title;
-		private img thumbnail;
+		private Image thumbnail;
 		private String description;
+		private String updateTime;
+		private ArrayList<String> updateSite;
 		
-		public Snippet(String title) {
+		private ArrayList<String> avaibleUpdateSite;
+		
+		public Snippet(String title, ArrayList<String> avaibleUpdateSite) {
 			this.title = title;
+			this.avaibleUpdateSite = avaibleUpdateSite;
 			update(title);
 		}
 		
@@ -22,34 +31,43 @@ public class Snippet {
 			
 		}
 
-		/**
-		 * @return the thumbnail
-		 */
-		public img getThumbnail() {
+		public Image getThumbnail() {
 			return thumbnail;
 		}
-		/**
-		 * @param thumbnail the thumbnail to set
-		 */
-		public void setThumbnail(img thumbnail) {
+
+		public void setThumbnail(Image thumbnail) {
 			this.thumbnail = thumbnail;
 		}
-		/**
-		 * @return the description
-		 */
+
 		public String getDescription() {
 			return description;
 		}
-		/**
-		 * @param description the description to set
-		 */
+
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		/**
-		 * @param title the title to set
-		 */
-		public void setTitle(String title) {
-			this.title = title;
+
+		public String getUpdateTime() {
+			return updateTime;
+		}
+
+		public void setUpdateTime(String updateTime) {
+			this.updateTime = updateTime;
+		}
+
+		public ArrayList<String> getUpdateSite() {
+			return updateSite;
+		}
+
+		public void setUpdateSite(ArrayList<String> updateSite) {
+			this.updateSite = updateSite;
+		}
+
+		public ArrayList<String> getAvaibleUpdateSite() {
+			return avaibleUpdateSite;
+		}
+
+		public void setAvaibleUpdateSite(ArrayList<String> avaibleUpdateSite) {
+			this.avaibleUpdateSite = avaibleUpdateSite;
 		}
 }

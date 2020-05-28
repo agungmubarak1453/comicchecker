@@ -3,7 +3,7 @@ package comicchecker;
 /**
  * Class for application object
  * 
- * @author Agung Muabrak
+ * @author Agung Mubarak
  *
  */
 public class ComicCheckerApplication {
@@ -11,7 +11,6 @@ public class ComicCheckerApplication {
 	private WebScraper webScraper;
 	
 	public ComicCheckerApplication() {
-		snippet = new Snippet();
 		webScraper = new WebScraper();
 	}
 }
