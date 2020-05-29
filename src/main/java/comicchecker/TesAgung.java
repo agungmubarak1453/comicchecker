@@ -12,7 +12,7 @@ public class TesAgung {
 		System.out.println("- Program is started -");
 		
 		int checkOldUpdate = 0;
-		int page = 200;
+		int page = 0;
 		while(true) {
 			try {
 				System.out.println("page :" + page);
@@ -26,8 +26,8 @@ public class TesAgung {
 					}
 					
 					String title = o.select("h3 > a").text();
-//					String image = o.select("a").first().select("img").attr("src");
-//					String description = o.select("p").text();
+					String image = o.select("a").first().select("img").attr("src");
+					String description = o.select("p").text();
 					
 					String urlForLookUpdateTime = o.select("h3 > a").attr("href");
 					System.out.println("urlForLookUpdateTime :" + urlForLookUpdateTime);
@@ -42,11 +42,11 @@ public class TesAgung {
 						}
 						
 						System.out.println(title);
-//						System.out.println(image);
-//						System.out.println(description);
+						System.out.println(image);
+						System.out.println(description);
 						System.out.println(updateTime);
-					}catch(NullPointerException e) {
-						System.out.println(e.getStackTrace());
+					}catch(Exception e) {
+						System.out.println(e);
 					}
 				}
 				
