@@ -13,7 +13,7 @@ public class Type3 extends Site{
 	}
 
 	@Override
-	void search(String title) {
-		
+	Snippet search(String title) {
+		return null;
 	}
 }

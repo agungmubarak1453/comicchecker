@@ -5,8 +5,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javafx.scene.image.Image;
-
 /**
  * Class for handle web scraping method from various website type1
  * Knowing for : mangakakalots.com
@@ -20,7 +18,8 @@ public class Type1 extends Site{
 	}
 
 	@Override
-	void search(String searchTitle) {
+	Snippet search(String searchTitle) {
+		Snippet result = null;
 		Snippet template = new Snippet();
 		
 		int checkOldUpdate = 0;
@@ -28,7 +27,7 @@ public class Type1 extends Site{
 		
 		while(true) {
 			try {
-				Document doc = Jsoup.connect("https://mangakakalots.com/manga_list/?type=latest&category=all&state=all&page=" + page).timeout(30000).get();			
+				Document doc = Jsoup.connect(getUrl() + "/manga_list/?type=latest&category=all&state=all&page=" + page).timeout(30000).get();			
 				Elements comics = doc.select("div.list-truyen-item-wrap");
 				
 				for(Element o : comics) {
@@ -37,14 +36,20 @@ public class Type1 extends Site{
 					}
 					
 					String title = o.select("h3 > a").text();
+					if(!title.toLowerCase().contains(searchTitle.toLowerCase())) {
+						continue;
+					}
 					String thumbnail = o.select("a").first().select("img").attr("src");
 					String description = o.select("p").text();
 					
 					String urlForLookUpdateTime = o.select("h3 > a").attr("href");
-					System.out.println("urlForLookUpdateTime :" + urlForLookUpdateTime);
 					Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 					try {
-						String updateTime = docUpdatePage.select(".chapter-list > .row").first().select("span:eq(2)").text();						
+						Element updateInfo = docUpdatePage.select(".chapter-list > .row").first();
+						String updateChapter = updateInfo.select("span:eq(0) > a").text();
+						String updateTime = updateInfo.select("span:eq(2)").text();
+						String updateLink = updateInfo.select("span:eq(0) > a").attr("href");
+						
 						if(! updateTime.contains("ago")) {
 							checkOldUpdate++;
 							continue;
@@ -52,18 +57,18 @@ public class Type1 extends Site{
 							checkOldUpdate = 0;
 						}
 						
-						if(title.contains(searchTitle)) {
-							template.setTitle(title);
-							template.setThumbnail(new Image(thumbnail));
-							template.setDescription(description);
-							template.addUpdateSite(urlForLookUpdateTime);
-						}
-						System.out.println(title);
-						System.out.println(thumbnail);
-						System.out.println(description);
-						System.out.println(updateTime);
+						System.out.println(searchTitle + " ketemu");
+						template.setTitle(title);
+						template.setThumbnail(thumbnail);
+						template.setDescription(description);
+						template.setUpdateChapter(updateChapter);
+						template.setUpdateTime(updateTime);
+						template.addUpdateSite(updateLink);
+						result = template;
+						return result;
 					}catch(Exception e) {
-						System.out.println(e);
+//						System.out.println(e);
+						e.printStackTrace();
 					}
 				}
 				
@@ -76,5 +81,6 @@ public class Type1 extends Site{
 				break;
 			}
 		}
+		return result;
 	}
 }

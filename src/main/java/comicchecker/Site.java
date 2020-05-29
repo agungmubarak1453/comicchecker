@@ -13,5 +13,14 @@ public abstract class Site {
 		this.url = url;
 	}
 	
-	abstract void search(String title);
+	public String getUrl() {
+		return url;
+	}
+	
+	abstract Snippet search(String title);
+	
+	@Override
+	public String toString() {
+		return url;
+	}
 }

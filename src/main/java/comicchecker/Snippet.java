@@ -1,8 +1,7 @@
 package comicchecker;
 
 import java.util.ArrayList;
-
-import javafx.scene.image.Image;
+import java.util.List;
 
 /**
  * Class that contains title, thumbnail, description, link
@@ -14,22 +13,42 @@ import javafx.scene.image.Image;
 public class Snippet {
 
 		private String title;
-		private Image thumbnail;
+		private String thumbnail;
 		private String description;
 		private String updateChapter;
 		private String updateTime;
-		private ArrayList<String> updateSite;
+		private List<String> updateSite;
 		
-		private ArrayList<String> avaibleUpdateSite;
+		private List<String> avaibleUpdateSite;
 		
-		public Snippet(String title, ArrayList<String> avaibleUpdateSite) {
+		public Snippet(String title, List<String> avaibleUpdateSite) {
 			this.title = title;
+			thumbnail = null;
+			description = "";
+			updateChapter = "";
+			updateTime = "";
+			updateSite = new ArrayList<>();
 			this.avaibleUpdateSite = avaibleUpdateSite;
-			update(title);
 		}
 		
 		public Snippet() {
-			
+			title = "";
+			thumbnail = null;
+			description = "";
+			updateChapter = "";
+			updateTime = "";
+			updateSite = new ArrayList<>();
+			avaibleUpdateSite = new ArrayList<>();
+		}
+		
+		public void update(WebScraper webScraper) {
+			Snippet result = webScraper.check(title, avaibleUpdateSite);
+			this.title = result.getTitle();
+			thumbnail = result.getThumbnail();
+			description = result.getDescription();
+			updateChapter = result.getUpdateChapter();
+			updateTime = result.getUpdateTime();
+			updateSite = result.getUpdateSite();
 		}
 		
 		public String getTitle() {
@@ -40,15 +59,11 @@ public class Snippet {
 			this.title = title;
 		}
 
-		public void update(String title) {
-			
-		}
-
-		public Image getThumbnail() {
+		public String getThumbnail() {
 			return thumbnail;
 		}
 
-		public void setThumbnail(Image thumbnail) {
+		public void setThumbnail(String thumbnail) {
 			this.thumbnail = thumbnail;
 		}
 
@@ -76,7 +91,7 @@ public class Snippet {
 			this.updateTime = updateTime;
 		}
 
-		public ArrayList<String> getUpdateSite() {
+		public List<String> getUpdateSite() {
 			return updateSite;
 		}
 
@@ -84,11 +99,23 @@ public class Snippet {
 			updateSite.add(url);
 		}
 
-		public ArrayList<String> getAvaibleUpdateSite() {
+		public List<String> getAvaibleUpdateSite() {
 			return avaibleUpdateSite;
 		}
 
 		public void setAvaibleUpdateSite(ArrayList<String> avaibleUpdateSite) {
 			this.avaibleUpdateSite = avaibleUpdateSite;
+		}
+		
+		@Override
+		public String toString() {
+			return "title :" + title
+					+ "\nthumbnail :" + thumbnail
+					+ "\ndescription :" + description
+					+ "\nupdateChapter :" + updateChapter
+					+ "\nupdateTime :" + updateTime
+					+ "\nupdateSite :" + updateSite
+					+ "\navaibleUpdateSite :" + avaibleUpdateSite
+					;
 		}
 }
