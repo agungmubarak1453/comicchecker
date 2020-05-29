@@ -68,11 +68,14 @@ public class TesAgung {
 //		}
 		WebScraper webScraper = new WebScraper();
 		webScraper.addSite(new Type1("https://mangakakalots.com"));
+		
 		List<String> avaibleWebsite = new ArrayList<>();
 		avaibleWebsite.add("https://mangakakalots.com");
-		Snippet gu = new Snippet("shadow", avaibleWebsite);
-		gu.update(webScraper);
-		System.out.println(gu);
+		
+		Snippet comic = new Snippet("yaiba", avaibleWebsite);
+		comic.update(webScraper);
+		
+		System.out.println(comic);
 		
 		System.out.println("- Program is finished -");
 	}
