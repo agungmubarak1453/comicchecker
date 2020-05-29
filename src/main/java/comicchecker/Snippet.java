@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that contains title, thumbnail, description, link
+ * Class that contains data for comic
  * 
  * @author Agung Mubarak
  *
  */
 
 public class Snippet {
-
 		private String title;
 		private String thumbnail;
 		private String description;
@@ -21,7 +20,15 @@ public class Snippet {
 		
 		private List<String> avaibleUpdateSite;
 		
+		/**
+		 * Constructor method but only create data for title and avaibleUpdateSite, and others data in null or "".
+		 * 
+		 * @see WebScraper
+		 * @param title
+		 * @param avaibleUpdateSite site for used in web sraping
+		 */
 		public Snippet(String title, List<String> avaibleUpdateSite) {
+			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = null;
 			description = "";
@@ -31,6 +38,9 @@ public class Snippet {
 			this.avaibleUpdateSite = avaibleUpdateSite;
 		}
 		
+		/**
+		 * Constructor method for create Snippet template
+		 */
 		public Snippet() {
 			title = "";
 			thumbnail = null;
@@ -41,6 +51,9 @@ public class Snippet {
 			avaibleUpdateSite = new ArrayList<>();
 		}
 		
+		/**
+		 * Method for update snippet. This use web scraping
+		 */
 		public void update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
 			this.title = result.getTitle();

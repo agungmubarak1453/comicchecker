@@ -7,7 +7,10 @@ import org.jsoup.select.Elements;
 
 /**
  * Class for handle web scraping method from various website type1
+ * <br><br>
  * Knowing for : mangakakalots.com
+ * 
+ * @see Site
  * @author Agung Mubarak
  *
  */
@@ -20,14 +23,21 @@ public class Type1 extends Site{
 	@Override
 	Snippet search(String searchTitle) {
 		Snippet result = null;
+		// Create template for return
 		Snippet template = new Snippet();
 		
+		// Mangakakalots have bad data displaying. They diplay unsorted data from comic updating time.
+		// So i make a rule if web scraper haven't found data that update atleast one day ago 48 times
+		// (that is 2 page in my PC), web scrapper is stopped.
 		int checkOldUpdate = 0;
-		int page = 0;
+		// Variable for page navigation
+		int page = 1;
 		
+		// While true for infinite loop until data is found or throwing exception
 		while(true) {
 			try {
 				Document doc = Jsoup.connect(getUrl() + "/manga_list/?type=latest&category=all&state=all&page=" + page).timeout(30000).get();			
+				// I use structured method to get data for sake of efficient
 				Elements comics = doc.select("div.list-truyen-item-wrap");
 				
 				for(Element o : comics) {
@@ -36,6 +46,7 @@ public class Type1 extends Site{
 					}
 					
 					String title = o.select("h3 > a").text();
+					// Searching use case-insensitive
 					if(!title.toLowerCase().contains(searchTitle.toLowerCase())) {
 						continue;
 					}
@@ -43,6 +54,7 @@ public class Type1 extends Site{
 					String description = o.select("p").text();
 					
 					String urlForLookUpdateTime = o.select("h3 > a").attr("href");
+					// Because Mangakakalots don't display updating time in this page i must get update time for individual comic page
 					Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 					try {
 						Element updateInfo = docUpdatePage.select(".chapter-list > .row").first();
@@ -67,11 +79,11 @@ public class Type1 extends Site{
 						result = template;
 						return result;
 					}catch(Exception e) {
-//						System.out.println(e);
-						e.printStackTrace();
+						System.out.println(e);
 					}
 				}
 				
+				// Continuing break of checkOldUpdate in for
 				if(checkOldUpdate >= 48) {
 					break;
 				}

@@ -3,6 +3,7 @@ package comicchecker;
 /**
  * Class for handle web scraping method from various website type2
  * 
+ * @see Site
  * @author Agung Mubarak
  *
  */

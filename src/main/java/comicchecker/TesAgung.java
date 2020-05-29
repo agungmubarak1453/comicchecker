@@ -70,7 +70,7 @@ public class TesAgung {
 		webScraper.addSite(new Type1("https://mangakakalots.com"));
 		List<String> avaibleWebsite = new ArrayList<>();
 		avaibleWebsite.add("https://mangakakalots.com");
-		Snippet gu = new Snippet("yaiba", avaibleWebsite);
+		Snippet gu = new Snippet("shadow", avaibleWebsite);
 		gu.update(webScraper);
 		System.out.println(gu);
 		
