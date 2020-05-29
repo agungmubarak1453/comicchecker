@@ -3,6 +3,7 @@ package comicchecker;
 /**
  * Class for handle web scraping method from various website type3
  * 
+ * @see Site
  * @author Agung Mubarak
  *
  */
@@ -13,7 +14,7 @@ public class Type3 extends Site{
 	}
 
 	@Override
-	void search(String title) {
-		
+	Snippet search(String title) {
+		return null;
 	}
 }
