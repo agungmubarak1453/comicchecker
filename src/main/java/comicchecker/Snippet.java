@@ -24,7 +24,7 @@ public class Snippet {
 		 * Constructor method but only create data for title and avaibleUpdateSite, and others data in null or "".
 		 * 
 		 * @see WebScraper
-		 * @param title
+		 * @param title title of comic
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
 		public Snippet(String title, List<String> avaibleUpdateSite) {
