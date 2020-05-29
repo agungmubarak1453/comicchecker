@@ -16,6 +16,7 @@ public class Snippet {
 		private String title;
 		private Image thumbnail;
 		private String description;
+		private String updateChapter;
 		private String updateTime;
 		private ArrayList<String> updateSite;
 		
@@ -27,6 +28,18 @@ public class Snippet {
 			update(title);
 		}
 		
+		public Snippet() {
+			
+		}
+		
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
 		public void update(String title) {
 			
 		}
@@ -46,6 +59,14 @@ public class Snippet {
 		public void setDescription(String description) {
 			this.description = description;
 		}
+		
+		public String getUpdateChapter() {
+			return updateChapter;
+		}
+
+		public void setUpdateChapter(String updateChapter) {
+			this.updateChapter = updateChapter;
+		}
 
 		public String getUpdateTime() {
 			return updateTime;
@@ -59,8 +80,8 @@ public class Snippet {
 			return updateSite;
 		}
 
-		public void setUpdateSite(ArrayList<String> updateSite) {
-			this.updateSite = updateSite;
+		public void addUpdateSite(String url) {
+			updateSite.add(url);
 		}
 
 		public ArrayList<String> getAvaibleUpdateSite() {
