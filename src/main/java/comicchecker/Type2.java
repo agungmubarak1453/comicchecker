@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.net.SocketTimeoutException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +27,8 @@ public class Type2 extends Site{
 		super(url);
 	}
 
+	// Time for refresh
+	private int timeForRefresh = 3;
 	@Override
 	Snippet search(String title) {
 		Snippet result = null;
@@ -34,6 +37,9 @@ public class Type2 extends Site{
 			Document doc = Jsoup.connect(getUrl()).timeout(30000).get();
 			// URLs for comics are contained in dropdown menu 
 			Elements dropDownItems= doc.select(".dropdown-menu[aria-labelledby='readManga'] > .dropdown-item");
+			
+			// Time for refresh
+			int timeForRefreshSub = 3;
 			// I have found three comic in Guya.moe
 			for(int i=0; i<3; i++) {
 				String comicTitle = "";
@@ -75,28 +81,44 @@ public class Type2 extends Site{
 					
 					String updateSite = chapterInfo.select(".chapter-title > a").first().absUrl("href");
 					
-					// I convert this data to format day like 2 days ago or 1 day ago 
-					if(diff <= 100) {
+					if(diff <= 50) {
 						result = new Snippet(comicTitle
 								,image
 								,description
 								,updateChapter
-								,diff + " day ago"
+								,diff + " day ago" // I convert this data to format day like 2 days ago or 1 day ago
 								,updateSite
 								);
 						return result;
 					}else {
 						continue;
 					}
+				} catch (SocketTimeoutException e) {
+					if(timeForRefreshSub > 0) {
+						timeForRefreshSub--;
+						i--;
+						continue;
+					}else {
+						e.printStackTrace();
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
+				timeForRefreshSub = 3;
+			}
+		} catch (SocketTimeoutException e) {
+			if(timeForRefresh > 0) {
+				timeForRefresh--;
+				search(title);
+			}else {
+				e.printStackTrace();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
+		timeForRefresh = 3;
 		return result;
 	}
 }

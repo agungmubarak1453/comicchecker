@@ -1,5 +1,7 @@
 package comicchecker;
 
+import java.net.SocketTimeoutException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,6 +33,8 @@ public class Type1 extends Site{
 		// Variable for page navigation
 		int page = 1;
 		
+		//Refresh time
+		int timeForRefresh = 3;
 		// While true for infinite loop until data is found or throwing exception
 		while(true) {
 			try {
@@ -53,8 +57,8 @@ public class Type1 extends Site{
 					
 					String urlForLookUpdateTime = o.select("h3 > a").attr("href");
 					// Because Mangakakalots don't display updating time in this page i must get update time for individual comic page
-					Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 					try {
+						Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 						Element updateInfo = docUpdatePage.select(".chapter-list > .row").first();
 						String updateChapter = updateInfo.select("span:eq(0) > a").text();
 						String updateTime = updateInfo.select("span:eq(2)").text();
@@ -85,11 +89,21 @@ public class Type1 extends Site{
 					break;
 				}
 				page++;
+			} catch (SocketTimeoutException e) {
+				if(timeForRefresh > 0) {
+					timeForRefresh--;
+					continue;
+				}else {
+					e.printStackTrace();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			}
+			
+			timeForRefresh = 3;
 		}
+		
 		return result;
 	}
 }

@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.lang.reflect.Field;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.sun.tools.javac.Main;
+
 public class TesAgung {
 	public static void main(String[] args) {
 		System.out.println("- Program is started -\n");
@@ -18,7 +21,7 @@ public class TesAgung {
 		WebScraper webScraper = new WebScraper();
 		webScraper.addSite(new Type1("https://mangakakalots.com"),new Type2("https://guya.moe"));
 		
-		Snippet comic = new Snippet("kimetsu", "https://mangakakalots.com");
+		Snippet comic = new Snippet("doujin", "https://guya.moe");
 		comic.update(webScraper);
 		
 		printTest(comic);

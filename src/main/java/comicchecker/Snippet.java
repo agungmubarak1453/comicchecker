@@ -30,7 +30,7 @@ public class Snippet {
 		public Snippet(String title, String... sites) {
 			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
-			thumbnail = null;
+			thumbnail = "";
 			description = "";
 			updateChapter = "";
 			updateTime = "";
@@ -60,12 +60,14 @@ public class Snippet {
 		 */
 		public void update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
-			title = result.getTitle();
-			thumbnail = result.getThumbnail();
-			description = result.getDescription();
-			updateChapter = result.getUpdateChapter();
-			updateTime = result.getUpdateTime();
-			updateSite = result.getUpdateSite();
+			if(result != null) {
+				title = result.getTitle();
+				thumbnail = result.getThumbnail();
+				description = result.getDescription();
+				updateChapter = result.getUpdateChapter();
+				updateTime = result.getUpdateTime();
+				updateSite = result.getUpdateSite();
+			}
 		}
 		
 		public String getTitle() {

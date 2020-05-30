@@ -63,8 +63,11 @@ public class WebScraper {
 				result = o.search(title);
 				doesFirstSiteFound = true;
 			}else {
-				for(String o3 : o.search(title).getUpdateSite()) {
+				Snippet otherSite = o.search(title);
+				if(otherSite != null) {
+					for(String o3 : otherSite.getUpdateSite()) {
 						result.addUpdateSite(o3);
+					}
 				}
 			}
 		}
