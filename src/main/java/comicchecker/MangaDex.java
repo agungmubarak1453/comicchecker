@@ -12,12 +12,28 @@ public class MangaDex {
 	public static void main(String[] args) {
 		String query = "Creepy Cat";
 		try {
-			Document doc = Jsoup.connect("https://mangadex.org/titles/0/2/").timeout(30000).get();
-			Elements comicList = doc.select("div.manga-entry");
-			//System.out.println(comicList);
-			for (Element comicItem : comicList) {
-				String title = comicItem.select("div.text-truncate > a").text();
-				System.out.println(title);
+			int page = 1;
+			
+			while (true) {
+				Document doc = Jsoup.connect("https://mangadex.org/titles/0/" + page + "/").timeout(30000).get();
+				Elements comicList = doc.select("div.manga-entry");
+				 
+				for (Element comicItem : comicList) {
+					String title = comicItem.select("div.text-truncate > a").text();
+					if (query.equalsIgnoreCase(title)) {
+						System.out.println(title);
+						
+						String thumbnail = comicItem.select("div.rounded > a").select("img").attr("src");
+						System.out.println(thumbnail);
+						
+						String desc = comicItem.select("div").text();
+						int x = desc.indexOf("Follow ");
+						desc = desc.substring(x+7);
+						System.out.println(desc);
+						break;
+					}
+				}
+				page = page + 1;
 			}
 			
 			
