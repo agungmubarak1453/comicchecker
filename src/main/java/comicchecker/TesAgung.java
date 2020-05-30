@@ -24,7 +24,7 @@ public class TesAgung {
 				, new Type3("https://manganelo.com")
 				);
 		
-		Snippet comic = new Snippet("yaiba", "https://mangakakalots.com");
+		Snippet comic = new Snippet("boruto", "https://mangakakalots.com", "https://manganelo.com", "https://guya.moe");
 		comic.update(webScraper);
 		
 		printTest(comic);
