@@ -24,6 +24,7 @@ public class MangaDex {
 						System.out.println(title);
 						
 						String thumbnail = comicItem.select("div.rounded > a").select("img").attr("src");
+						thumbnail = "https://mangadex.org/" + thumbnail;
 						System.out.println(thumbnail);
 						
 						String desc = comicItem.select("div").text();
