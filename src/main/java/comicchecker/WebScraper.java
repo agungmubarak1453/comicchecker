@@ -61,7 +61,9 @@ public class WebScraper {
 			// URLs for chapter update are taken from many site
 			if(!doesFirstSiteFound) {
 				result = o.search(title);
-				doesFirstSiteFound = true;
+				if(result != null) {
+					doesFirstSiteFound = true;
+				}
 			}else {
 				Snippet otherSite = o.search(title);
 				if(otherSite != null) {
