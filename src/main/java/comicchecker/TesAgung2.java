@@ -1,37 +1,25 @@
 package comicchecker;
 
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-/**
- * Class for handle web scraping method from various website type3
- * Knowing for: manganelo.com
- * 
- * @see Site
- * @author Agung Mubarak
- *
- */
-public class Type3 extends Site{
+public class TesAgung2 {
 
-	public Type3(String url) {
-		super(url);
-	}
-
-	@Override
-	Snippet search(String searchTitle) {
-		Snippet result = null;
-		
+	public static void main(String[] args) {
 		try {
-			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
+			Document doc = Jsoup.connect("https://manganelo.com/search/agung").timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
 				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
 			}else {
-				return result;
+				printTest("Ngak ketemu");
+				return;
 			}
 			
 			try {
@@ -46,17 +34,13 @@ public class Type3 extends Site{
 				String updateTime = updateInfo.select(".chapter-time.text-nowrap").text();
 				String updateLink = updateInfo.select("a").attr("href");
 				
-				if(updateTime.contains("ago")) {
-					result = new Snippet(title
-							, image
-							, description
-							, updateChapter
-							, updateTime
-							, updateLink
-							);
-					return result;
-				}
-				
+				printTest(title
+						, image
+						, description
+						, updateChapter
+						, updateTime
+						, updateLink
+						);
 			} catch (SocketTimeoutException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -67,8 +51,11 @@ public class Type3 extends Site{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return result;
 	}
 	
+	public static void printTest(Object... o) {
+		for(Object o2 : o) {
+			System.out.println(o2);
+		}
+	}
 }
