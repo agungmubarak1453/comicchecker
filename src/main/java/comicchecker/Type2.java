@@ -15,7 +15,7 @@ import org.jsoup.select.Elements;
 /**
  * Class for handle web scraping method from various website type2
  * <br><br>
- * Knowing for : Guya.moe
+ * Knowing for : guya.moe
  * 
  * @see Site
  * @author Agung Mubarak

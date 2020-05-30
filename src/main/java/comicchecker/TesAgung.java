@@ -19,9 +19,12 @@ public class TesAgung {
 		System.out.println("- Program is started -\n");
 		
 		WebScraper webScraper = new WebScraper();
-		webScraper.addSite(new Type1("https://mangakakalots.com"),new Type2("https://guya.moe"));
+		webScraper.addSite(new Type1("https://mangakakalots.com")
+				, new Type2("https://guya.moe")
+				, new Type3("https://manganelo.com")
+				);
 		
-		Snippet comic = new Snippet("doujin", "https://guya.moe");
+		Snippet comic = new Snippet("panzer", "https://manganelo.com");
 		comic.update(webScraper);
 		
 		printTest(comic);
