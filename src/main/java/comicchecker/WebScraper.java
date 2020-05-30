@@ -23,10 +23,12 @@ public class WebScraper {
 	/**
 	 * Method for add site that can be used by WebScraper
 	 * 
-	 * @param site website can be used by WebScraper
+	 * @param sites websites can be used by WebScraper
 	 */
-	public void addSite(Site site) {
-		listOfSite.add(site);
+	public void addSite(Site... sites) {
+		for(Site o : sites) {
+			listOfSite.add(o);
+		}
 	}
 	
 	/**
@@ -61,8 +63,11 @@ public class WebScraper {
 				result = o.search(title);
 				doesFirstSiteFound = true;
 			}else {
-				for(String o3 : o.search(title).getUpdateSite()) {
-					result.addUpdateSite(o3);
+				Snippet otherSite = o.search(title);
+				if(otherSite != null) {
+					for(String o3 : otherSite.getUpdateSite()) {
+						result.addUpdateSite(o3);
+					}
 				}
 			}
 		}

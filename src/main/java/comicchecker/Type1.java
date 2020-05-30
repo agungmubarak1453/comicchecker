@@ -1,5 +1,7 @@
 package comicchecker;
 
+import java.net.SocketTimeoutException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,8 +25,6 @@ public class Type1 extends Site{
 	@Override
 	Snippet search(String searchTitle) {
 		Snippet result = null;
-		// Create template for return
-		Snippet template = new Snippet();
 		
 		// Mangakakalots have bad data displaying. They diplay unsorted data from comic updating time.
 		// So i make a rule if web scraper haven't found data that update atleast one day ago 48 times
@@ -55,8 +55,8 @@ public class Type1 extends Site{
 					
 					String urlForLookUpdateTime = o.select("h3 > a").attr("href");
 					// Because Mangakakalots don't display updating time in this page i must get update time for individual comic page
-					Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 					try {
+						Document docUpdatePage = Jsoup.connect(urlForLookUpdateTime).timeout(30000).get();
 						Element updateInfo = docUpdatePage.select(".chapter-list > .row").first();
 						String updateChapter = updateInfo.select("span:eq(0) > a").text();
 						String updateTime = updateInfo.select("span:eq(2)").text();
@@ -69,17 +69,16 @@ public class Type1 extends Site{
 							checkOldUpdate = 0;
 						}
 						
-						System.out.println(searchTitle + " ketemu");
-						template.setTitle(title);
-						template.setThumbnail(thumbnail);
-						template.setDescription(description);
-						template.setUpdateChapter(updateChapter);
-						template.setUpdateTime(updateTime);
-						template.addUpdateSite(updateLink);
-						result = template;
+						result = new Snippet(title
+								,thumbnail
+								,description
+								,updateChapter
+								,updateTime
+								,updateLink
+								);
 						return result;
 					}catch(Exception e) {
-						System.out.println(e);
+						e.printStackTrace();
 					}
 				}
 				
@@ -88,11 +87,14 @@ public class Type1 extends Site{
 					break;
 				}
 				page++;
+			} catch (SocketTimeoutException e) {
+					e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			}
 		}
+		
 		return result;
 	}
 }
