@@ -41,14 +41,14 @@ public class Snippet {
 		/**
 		 * Constructor method for create Snippet template
 		 */
-		public Snippet() {
-			title = "";
-			thumbnail = null;
-			description = "";
-			updateChapter = "";
-			updateTime = "";
-			updateSite = new ArrayList<>();
-			avaibleUpdateSite = new ArrayList<>();
+		public Snippet(String title, String thumbnail, String description, String updateChapter, String updateTime, String updateSite) {
+			this.title = title;
+			this.thumbnail = thumbnail;
+			this.description = description;
+			this.updateChapter = updateChapter;
+			this.updateTime = updateTime;
+			this.updateSite.add(updateSite);
+			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
 		}
 		
 		/**
@@ -56,7 +56,7 @@ public class Snippet {
 		 */
 		public void update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
-			this.title = result.getTitle();
+			title = result.getTitle();
 			thumbnail = result.getThumbnail();
 			description = result.getDescription();
 			updateChapter = result.getUpdateChapter();

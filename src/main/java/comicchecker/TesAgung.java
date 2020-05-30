@@ -1,9 +1,10 @@
 package comicchecker;
 
-import java.io.IOException;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,7 +28,6 @@ public class TesAgung {
 				
 				Elements titles = comicDetails.select("h1, h2, h3, h4");
 				for(Element o : titles) {
-//					System.out.println(o.text());
 					titleList.add(o.text());
 				}
 				
@@ -36,20 +36,49 @@ public class TesAgung {
 				
 				Element chapterInfo = docComicInfo.select("#chapterTable > .table-default").first();
 				String updateChapter = chapterInfo.select(".chapter-title").text();
-				String updateTime = chapterInfo.select(".detailed-chapter-upload-date").text();
-				String updateSite = chapterInfo.select(".chapter-title > a").first().absUrl("href");
 				
-				System.out.println(titleList);
-				System.out.println(image);
-				System.out.println(description);
-				System.out.println(updateChapter);
-				System.out.println(updateTime);
-				System.out.println(updateSite);
+				String updateTime = chapterInfo.select(".detailed-chapter-upload-date").text();
+				DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("'['y, M, d, H, m, s']'");
+				LocalDate comicUpdateTime = LocalDate.parse(updateTime, formatter);
+				LocalDate nowTime = LocalDate.now();
+				int diff = Period.between(comicUpdateTime, nowTime).getDays();
+				
+				String updateSite = chapterInfo.select(".chapter-title > a").first().absUrl("href");
+
+				printTest(titleList
+						,image
+						,description
+						,updateChapter
+						,updateTime
+						,comicUpdateTime
+						,nowTime
+						,diff + (diff > 1 ? " days ago" : " day ago")
+						,updateSite
+						);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
+//		LocalDate today = LocalDate.now();
+//		LocalDate yesterday = today.minusDays(1);
+//		
+//		int diff = Period.between(today, yesterday).getDays();
+//		
+//		LocalDateTime now = LocalDateTime.now();
+//	    LocalDateTime sixMinutesBehind = now.minusMinutes(6);
+//	 
+//	    Duration duration = Duration.between(now, sixMinutesBehind);
+//	    long diff = Math.abs(duration.toMinutes());
+//	 
+//		printTest(now, sixMinutesBehind, diff);
+		
 		System.out.println("\n- Program is finished -");
+	}
+	
+	public static void printTest(Object... o) {
+		for(Object o2 : o) {
+			System.out.println(o2);
+		}
 	}
 }

@@ -23,8 +23,6 @@ public class Type1 extends Site{
 	@Override
 	Snippet search(String searchTitle) {
 		Snippet result = null;
-		// Create template for return
-		Snippet template = new Snippet();
 		
 		// Mangakakalots have bad data displaying. They diplay unsorted data from comic updating time.
 		// So i make a rule if web scraper haven't found data that update atleast one day ago 48 times
@@ -70,13 +68,13 @@ public class Type1 extends Site{
 						}
 						
 						System.out.println(searchTitle + " ketemu");
-						template.setTitle(title);
-						template.setThumbnail(thumbnail);
-						template.setDescription(description);
-						template.setUpdateChapter(updateChapter);
-						template.setUpdateTime(updateTime);
-						template.addUpdateSite(updateLink);
-						result = template;
+						result = new Snippet(title
+								,thumbnail
+								,description
+								,updateChapter
+								,updateTime
+								,updateLink
+								);
 						return result;
 					}catch(Exception e) {
 						System.out.println(e);
