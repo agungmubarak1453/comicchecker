@@ -23,10 +23,12 @@ public class WebScraper {
 	/**
 	 * Method for add site that can be used by WebScraper
 	 * 
-	 * @param site website can be used by WebScraper
+	 * @param sites websites can be used by WebScraper
 	 */
-	public void addSite(Site site) {
-		listOfSite.add(site);
+	public void addSite(Site... sites) {
+		for(Site o : sites) {
+			listOfSite.add(o);
+		}
 	}
 	
 	/**
@@ -62,7 +64,7 @@ public class WebScraper {
 				doesFirstSiteFound = true;
 			}else {
 				for(String o3 : o.search(title).getUpdateSite()) {
-					result.addUpdateSite(o3);
+						result.addUpdateSite(o3);
 				}
 			}
 		}

@@ -67,7 +67,6 @@ public class Type1 extends Site{
 							checkOldUpdate = 0;
 						}
 						
-						System.out.println(searchTitle + " ketemu");
 						result = new Snippet(title
 								,thumbnail
 								,description
@@ -77,7 +76,7 @@ public class Type1 extends Site{
 								);
 						return result;
 					}catch(Exception e) {
-						System.out.println(e);
+						e.printStackTrace();
 					}
 				}
 				

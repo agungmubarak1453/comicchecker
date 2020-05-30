@@ -27,7 +27,7 @@ public class Snippet {
 		 * @param title title of comic
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
-		public Snippet(String title, List<String> avaibleUpdateSite) {
+		public Snippet(String title, String... sites) {
 			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = null;
@@ -35,7 +35,10 @@ public class Snippet {
 			updateChapter = "";
 			updateTime = "";
 			updateSite = new ArrayList<>();
-			this.avaibleUpdateSite = avaibleUpdateSite;
+			avaibleUpdateSite = new ArrayList<>();
+			for(String o : sites) {
+				avaibleUpdateSite.add(o);
+			}
 		}
 		
 		/**
@@ -47,6 +50,7 @@ public class Snippet {
 			this.description = description;
 			this.updateChapter = updateChapter;
 			this.updateTime = updateTime;
+			this.updateSite = new ArrayList<>();
 			this.updateSite.add(updateSite);
 			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
 		}
@@ -118,6 +122,12 @@ public class Snippet {
 
 		public void setAvaibleUpdateSite(ArrayList<String> avaibleUpdateSite) {
 			this.avaibleUpdateSite = avaibleUpdateSite;
+		}
+		
+		public void addAvaibleUpdateSite(String... sites) {
+			for(String o : sites) {
+				avaibleUpdateSite.add(o);
+			}
 		}
 		
 		@Override
