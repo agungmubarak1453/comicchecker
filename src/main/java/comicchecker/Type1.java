@@ -33,8 +33,6 @@ public class Type1 extends Site{
 		// Variable for page navigation
 		int page = 1;
 		
-		//Refresh time
-		int timeForRefresh = 3;
 		// While true for infinite loop until data is found or throwing exception
 		while(true) {
 			try {
@@ -90,18 +88,11 @@ public class Type1 extends Site{
 				}
 				page++;
 			} catch (SocketTimeoutException e) {
-				if(timeForRefresh > 0) {
-					timeForRefresh--;
-					continue;
-				}else {
 					e.printStackTrace();
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			}
-			
-			timeForRefresh = 3;
 		}
 		
 		return result;

@@ -27,8 +27,6 @@ public class Type2 extends Site{
 		super(url);
 	}
 
-	// Time for refresh
-	private int timeForRefresh = 3;
 	@Override
 	Snippet search(String title) {
 		Snippet result = null;
@@ -38,8 +36,6 @@ public class Type2 extends Site{
 			// URLs for comics are contained in dropdown menu 
 			Elements dropDownItems= doc.select(".dropdown-menu[aria-labelledby='readManga'] > .dropdown-item");
 			
-			// Time for refresh
-			int timeForRefreshSub = 3;
 			// I have found three comic in Guya.moe
 			for(int i=0; i<3; i++) {
 				String comicTitle = "";
@@ -94,31 +90,17 @@ public class Type2 extends Site{
 						continue;
 					}
 				} catch (SocketTimeoutException e) {
-					if(timeForRefreshSub > 0) {
-						timeForRefreshSub--;
-						i--;
-						continue;
-					}else {
-						e.printStackTrace();
-					}
+					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				timeForRefreshSub = 3;
 			}
 		} catch (SocketTimeoutException e) {
-			if(timeForRefresh > 0) {
-				timeForRefresh--;
-				search(title);
-			}else {
-				e.printStackTrace();
-			}
+			e.printStackTrace();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		timeForRefresh = 3;
 		return result;
 	}
 }
