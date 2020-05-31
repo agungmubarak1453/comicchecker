@@ -7,11 +7,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WebtoonEn {
-	
+public class WebtoonId {
+
 	public static void main(String[] args) {
-		String query = "trash bird";
-		String url = "https://www.webtoons.com/en/genre";
+		String query = "mistake";
+		String url = "https://www.webtoons.com/id/genre";
 		try {
 			Document doc = Jsoup.connect(url).timeout(30000).get();
 			Elements comicList = doc.select("a.card_item");
@@ -35,7 +35,7 @@ public class WebtoonEn {
 					System.out.println(chapterTitle);
 					
 					String chapterDate = comicPage.select("span.date").first().text();
-					chapterDate = webtoonEnDateConverter(chapterDate);
+					chapterDate = webtoonIdDateConverter(chapterDate);
 					System.out.println(chapterDate);
 					
 					
@@ -47,25 +47,24 @@ public class WebtoonEn {
 		}
 	}
 	
-	public static String webtoonEnDateConverter(String input) {
-		String month = input.substring(0, 3);
-		int x = input.indexOf(",");
-		String date = input.substring(4,x);
-		String year = input.substring(x+2);
+	public static String webtoonIdDateConverter(String input) {
+		String month = input.substring(5, 8);
+		String date = input.substring(9);
+		String year = input.substring(0, 4);
 		
 		switch(month) {
 		case "Jan": month = "01"; break;
 		case "Feb": month = "02"; break;
 		case "Mar": month = "03"; break;
 		case "Apr": month = "04"; break;
-		case "May": month = "05"; break;
+		case "Mei": month = "05"; break;
 		case "Jun": month = "06"; break;
 		case "Jul": month = "07"; break;
-		case "Aug": month = "08"; break;
+		case "Agu": month = "08"; break;
 		case "Sep": month = "09"; break;
-		case "Oct": month = "10"; break;
+		case "Okt": month = "10"; break;
 		case "Nov": month = "11"; break;
-		case "Dec": month = "12"; break;
+		case "Des": month = "12"; break;
 		}
 		
 		String fullDate = String.format("%s/%s/%s", date, month, year);
