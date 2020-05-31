@@ -40,7 +40,7 @@ public class Type1 extends Site{
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
 				String image = docComicDetail.select(".manga-info-pic > img").attr("src");
-				String description = docComicDetail.select("#noidungm").text().replaceAll(".+ summary: ", "");
+				String description = docComicDetail.select("#noidungm").text().replaceAll(".+? summary: ", "");
 				
 				Element updateInfo = docComicDetail.select(".chapter-list > .row").first();
 				String updateChapter = updateInfo.select("span:eq(0) > a").text();
