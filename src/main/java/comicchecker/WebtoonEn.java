@@ -21,6 +21,9 @@ public class WebtoonEn {
 				if (query.equalsIgnoreCase(title)) {
 					System.out.println(title);
 					
+					String author = comicItem.select("p.author").text();
+					System.out.println(author);
+					
 					String thumbnail = comicItem.select("img").attr("src");
 					System.out.println(thumbnail);
 					
@@ -30,6 +33,9 @@ public class WebtoonEn {
 					Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
 					String desc = comicPage.select("p.summary").text();
 					System.out.println(desc);
+					
+					String genre = comicPage.select("h2.genre").text();
+					System.out.println(genre);
 					
 					String chapterTitle = comicPage.select("span.subj > span").first().text();
 					System.out.println(chapterTitle);
