@@ -90,7 +90,48 @@ public class WebtoonId extends Site {
 
 	@Override
 	Snippet search(String title) {
-		// TODO Auto-generated method stub
+		Snippet result;
+		try {
+			Document doc = Jsoup.connect(getUrl()).timeout(30000).get();
+			Elements comicList = doc.select("a.card_item");
+			for (Element comicItem : comicList) {
+				String x = comicItem.select("div.info > p.subj").text();
+				
+				if (x.equalsIgnoreCase(title)) {
+					System.out.println(title);
+					
+					String author = comicItem.select("p.author").text();
+					System.out.println(author);
+					
+					String thumbnail = comicItem.select("img").attr("src");
+					System.out.println(thumbnail);
+					
+					String comicUrl = comicItem.select("a").attr("href");
+					System.out.println(comicUrl);
+					
+					Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
+					String desc = comicPage.select("p.summary").text();
+					System.out.println(desc);
+					
+					String genre = comicPage.select("h2.genre").text();
+					System.out.println(genre);
+					
+					String chapterTitle = comicPage.select("span.subj > span").first().text();
+					System.out.println(chapterTitle);
+					
+					String chapterDate = comicPage.select("span.date").first().text();
+					chapterDate = webtoonIdDateConverter(chapterDate);
+					System.out.println(chapterDate);
+					
+					
+					break;
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 }
