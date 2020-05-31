@@ -7,8 +7,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WebtoonEn {
-	
+/**
+ * Handling the scraping for Webtoon
+ * url : https://webtoons.com/en/
+ * 
+ * @see Site
+ * @author Wutsqo
+ * */
+public class WebtoonEn extends Site {
+	/*
 	public static void main(String[] args) {
 		String query = "trash bird";
 		String url = "https://www.webtoons.com/en/genre";
@@ -52,6 +59,7 @@ public class WebtoonEn {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	public static String webtoonEnDateConverter(String input) {
 		String month = input.substring(0, 3);

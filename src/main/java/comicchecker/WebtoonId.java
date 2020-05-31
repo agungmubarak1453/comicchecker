@@ -7,8 +7,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WebtoonId {
+/**
+ * Handling the scraping for Webtoon Indonesia
+ * url : https://webtoons.com/id/
+ * 
+ * @see Site
+ * @author Wutsqo
+ * */
+public class WebtoonId extends Site {
+	public WebtoonId(String url) {
+		super(url);
+	}
 
+	/*
 	public static void main(String[] args) {
 		String query = "mistake";
 		String url = "https://www.webtoons.com/id/genre";
@@ -52,7 +63,7 @@ public class WebtoonId {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	public static String webtoonIdDateConverter(String input) {
 		String month = input.substring(5, 8);
 		String date = input.substring(9);
@@ -75,5 +86,11 @@ public class WebtoonId {
 		
 		String fullDate = String.format("%s/%s/%s", date, month, year);
 		return fullDate;
+	}
+
+	@Override
+	Snippet search(String title) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
