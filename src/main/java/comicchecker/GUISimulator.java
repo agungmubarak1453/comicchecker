@@ -48,6 +48,8 @@ public class GUISimulator extends Application{
     	//scene 1
     	VBox scene1 = new VBox(10,ok,but1);
     	scene1.setAlignment(Pos.CENTER);
+    	
+    	
     	Scene layout = new Scene(scene1,500,500);
     	
     	//scene2
@@ -69,16 +71,21 @@ public class GUISimulator extends Application{
     	tombol.getChildren().add(but2);
     	tombol.getChildren().add(but3);
     	tombol.setAlignment(Pos.CENTER);
-    	gp.add(tombol,0,2,2,1); 	
+    	gp.add(tombol,0,2,2,1); 
+    	
+    	
     	Scene lay2 = new Scene(gp,500,500);
     	
-    	//next scene
+    	//tombol next scene
     	but1.setOnAction(e -> primaryStage.setScene(lay2));
     	but2.setOnAction(e -> primaryStage.setScene(layout));
+    	but3.setOnAction(e -> primaryStage.setScene(layout));
     	
     	primaryStage.setScene(layout);
-    	primaryStage.setTitle("mantap");
+    	primaryStage.setTitle("ComicChecker");
     	primaryStage.show();
+    	
+    	
 	}	
 	
 	public static void main(String[] args) {
