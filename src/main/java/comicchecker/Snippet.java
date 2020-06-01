@@ -156,15 +156,15 @@ public class Snippet {
 		
 		@Override
 		public String toString() {
-			return      "title             : " + title
-					+ "\nthumbnail         : " + thumbnail
-					+ "\ndescription       : " + description
-					+ "\nupdateChapter     : " + updateChapter
-					+ "\nauthor            : " + this.author
-					+ "\ngenre             : " + this.genre
-					+ "\nupdateTime        : " + updateTime
-					+ "\nupdateSite        : " + updateSite
-					+ "\navaibleUpdateSite : " + avaibleUpdateSite
+			return      "title           : " + title
+					+ "\ndescription     : " + description
+					+ "\nauthor          : " + author
+					+ "\ngenre           : " + genre
+					+ "\nthumbnailUrl    : " + thumbnail
+					+ "\nnewChapterTitle : " + updateChapter
+					+ "\nnewChapterTime  : " + updateTime
+					+ "\nnewChapterUrl   : " + updateSite
+					+ "\nComicUrl        : " + avaibleUpdateSite
 					;
 		}
 

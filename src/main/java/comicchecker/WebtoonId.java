@@ -70,7 +70,7 @@ public class WebtoonId extends Site {
 					String chapterDate = comicPage.select("span.date").first().text();
 					chapterDate = webtoonIdDateConverter(chapterDate);
 					
-					result = new Snippet(title
+					result = new Snippet(x
 							,thumbnail
 							,desc
 							,chapterTitle
