@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Class that contains data for comic
  * 
- * @author Agung Mubarak
+ * @author Agung Mubarak and Wutsqo
  *
  */
 
@@ -16,6 +16,8 @@ public class Snippet {
 		private String description;
 		private String updateChapter;
 		private String updateTime;
+		private String genre;
+		private String author;
 		private List<String> updateSite;
 		
 		private List<String> avaibleUpdateSite;
@@ -32,6 +34,8 @@ public class Snippet {
 			this.title = title;
 			thumbnail = "";
 			description = "";
+			genre = "";
+			author = "";
 			updateChapter = "";
 			updateTime = "";
 			updateSite = new ArrayList<>();
@@ -48,11 +52,27 @@ public class Snippet {
 			this.title = title;
 			this.thumbnail = thumbnail;
 			this.description = description;
+			this.genre = "";
+			this.author = "";
 			this.updateChapter = updateChapter;
 			this.updateTime = updateTime;
 			this.updateSite = new ArrayList<>();
 			this.updateSite.add(updateSite);
 			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
+		}
+		
+		public Snippet(String title, String thumbnail, String desc, String chapterTitle, String chapterDate, String chapterUrl, String genre, String author) {
+			this.title = title;
+			this.thumbnail = thumbnail;
+			this.description = desc;
+			this.genre = genre;
+			this.author = author;
+			this.updateChapter = chapterTitle;
+			this.updateTime = chapterDate;
+			this.updateSite = new ArrayList<>();
+			this.updateSite.add(chapterUrl);
+			avaibleUpdateSite = new ArrayList<>();
+			
 		}
 		
 		/**
@@ -67,6 +87,8 @@ public class Snippet {
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
 				updateSite = result.getUpdateSite();
+				author = result.getAuthor();
+				genre = result.getGenre();
 			}
 		}
 		
@@ -134,13 +156,31 @@ public class Snippet {
 		
 		@Override
 		public String toString() {
-			return "title :" + title
-					+ "\nthumbnail :" + thumbnail
-					+ "\ndescription :" + description
-					+ "\nupdateChapter :" + updateChapter
-					+ "\nupdateTime :" + updateTime
-					+ "\nupdateSite :" + updateSite
-					+ "\navaibleUpdateSite :" + avaibleUpdateSite
+			return      "title             : " + title
+					+ "\nthumbnail         : " + thumbnail
+					+ "\ndescription       : " + description
+					+ "\nupdateChapter     : " + updateChapter
+					+ "\nauthor            : " + this.author
+					+ "\ngenre             : " + this.genre
+					+ "\nupdateTime        : " + updateTime
+					+ "\nupdateSite        : " + updateSite
+					+ "\navaibleUpdateSite : " + avaibleUpdateSite
 					;
+		}
+
+		public String getGenre() {
+			return genre;
+		}
+
+		public void setGenre(String genre) {
+			this.genre = genre;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
 		}
 }

@@ -14,53 +14,11 @@ import org.jsoup.select.Elements;
  * @see Site
  * @author Wutsqo
  * */
-public class WebtoonEn extends Site {
-	/*
-	public static void main(String[] args) {
-		String query = "trash bird";
-		String url = "https://www.webtoons.com/en/genre";
-		try {
-			Document doc = Jsoup.connect(url).timeout(30000).get();
-			Elements comicList = doc.select("a.card_item");
-			for (Element comicItem : comicList) {
-				String title = comicItem.select("div.info > p.subj").text();
-				
-				if (query.equalsIgnoreCase(title)) {
-					System.out.println(title);
-					
-					String author = comicItem.select("p.author").text();
-					System.out.println(author);
-					
-					String thumbnail = comicItem.select("img").attr("src");
-					System.out.println(thumbnail);
-					
-					String comicUrl = comicItem.select("a").attr("href");
-					System.out.println(comicUrl);
-					
-					Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
-					String desc = comicPage.select("p.summary").text();
-					System.out.println(desc);
-					
-					String genre = comicPage.select("h2.genre").text();
-					System.out.println(genre);
-					
-					String chapterTitle = comicPage.select("span.subj > span").first().text();
-					System.out.println(chapterTitle);
-					
-					String chapterDate = comicPage.select("span.date").first().text();
-					chapterDate = webtoonEnDateConverter(chapterDate);
-					System.out.println(chapterDate);
-					
-					
-					break;
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+public class WebtoonEn extends Site {	
+	public WebtoonEn(String url) {
+		super(url);
 	}
-	*/
-	
+
 	public static String webtoonEnDateConverter(String input) {
 		String month = input.substring(0, 3);
 		int x = input.indexOf(",");
@@ -84,5 +42,52 @@ public class WebtoonEn extends Site {
 		
 		String fullDate = String.format("%s/%s/%s", date, month, year);
 		return fullDate;
+	}
+
+	@Override
+	Snippet search(String title) {
+		Snippet result = null;
+		try {
+			Document doc = Jsoup.connect(getUrl()+"/genre").timeout(30000).get();
+			Elements comicList = doc.select("a.card_item");
+			for (Element comicItem : comicList) {
+				String x = comicItem.select("div.info > p.subj").text();
+				
+				if (x.equalsIgnoreCase(title)) {
+					
+					String author = comicItem.select("p.author").text();
+					
+					String thumbnail = comicItem.select("img").attr("src");
+					
+					String comicUrl = comicItem.select("a").attr("href");
+					
+					Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
+					String desc = comicPage.select("p.summary").text();
+					
+					String genre = comicPage.select("h2.genre").text();
+					
+					String chapterTitle = comicPage.select("span.subj > span").first().text();
+					
+					String chapterDate = comicPage.select("span.date").first().text();
+					chapterDate = webtoonEnDateConverter(chapterDate);
+					
+					result = new Snippet(title
+							,thumbnail
+							,desc
+							,chapterTitle
+							,chapterDate
+							,comicUrl
+							,genre
+							,author
+							);
+					return result;
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+		
 	}
 }
