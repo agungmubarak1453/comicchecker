@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author Agung Mubarak
  *
  */
-public class UserData {
+public class UserData implements Serializable{
 	private String name;
 	private List<Snippet> listOfSubscription;
 	
@@ -52,6 +53,17 @@ public class UserData {
 			if(listOfSubscription.get(i).getTitle().equals(title)) {
 				listOfSubscription.remove(i);
 			}
+		}
+	}
+	
+	/**
+	 * Method for update every subscription
+	 * 
+	 * @param webScraper machine of web scraping
+	 */
+	public void updateSubscription(WebScraper webScraper) {
+		for(Snippet o : listOfSubscription) {
+			o.update(webScraper);
 		}
 	}
 }

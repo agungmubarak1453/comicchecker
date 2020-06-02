@@ -12,45 +12,14 @@ import org.jsoup.select.Elements;
 public class TesAgung2 {
 
 	public static void main(String[] args) {
-		try {
-			Document doc = Jsoup.connect("https://manganelo.com/search/agung").timeout(30000).get();
-			String urlComicDetail = "";
-			if(!doc.select(".search-story-item").isEmpty()) {
-				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
-			}else {
-				printTest("Ngak ketemu");
-				return;
-			}
-			
-			try {
-				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
-				
-				String title = docComicDetail.select(".story-info-right > h1").text();
-				String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
-				String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
-				
-				Element updateInfo = docComicDetail.select(".row-content-chapter > .a-h").first();
-				String updateChapter = updateInfo.select("a").text();
-				String updateTime = updateInfo.select(".chapter-time.text-nowrap").text();
-				String updateLink = updateInfo.select("a").attr("href");
-				
-				printTest(title
-						, image
-						, description
-						, updateChapter
-						, updateTime
-						, updateLink
-						);
-			} catch (SocketTimeoutException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (SocketTimeoutException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ComicCheckerApplication application= new ComicCheckerApplication();
+//		application.addUserData("Irza");
+//		application.addSubscription("Golden Kamui", "https://manganelo.com");
+//		application.addSubscription("Peerless Dad", "https://manganelo.com");
+//		application.updateSubscription();
+		printTest(application.getListUserData().get(0).getListOfSubscription());
+		printTest(application.getUserData().getListOfSubscription());
+//		application.saveData();
 	}
 	
 	public static void printTest(Object... o) {
@@ -58,4 +27,5 @@ public class TesAgung2 {
 			System.out.println(o2);
 		}
 	}
+	
 }
