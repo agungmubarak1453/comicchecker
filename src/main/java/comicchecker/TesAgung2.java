@@ -21,7 +21,7 @@ public class TesAgung2 {
 
 	public static void main(String[] args) {
 		ComicCheckerApplication application= new ComicCheckerApplication();
-		application.updateSubscription();
+		application.frequentlyUpdateSubscription(14, 40, 2);
 //		printTest(application.getUserData().getListOfSubscription());
 //		application.saveData();
 		
