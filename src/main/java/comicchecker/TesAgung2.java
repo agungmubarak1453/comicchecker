@@ -1,8 +1,16 @@
 package comicchecker;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.RenderedImage;
+import java.awt.TrayIcon.MessageType;
+
 import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,13 +21,22 @@ public class TesAgung2 {
 
 	public static void main(String[] args) {
 		ComicCheckerApplication application= new ComicCheckerApplication();
-//		application.addUserData("Irza");
-//		application.addSubscription("Golden Kamui", "https://manganelo.com");
-//		application.addSubscription("Peerless Dad", "https://manganelo.com");
-//		application.updateSubscription();
-		printTest(application.getListUserData().get(0).getListOfSubscription());
-		printTest(application.getUserData().getListOfSubscription());
+		application.updateSubscription();
+//		printTest(application.getUserData().getListOfSubscription());
 //		application.saveData();
+		
+//		try{
+//		    SystemTray tray = SystemTray.getSystemTray();
+//		    
+////			Image image = Toolkit.getDefaultToolkit().createImage("http://www.digitalphotoartistry.com/rose1.jpg");
+//			Image image = ImageIO.read(new URL("http://www.digitalphotoartistry.com/rose1.jpg"));
+//			TrayIcon trayIcon = new TrayIcon(image);
+//			trayIcon.setImageAutoSize(true);
+//			tray.add(trayIcon);
+//			trayIcon.displayMessage("Xian Ni" + " have updated", image.toString(), MessageType.NONE);
+//		}catch(Exception ex){
+//		    System.err.print(ex);
+//		}
 	}
 	
 	public static void printTest(Object... o) {

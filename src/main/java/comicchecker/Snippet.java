@@ -58,8 +58,10 @@ public class Snippet implements Serializable{
 		
 		/**
 		 * Method for update snippet. This use web scraping
+		 * 
+		 * @return boolean if snippet update or not
 		 */
-		public void update(WebScraper webScraper) {
+		public boolean update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
 			if(result != null) {
 				title = result.getTitle();
@@ -68,6 +70,10 @@ public class Snippet implements Serializable{
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
 				updateSite = result.getUpdateSite();
+				
+				return true;
+			}else {
+				return false;
 			}
 		}
 		

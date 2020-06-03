@@ -26,7 +26,7 @@ public class Type3 extends Site{
 		Snippet result = null;
 		
 		try {
-			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_")).timeout(30000).get();
+			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_").replace(",", "")).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
 				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
