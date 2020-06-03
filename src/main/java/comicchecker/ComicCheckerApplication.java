@@ -90,7 +90,10 @@ public class ComicCheckerApplication {
 
 	/**
 	 * Method for add user data
+	 * <br><br>
+	 * This method automically set the new user data as working user data
 	 * 
+	 * @see UserData
 	 * @param userName name of user
 	 */
 	public void addUserData(String userName) {
@@ -101,6 +104,7 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for remove user data
 	 * 
+	 * @see UserData
 	 * @param userName name of user want to be removed
 	 */
 	public void removeUserData(String userName) {
@@ -114,6 +118,7 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for set working user data
 	 * 
+	 * @see UserData
 	 * @param userName name of user
 	 */
 	public void setUserData(String userName) {
@@ -174,6 +179,7 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for add subscription to working user data
 	 * 
+	 * @see UserData
 	 * @param title title of comic
 	 * @param sites sites of want to be scraped
 	 */
@@ -184,6 +190,7 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for delete subscription for working user data
 	 * 
+	 * @see UserData
 	 * @param title title of comic
 	 */
 	public void deleteSubscription(String title) {
@@ -193,7 +200,11 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for look update subscription in working user data
 	 * <br><br>
+	 * This method can bring notrification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
+	 * <br><br>
 	 * Note: mostly give data to one days ago in updating.
+	 * 
+	 * @see UserData
 	 */
 	public void updateSubscription() {
 		userData.updateSubscription(webScraper);

@@ -14,7 +14,7 @@ plugins {
 }
 
 application {
-    mainClassName = 'comicchecker.GUISimulator'
+    mainClassName = 'comicchecker.TesAgung2'
 }
 
 javafx {
