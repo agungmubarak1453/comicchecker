@@ -22,7 +22,7 @@ import java.util.TimerTask;
  *
  */
 public class ComicCheckerApplication {
-	private List<UserData> listUserData;
+	private transient List<UserData> listUserData;
 	private UserData userData;
 	private WebScraper webScraper;
 	
@@ -187,7 +187,7 @@ public class ComicCheckerApplication {
 	 * @param sites sites of want to be scraped
 	 */
 	public void addSubscription(String title, String... sites) {
-		userData.addSubscription(title, sites);
+		userData.addSubscription(webScraper, title, sites);
 	}
 	
 	/**

@@ -32,6 +32,13 @@ public abstract class Site {
 	 * @return {@link Snippet} (comic data)
 	 */
 	abstract Snippet search(String title);
+	/**
+	 * Method for web scraping info of comic that is searched
+	 * 
+	 * @param title title is searched
+	 * @return {@link Snippet} (comic data)
+	 */
+	abstract Snippet getInfo(String title);
 	
 	@Override
 	public String toString() {

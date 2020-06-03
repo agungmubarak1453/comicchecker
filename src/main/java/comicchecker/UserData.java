@@ -49,8 +49,8 @@ public class UserData implements Serializable{
 		this.listOfSubscription = listOfSubscription;
 	}
 	
-	public void addSubscription(String title, String... sites) {
-		listOfSubscription.add(new Snippet(title, sites));
+	public void addSubscription(WebScraper webScraper, String title, String... sites) {
+		listOfSubscription.add(new Snippet(webScraper, title, sites));
 	}
 	
 	public void deleteSubscription(String title) {

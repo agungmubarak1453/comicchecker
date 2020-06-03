@@ -71,5 +71,50 @@ public class Type1 extends Site{
 
 		return result;
 	}
+
+	@Override
+	Snippet getInfo(String searchTitle) {
+		Snippet result = null;
+		
+		try {
+			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
+			String urlComicDetail = "";
+			if(!doc.select(".story_item").isEmpty()) {
+				urlComicDetail = doc.select(".story_item").first().select("[href]").first().attr("href");
+			}else {
+				return result;
+			}
+			
+			try {
+				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
+				
+				String title = docComicDetail.select(".manga-info-text h1").text();
+				String image = docComicDetail.select(".manga-info-pic > img").attr("src");
+				String description = docComicDetail.select("#noidungm").text().replaceAll(".+? summary: ", "");
+				
+				Element updateInfo = docComicDetail.select(".chapter-list > .row").first();
+				
+				result = new Snippet(title
+						, image
+						, description
+						, ""
+						, ""
+						, ""
+						);
+				return result;
+			
+			} catch (SocketTimeoutException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (SocketTimeoutException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 	
 }
