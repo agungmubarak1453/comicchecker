@@ -32,7 +32,9 @@ public class WebScraper {
 	}
 	
 	/**
-	 * Method for web scraping comic update. Make sure valiableUpdateSite parameter exist in list of website in WebScraper
+	 * Method for web scraping comic update
+	 * <br><br>
+	 * Make sure valiableUpdateSite parameter exist in list of website in WebScraper.
 	 * 
 	 * @param title title of comic is searched
 	 * @param avaibleUpdateSite website can be used in this comic searching
@@ -80,6 +82,39 @@ public class WebScraper {
 					}
 				}
 			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Method for web scraping comic info
+	 * <br><br>
+	 * Make sure valiableUpdateSite parameter exist in list of website in WebScraper.
+	 * 
+	 * @param title title of comic is searched
+	 * @param avaibleUpdateSite website can be used in this comic searching
+	 * @return {@link Snippet} (comic data)
+	 */
+	public Snippet checkInfo(String title, List<String> avaibleUpdateSite) {
+		Snippet result = null;
+		// Every comic general info like title; thumbnail; description is taken from a site 
+		
+		for(Site o : listOfSite) {
+			// Check site can be used for this snippet
+			boolean isSiteChecked = false;
+			for(String o2 : avaibleUpdateSite) {
+				if(o.getUrl().equals(o2)) {
+					isSiteChecked = true;
+					break;
+				}
+			}
+			if(!isSiteChecked) {
+				continue;
+			}
+			
+			result = o.getInfo(title);
+			System.out.println(title);
 		}
 		
 		return result;

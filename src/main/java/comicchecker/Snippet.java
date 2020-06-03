@@ -28,7 +28,7 @@ public class Snippet implements Serializable{
 		 * @param title title of comic
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
-		public Snippet(String title, String... sites) {
+		public Snippet(WebScraper webScraper, String title, String... sites) {
 			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = "";
@@ -40,6 +40,8 @@ public class Snippet implements Serializable{
 			for(String o : sites) {
 				avaibleUpdateSite.add(o);
 			}
+			
+			checkInfo(webScraper);
 		}
 		
 		/**
@@ -59,6 +61,7 @@ public class Snippet implements Serializable{
 		/**
 		 * Method for update snippet. This use web scraping
 		 * 
+		 * @param webScraper machine for web scraping
 		 * @return boolean if snippet update or not
 		 */
 		public boolean update(WebScraper webScraper) {
@@ -70,6 +73,25 @@ public class Snippet implements Serializable{
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
 				updateSite = result.getUpdateSite();
+				
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+		/**
+		 * Method for get comic info
+		 * 
+		 * @param webScraper machine for web scraping
+		 * @return boolean if that have info
+		 */
+		public boolean checkInfo(WebScraper webScraper) {
+			Snippet result = webScraper.checkInfo(title, avaibleUpdateSite);
+			if(result != null) {
+				title = result.getTitle();
+				thumbnail = result.getThumbnail();
+				description = result.getDescription();
 				
 				return true;
 			}else {
