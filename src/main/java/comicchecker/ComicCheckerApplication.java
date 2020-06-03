@@ -9,8 +9,11 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Class for application object
@@ -200,7 +203,7 @@ public class ComicCheckerApplication {
 	/**
 	 * Method for look update subscription in working user data
 	 * <br><br>
-	 * This method can bring notrification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
+	 * This method can bring notification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
 	 * <br><br>
 	 * Note: mostly give data to one days ago in updating.
 	 * 
@@ -210,4 +213,42 @@ public class ComicCheckerApplication {
 		userData.updateSubscription(webScraper);
 	}
 	
+	/**
+	 * Method for frequently look update subscription in working user data
+	 * <br><br>
+	 * This method can bring notification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
+	 * <br><br>
+	 * Note: For now this is fixed in every one day for fixed time
+	 * 
+	 * @see UserData
+	 * @param hours 24 hour-clock format of time want to be scheduled
+	 * @param minutes minutes of time want to be scheduled
+	 */
+	public void frequentlyUpdateSubscription(int hours, int minutes, int terminateAfterMinutes) {
+		// creating timer task
+		Timer timer = new Timer();  
+		TimerTask timerTask = new TimerTask() {  
+		    @Override  
+		    public void run() {  
+		        updateSubscription();  
+		    };
+		};
+		
+		TimerTask timerCloseProgram = new TimerTask() {  
+		    @Override  
+		    public void run() {  
+		        System.exit(0);
+		    };
+		};
+		
+		Calendar time = Calendar.getInstance();
+		time.set(Calendar.HOUR_OF_DAY, hours);
+		time.set(Calendar.MINUTE, minutes);
+		System.out.println(time.getTime());
+		
+		timer.schedule(timerTask, time.getTime());
+		time.add(Calendar.MINUTE, terminateAfterMinutes);
+		System.out.println(time.getTime());
+		timer.schedule(timerCloseProgram, time.getTime());
+	}
 }
