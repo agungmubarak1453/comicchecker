@@ -95,11 +95,13 @@ public class UserData implements Serializable{
 					
 					trayIcon.displayMessage(o.getTitle() + " have updated", notificationText, MessageType.NONE);
 					
+					// If user click notification or similar for that, user is directed to browser for see updating comic
 					// I don't know what's happened. But use lambda make this function frequently in bug
 					trayIcon.addActionListener(
 						new ActionListener() {
 			                @Override
 			                public void actionPerformed(ActionEvent e) {
+			                	System.out.println("berhasil!");
 								try {
 									Desktop.getDesktop().browse(new URI(o.getUpdateSite().get(0)));
 								} catch (IOException e1) {
@@ -108,7 +110,7 @@ public class UserData implements Serializable{
 									e1.printStackTrace();
 								}
 								tray.remove(trayIcon);
-			                }
+			                };
 						}
 					);
 				}
