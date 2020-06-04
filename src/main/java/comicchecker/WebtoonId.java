@@ -88,4 +88,13 @@ public class WebtoonId extends Site {
 		}
 		return result;
 	}
+	public static void main(String[] args) {
+		System.out.println("--start--");
+		WebScraper sraperTest = new WebScraper();
+		sraperTest.addSite(new WebtoonId("https://webtoons.com/id"));
+		Snippet comicTest = new Snippet("unlimited propose","https://webtoons.com/id");
+		comicTest.update(sraperTest);
+		System.out.println(comicTest);
+		System.out.println("---end---");
+	}
 }
