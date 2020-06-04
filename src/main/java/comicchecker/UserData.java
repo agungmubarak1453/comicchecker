@@ -15,9 +15,13 @@ import javax.imageio.ImageIO;
 
 /**
  * Class for store user data
+ * <br><br>
+ * <b>Field:</b><br>
+ * - {@link #name}<br>
+ * - {@link #listOfSubscription}
  * 
- * @see ComicCheckerApplication
  * @author Agung Mubarak
+ * @see ComicCheckerApplication
  */
 public class UserData implements Serializable{
 	private String name;
@@ -32,6 +36,8 @@ public class UserData implements Serializable{
 		this.name = name;
 		listOfSubscription = new ArrayList<>();
 	}
+	
+	// Group of method for getter and setter
 	
 	public String getName() {
 		return name;
@@ -49,10 +55,28 @@ public class UserData implements Serializable{
 		this.listOfSubscription = listOfSubscription;
 	}
 	
+	// Group of configuration method for Subscription
+	
+	/**
+	 * Method for add subscription
+	 * 
+	 * @param webScraper machine of webscraping
+	 * @param title title of comic
+	 * @param sites site that is used for webscraping
+	 * @see Snippet
+	 * @see WebScraper
+	 * @see Site
+	 */
 	public void addSubscription(WebScraper webScraper, String title, String... sites) {
 		listOfSubscription.add(new Snippet(webScraper, title, sites));
 	}
 	
+	/**
+	 * Method for delete subscription
+	 * 
+	 * @param title title of comic
+	 * @see Snippet
+	 */
 	public void deleteSubscription(String title) {
 		if(listOfSubscription.isEmpty()) {
 			return;
@@ -68,13 +92,17 @@ public class UserData implements Serializable{
 	/**
 	 * Method for update every subscription
 	 * <br><br>
-	 * Method can popup notification.
+	 * Method can popup notification and this use tray icon method.
 	 * 
 	 * @param webScraper machine of web scraping
+	 * @see WebScraper
+	 * @see ComicCheckerApplication#updateSubscription()
+	 * @see ComicCheckerApplication#frequentlyUpdateSubscription(int, int, int)
 	 */
 	public void updateSubscription(WebScraper webScraper) {
 		// Pop up notification
 		try{
+			
 		    SystemTray tray = SystemTray.getSystemTray();
 		    
 		    // Pop up notification for every updating comic
@@ -102,21 +130,27 @@ public class UserData implements Serializable{
 			                @Override
 			                public void actionPerformed(ActionEvent e) {
 			                	System.out.println("berhasil!");
+			                	
 								try {
+									
 									Desktop.getDesktop().browse(new URI(o.getUpdateSite().get(0)));
+									
 								} catch (IOException e1) {
 									e1.printStackTrace();
 								} catch (URISyntaxException e1) {
 									e1.printStackTrace();
 								}
+								
 								tray.remove(trayIcon);
 			                };
 						}
 					);
 				}
 			}
+		    
 		}catch(Exception ex){
 		    ex.printStackTrace();
 		}
 	}
+	
 }

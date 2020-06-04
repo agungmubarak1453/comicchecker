@@ -16,6 +16,8 @@ import org.jsoup.select.Elements;
  * Class for handle web scraping method from various website type2
  * <br><br>
  * Knowing for : guya.moe
+ * <br><br>
+ * Extends from {@link Site}<br>
  * 
  * @see Site
  * @author Agung Mubarak
@@ -32,6 +34,7 @@ public class Type2 extends Site{
 		Snippet result = null;
 		
 		try {
+			
 			Document doc = Jsoup.connect(getUrl()).timeout(30000).get();
 			// URLs for comics are contained in dropdown menu 
 			Elements dropDownItems= doc.select(".dropdown-menu[aria-labelledby='readManga'] > .dropdown-item");
@@ -43,6 +46,7 @@ public class Type2 extends Site{
 				String urlComicInfo = dropDownItems.get(i).absUrl("href");
 				
 				try {
+					
 					Document docComicInfo = Jsoup.connect(urlComicInfo).timeout(30000).get();
 					
 					Elements comicDetails= docComicInfo.select(".col-lg-8.col-md-7.col-sm-11.col-xs-12.series-content > article");
@@ -89,12 +93,14 @@ public class Type2 extends Site{
 					}else {
 						continue;
 					}
+					
 				} catch (SocketTimeoutException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch(Exception e) {
@@ -109,6 +115,7 @@ public class Type2 extends Site{
 		Snippet result = null;
 		
 		try {
+			
 			Document doc = Jsoup.connect(getUrl()).timeout(30000).get();
 			// URLs for comics are contained in dropdown menu 
 			Elements dropDownItems= doc.select(".dropdown-menu[aria-labelledby='readManga'] > .dropdown-item");
@@ -157,6 +164,7 @@ public class Type2 extends Site{
 					e.printStackTrace();
 				}
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch(Exception e) {

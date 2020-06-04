@@ -17,15 +17,27 @@ import java.util.TimerTask;
 
 /**
  * Class for application object
+ * <br><br>
+ * Make sure {@link #listUserData} not empty (please remember this application can saving their data)
+ * before use configuration method for subscription. If {@link #listUserData} is empty, use configuration method
+ * for user data. Before exiting very recommend to access method {@link #saveData()}.
+ * <br><br>
+ * <b>Field:</b><br>
+ * - {@link #webScraper}<br>
+ * - {@link #listUserData}<br>
+ * - {@link #userData}
  * 
  * @author Agung Mubarak
  *
  */
 public class ComicCheckerApplication {
+	private WebScraper webScraper;
 	private transient List<UserData> listUserData;
 	private UserData userData;
-	private WebScraper webScraper;
 	
+	/**
+	 * This constructor access /userpreferences for find recent configuration
+	 */
 	public ComicCheckerApplication() {
 		// Initialize web scraper
 		webScraper = new WebScraper();
@@ -36,6 +48,7 @@ public class ComicCheckerApplication {
 		
 		// Load properties
 		try {
+			
 			InputStream input = new FileInputStream("userpreferences//application.properties");
 			
             Properties prop = new Properties();
@@ -75,6 +88,8 @@ public class ComicCheckerApplication {
         }
 	}
 	
+	// Group of method getter and setter
+	
 	public WebScraper getWebScraper() {
 		return webScraper;
 	}
@@ -91,6 +106,14 @@ public class ComicCheckerApplication {
 		this.listUserData = listUserData;
 	}
 
+	public UserData getUserData() {
+		return userData;
+	}
+	
+	public void setUserData(UserData userData) {
+		this.userData = userData;
+	}
+	
 	/**
 	 * Method for add user data
 	 * <br><br>
@@ -103,6 +126,8 @@ public class ComicCheckerApplication {
 		userData = new UserData(userName);
 		listUserData.add(userData);
 	}
+	
+	// Group of configuration method for user data
 	
 	/**
 	 * Method for remove user data
@@ -131,54 +156,8 @@ public class ComicCheckerApplication {
 		}
 	}
 	
-	public UserData getUserData() {
-		return userData;
-	}
-
-	public void setUserData(UserData userData) {
-		this.userData = userData;
-	}
-
-	/**
-	 * Method for save result of application working
-	 */
-	public void saveData() {
-			// Playing with properties
-			try (OutputStream output = new FileOutputStream("userpreferences//application.properties")) {
-				Properties prop = new Properties();
-				
-				// Handle case list in not null
-				if(!listUserData.isEmpty()) {
-					prop.setProperty("isListUserDataEmpty", "0");
-					// Save object in file
-					try {
-						FileOutputStream fileOut = new FileOutputStream("userpreferences//listuserdata" );
-						ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-						objectOut.writeObject(listUserData);
-						objectOut.close();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				// Handle case list in null
-				}else {
-					prop.setProperty("isListUserDataEmpty", "1");
-				}
-				
-				// Handle working user data not null
-				if(userData != null) {
-					int recentIndexOfUserData = listUserData.indexOf(userData);
-					prop.setProperty("recentIndexUserData", String.valueOf(recentIndexOfUserData));
-				// Handle working user data null
-				}else {
-					prop.setProperty("recentIndexUserData", "null");
-				}
-				
-				prop.store(output, null);
-			} catch (IOException io) {
-				io.printStackTrace();
-			}
-	}
-
+	// Group of configuration method for user data
+	
 	/**
 	 * Method for add subscription to working user data
 	 * 
@@ -217,28 +196,31 @@ public class ComicCheckerApplication {
 	 * Method for frequently look update subscription in working user data
 	 * <br><br>
 	 * This method can bring notification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
+	 * This method also save data after update.
 	 * <br><br>
 	 * Note: For now this is fixed in every one day for fixed time
 	 * 
 	 * @see UserData
 	 * @param hours 24 hour-clock format of time want to be scheduled
 	 * @param minutes minutes of time want to be scheduled
+	 * @param terminateAfterMinutes how minutes application can exit after updating
 	 */
 	public void frequentlyUpdateSubscription(int hours, int minutes, int terminateAfterMinutes) {
 		// creating timer task
 		Timer timer = new Timer();  
 		TimerTask timerTask = new TimerTask() {  
-		    @Override  
-		    public void run() {  
-		        updateSubscription();  
-		    };
+			@Override  
+			public void run() {  
+				updateSubscription();  
+				saveData();
+			};
 		};
 		
 		TimerTask timerCloseProgram = new TimerTask() {  
-		    @Override  
-		    public void run() {  
-		        System.exit(0);
-		    };
+			@Override  
+			public void run() {  
+				System.exit(0);
+			};
 		};
 		
 		Calendar time = Calendar.getInstance();
@@ -251,4 +233,48 @@ public class ComicCheckerApplication {
 		System.out.println(time.getTime());
 		timer.schedule(timerCloseProgram, time.getTime());
 	}
+	
+	// Exit method
+	/**
+	 * Method for save result of application working
+	 */
+	public void saveData() {
+			// Playing with properties
+			try (OutputStream output = new FileOutputStream("userpreferences//application.properties")) {
+				
+				Properties prop = new Properties();
+				
+				// Handle case list in not null
+				if(!listUserData.isEmpty()) {
+					prop.setProperty("isListUserDataEmpty", "0");
+					// Save object in file
+					try {
+						FileOutputStream fileOut = new FileOutputStream("userpreferences//listuserdata" );
+						ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+						objectOut.writeObject(listUserData);
+						objectOut.close();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				// Handle case list in null
+				}else {
+					prop.setProperty("isListUserDataEmpty", "1");
+				}
+				
+				// Handle working user data not null
+				if(userData != null) {
+					int recentIndexOfUserData = listUserData.indexOf(userData);
+					prop.setProperty("recentIndexUserData", String.valueOf(recentIndexOfUserData));
+				// Handle working user data null
+				}else {
+					prop.setProperty("recentIndexUserData", "null");
+				}
+				
+				prop.store(output, null);
+				
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
+	}
+
 }

@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
  * Class for handle web scraping method from various website type1
  * <br><br>
  * Knowing for : mangakakalots.com
+ * <br><br>
+ * Extends from {@link Site}<br>
  * 
  * @see Site
  * @author Agung Mubarak
@@ -27,6 +29,7 @@ public class Type1 extends Site{
 		Snippet result = null;
 		
 		try {
+			
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".story_item").isEmpty()) {
@@ -36,6 +39,7 @@ public class Type1 extends Site{
 			}
 			
 			try {
+				
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
@@ -63,6 +67,7 @@ public class Type1 extends Site{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -77,6 +82,7 @@ public class Type1 extends Site{
 		Snippet result = null;
 		
 		try {
+			
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".story_item").isEmpty()) {
@@ -86,6 +92,7 @@ public class Type1 extends Site{
 			}
 			
 			try {
+				
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
@@ -108,6 +115,7 @@ public class Type1 extends Site{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

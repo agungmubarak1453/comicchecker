@@ -2,10 +2,14 @@ package comicchecker;
 
 /**
  * Class for handle web scraping method from various website
+ * <br><br>
+ * <b>Field:</b><br>
+ * - {@link #url}<br>
  * 
  * @see Type1
  * @see Type2
  * @see Type3
+ * @see WebScraper
  * @author Agung Mubarak
  *
  */
@@ -30,6 +34,7 @@ public abstract class Site {
 	 * 
 	 * @param title title is searched
 	 * @return {@link Snippet} (comic data)
+	 * @see WebScraper#check(String, java.util.List)
 	 */
 	abstract Snippet search(String title);
 	/**
@@ -37,6 +42,7 @@ public abstract class Site {
 	 * 
 	 * @param title title is searched
 	 * @return {@link Snippet} (comic data)
+	 * @see WebScraper#checkInfo(String, java.util.List)
 	 */
 	abstract Snippet getInfo(String title);
 	
