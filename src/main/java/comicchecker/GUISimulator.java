@@ -7,6 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,7 +22,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.Desktop;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  * Class for build GUI of this application
@@ -28,28 +36,38 @@ import java.io.FileInputStream;
  *
  */
 public class GUISimulator extends Application{
-	private ComicCheckerApplication application;
+	private ComicCheckerApplication app;
 	
 	public GUISimulator() {
-		application = new ComicCheckerApplication();
+		ComicCheckerApplication app = new ComicCheckerApplication();
+		
+		
 	}
-	
+	ArrayList<String> daftarKomik = new ArrayList<String>();
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO: Be creative guys!
-		Text ok = new Text("Logo atau gambar comic checker");
+		Text ok = new Text("Input your name!");
     	Text ok2 = new Text("Welcome to comic checker");
     	Button but1 = new Button("Next");
-    	Button but2 = new Button("balik");
-    	Button but3 = new Button("Add Subscription");
+    	Button but2 = new Button("Cancel");
+    	Button but3 = new Button("Add");
     	Button but4 = new Button("Description");
     	Button but5 = new Button("Print");
-    	Button but6 = new Button("tampilkan");
-    	String[] komik = {"Naruto","Conan","One Piece","Eyeshield 21"};
-    	
-    	
+    	Button but6 = new Button("Show");
+    	Button but7 = new Button("Save");
+    	Button but8 = new Button("Back");
+    	Button deletebutton = new Button("Delete");
+    	String[] daftarWebsite = {
+        		"https://mangakakalots.com",
+        		"https://guya.moe",
+        		"https://manganelo.com",
+        		"https://www.webtoons.com/en/",
+        		"https://www.webtoons.com/en/"};
+        ChoiceBox<String> websiteCB =  new ChoiceBox<>(FXCollections.observableArrayList(daftarWebsite));
     	//scene 1
-    	VBox scene1 = new VBox(10,ok,but1);
+        TextField name = new TextField();
+    	VBox scene1 = new VBox(10,ok,name,but1);
     	scene1.setAlignment(Pos.CENTER);
     	Scene layout = new Scene(scene1,500,500);
     	//scene2
@@ -59,60 +77,131 @@ public class GUISimulator extends Application{
         gp.setHgap(10);
         gp.setPadding(new Insets(25, 25, 25, 25));
     	gp.add(ok2,0,0,2,1);
+    	but1.setOnAction(e -> 
+    	{
+    	UserData user1 = new UserData(name.getText());
+    	});
     	//choice box
-    	gp.add(new Label("Nama Komik: "), 0, 1);
-    	ChoiceBox<String> genreCB =  new ChoiceBox<>(FXCollections.observableArrayList(komik));
+    	gp.add(new Label("Comic subscription list: "), 0, 1);
+    	ComboBox<String> genreCB =  new ComboBox<String>(FXCollections.observableArrayList(daftarKomik));
     	gp.add(genreCB, 1, 1);;
     	HBox tombol = new HBox(20);
     	tombol.getChildren().add(but2);
     	tombol.getChildren().add(but3);
     	tombol.getChildren().add(but4);
+    	tombol.getChildren().add(deletebutton);
+    	tombol.getChildren().add(but7);
     	tombol.setAlignment(Pos.CENTER);
-    	Label labelresponse = new Label();
-    	but3.setOnAction(e -> 
-    	{
-    	labelresponse.setText("You chose " + genreCB.getValue());
-    	});
     	gp.add(tombol,0,2,2,1);
-    	gp.add(labelresponse, 1, 5,2,1);
+    	//gp.add(labelresponse, 1, 5,2,1);
     	String bls;
     	bls = genreCB.getValue();
     	System.out.println(bls);
     	Scene lay2 = new Scene(gp,500,500);
     	//scene 3
-    	FileInputStream fis = new FileInputStream("fasilkom.png");
-    	Image img = new Image(fis);
-    	ImageView iv = new ImageView(img);
-        iv.setFitHeight(50);
-        iv.setFitWidth(50);
-        HBox greetings = new HBox();
+    	HBox greetings = new HBox();
         greetings.setAlignment(Pos.CENTER);
         greetings.setSpacing(10);
-        greetings.getChildren().add(iv);
         GridPane deskripsi = new GridPane();
         deskripsi.setAlignment(Pos.CENTER);
         deskripsi.setVgap(10);
         deskripsi.setHgap(10);
         deskripsi.setPadding(new Insets(25, 25, 25, 25));
         deskripsi.add(greetings, 0, 0,2,1);
-        deskripsi.add(but6, 0, 1,2,1);
-        Label namakom = new Label();
+        deskripsi.add(but6, 0, 1,3,1);
+        
+        Label namakomik = new Label();
+        Hyperlink link = new Hyperlink();
+        Label desc = new Label();
+        
+        
+        	
+        
         but6.setOnAction(e -> 
     	{
-    	namakom.setText(genreCB.getValue());
+    	namakomik.setText(genreCB.getValue());
+    	link.setText(websiteCB.getValue());
+    	Snippet komik = new Snippet(app.getWebScraper(),genreCB.getValue() , websiteCB.getValue() );
+    	desc.setText(komik.getDescription());
     	});
+        
         deskripsi.add(new Label("Nama Komik: "), 0, 2);
-        deskripsi.add(namakom, 1, 2);
+        deskripsi.add(namakomik, 1, 2);
+        deskripsi.add(new Label("Web: "), 0, 3);
+        deskripsi.add(link, 1, 3);
+        deskripsi.add(new Label("Description: "), 0, 4);
+        
+        //deskripsi.add(child, columnIndex, rowIndex);
+        Desktop d = Desktop.getDesktop();
+        deskripsi.add(but5, 2, 3);
+        deskripsi.add(but8, 0, 5);
+        
+        but5.setOnAction(e -> 
+    	{
+    	try {
+			d.browse(new URI("www.google.com"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	});
+        
+        
         Scene lay3 = new Scene(deskripsi,500,500);
+      //scene 4
+        GridPane gps4 = new GridPane();
+        gps4.setAlignment(Pos.CENTER);
+        gps4.setVgap(10);
+        gps4.setHgap(10);
+        gps4.setPadding(new Insets(25, 25, 25, 25));
         
+        gps4.add(new Label("Comic's Title: "), 0, 0);
+        TextField tfs4 = new TextField();
+        gps4.add(tfs4,1,0);
+        gps4.add(websiteCB,2,0);
+       
+        HBox hbs4 = new HBox(20);
+        hbs4.setAlignment(Pos.CENTER);
+        Button okbutton = new Button("OK");
+        Button cancelbutton = new Button("Cancel");
+        hbs4.getChildren().add(cancelbutton);
+        hbs4.getChildren().add(okbutton);
+        gps4.add(hbs4,0,3,3,1);
+        Label labelresponse = new Label();
+        okbutton.setOnAction(e -> {
+        	String title = tfs4.getText();
+        	System.out.println(title);
+        	String website = websiteCB.getValue();
+        	System.out.println(website);
+        	daftarKomik.add(title);
+        	genreCB.getItems().add(title);
+        	labelresponse.setText("You choose " +title);
+        	app.addSubscription(title,website);
+        	});
+        gps4.add(labelresponse, 0,4,3, 1);
+        Scene scene4 = new Scene(gps4,500,500);
         
-      //next scene
+      //button command actions
+        deletebutton.setOnAction(e -> {
+        	String title = genreCB.getValue();
+        	genreCB.getItems().remove(title);
+        	app.deleteSubscription(title);
+        });
+        
+        		
+      //next scene actions
     	but1.setOnAction(e -> primaryStage.setScene(lay2));
     	but2.setOnAction(e -> primaryStage.setScene(layout));
+    	but3.setOnAction(e -> primaryStage.setScene(scene4));
     	but4.setOnAction(e -> primaryStage.setScene(lay3));
+    	cancelbutton.setOnAction(e -> primaryStage.setScene(lay2));
+    	but8.setOnAction(e -> primaryStage.setScene(lay2));
            	
     	primaryStage.setScene(layout);
-    	primaryStage.setTitle("mantap");
+    	primaryStage.setTitle("Comic Checker");
     	primaryStage.show();
 	}
 	
