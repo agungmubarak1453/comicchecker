@@ -1,4 +1,4 @@
-package src.main.java.comicchecker;
+package comicchecker;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+
+import java.util.ArrayList;
 
 /**
  * Class for build GUI of this application
@@ -42,13 +45,17 @@ public class GUISimulator extends Application{
     	Text ok2 = new Text("Welcome to comic checker");
     	Button but1 = new Button("Next");
     	Button but2 = new Button("Cancel");
-    	Button but3 = new Button("Add Subscription");
+    	Button but3 = new Button("Add");
     	Button but4 = new Button("Description");
     	Button but5 = new Button("Print");
     	Button but6 = new Button("Show");
     	Button but7 = new Button("Save");
-    	String[] komik = {"Naruto","Conan","One Piece","Eyeshield 21"};
+    	Button deletebutton = new Button("Delete");
+    	ArrayList<String> daftarKomik = new ArrayList<String>();
     	
+//    	String[] komik = {"Naruto","Conan","One Piece","Eyeshield 21"};
+    	
+    
     	
     	//scene 1
     	VBox scene1 = new VBox(10,ok,but1);
@@ -63,12 +70,13 @@ public class GUISimulator extends Application{
     	gp.add(ok2,0,0,2,1);
     	//choice box
     	gp.add(new Label("Comic subscription list: "), 0, 1);
-    	ChoiceBox<String> genreCB =  new ChoiceBox<>(FXCollections.observableArrayList(komik));
+    	ComboBox<String> genreCB =  new ComboBox<String>(FXCollections.observableArrayList(daftarKomik));
     	gp.add(genreCB, 1, 1);;
     	HBox tombol = new HBox(20);
     	tombol.getChildren().add(but2);
     	tombol.getChildren().add(but3);
     	tombol.getChildren().add(but4);
+    	tombol.getChildren().add(deletebutton);
     	tombol.getChildren().add(but7);
     	tombol.setAlignment(Pos.CENTER);
     	Label labelresponse = new Label();
@@ -81,9 +89,9 @@ public class GUISimulator extends Application{
     	String bls;
     	bls = genreCB.getValue();
     	System.out.println(bls);
-		Scene lay2 = new Scene(gp,500,500);
-		
+    	Scene lay2 = new Scene(gp,500,500);
     	//scene 3
+
         HBox greetings = new HBox();
         greetings.setAlignment(Pos.CENTER);
         greetings.setSpacing(10);
@@ -118,7 +126,9 @@ public class GUISimulator extends Application{
         String[] daftarWebsite = {
         		"https://mangakakalots.com",
         		"https://guya.moe",
-        		"https://manganelo.com" };
+        		"https://manganelo.com",
+        		"https://www.webtoons.com/en/",
+        		"https://www.webtoons.com/en/"};
         ChoiceBox<String> websiteCB =  new ChoiceBox<>(FXCollections.observableArrayList(daftarWebsite));
         gps4.add(websiteCB,2,0);
         
@@ -130,7 +140,22 @@ public class GUISimulator extends Application{
         hbs4.getChildren().add(okbutton);
         gps4.add(hbs4,0,3,3,1);
         
+        okbutton.setOnAction(e -> {
+        	String title = tfs4.getText();
+        	String website = websiteCB.getValue();
+        	genreCB.getItems().add(title);
+        	addSubscription(title,website);
+        	});
+        
         Scene scene4 = new Scene(gps4,500,500);
+        
+      //button command actions
+        deletebutton.setOnAction(e -> {
+        	String title = genreCB.getValue();
+        	genreCB.getItems().remove(title);
+        	deleteSubscription(title);
+        });
+        
         		
       //next scene actions
     	but1.setOnAction(e -> primaryStage.setScene(lay2));
