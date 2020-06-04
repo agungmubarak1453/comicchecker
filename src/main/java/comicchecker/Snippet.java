@@ -1,30 +1,23 @@
 package comicchecker;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class that contains data for comic
- * <b>Field:</b><br>
- * - {@link #title}<br>
- * - {@link #thumbnail}<br>
- * - {@link #description}<br>
- * - {@link #updateChapter}<br>
- * - {@link #updateTime}<br>
- * - {@link #updateSite}<br>
- * - {@link #avaibleUpdateSite}<br>
  * 
- * @author Agung Mubarak
- * @see UserData
+ * @author Agung Mubarak and Wutsqo
+ *
  */
 
-public class Snippet implements Serializable{
+public class Snippet {
 		private String title;
 		private String thumbnail;
 		private String description;
 		private String updateChapter;
 		private String updateTime;
+		private String genre;
+		private String author;
 		private List<String> updateSite;
 		
 		private List<String> avaibleUpdateSite;
@@ -33,15 +26,16 @@ public class Snippet implements Serializable{
 		 * Constructor method but only create data for title and avaibleUpdateSite, and others data in null or "".
 		 * 
 		 * @see WebScraper
-		 * @see WebScraper#checkInfo(String, List)
 		 * @param title title of comic
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
-		public Snippet(WebScraper webScraper, String title, String... sites) {
+		public Snippet(String title, String... sites) {
 			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = "";
 			description = "";
+			genre = "";
+			author = "";
 			updateChapter = "";
 			updateTime = "";
 			updateSite = new ArrayList<>();
@@ -49,25 +43,17 @@ public class Snippet implements Serializable{
 			for(String o : sites) {
 				avaibleUpdateSite.add(o);
 			}
-			
-			checkInfo(webScraper);
 		}
 		
 		/**
 		 * Constructor method for create Snippet template
-		 * 
-		 * @param title title of comic
-		 * @param thumbnail address of image
-		 * @param description description of comic
-		 * @param updateChapter last chapter of updated comic
-		 * @param updateTime time of comic updating
-		 * @param updateSite site of updated comic
-		 * @see Site
 		 */
 		public Snippet(String title, String thumbnail, String description, String updateChapter, String updateTime, String updateSite) {
 			this.title = title;
 			this.thumbnail = thumbnail;
 			this.description = description;
+			this.genre = "";
+			this.author = "";
 			this.updateChapter = updateChapter;
 			this.updateTime = updateTime;
 			this.updateSite = new ArrayList<>();
@@ -75,14 +61,24 @@ public class Snippet implements Serializable{
 			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
 		}
 		
+		public Snippet(String title, String thumbnail, String desc, String chapterTitle, String chapterDate, String chapterUrl, String genre, String author) {
+			this.title = title;
+			this.thumbnail = thumbnail;
+			this.description = desc;
+			this.genre = genre;
+			this.author = author;
+			this.updateChapter = chapterTitle;
+			this.updateTime = chapterDate;
+			this.updateSite = new ArrayList<>();
+			this.updateSite.add(chapterUrl);
+			avaibleUpdateSite = new ArrayList<>();
+			
+		}
+		
 		/**
 		 * Method for update snippet. This use web scraping
-		 * 
-		 * @param webScraper machine for web scraping
-		 * @return boolean if snippet update or not
-		 * @see WebScraper
 		 */
-		public boolean update(WebScraper webScraper) {
+		public void update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
 			if(result != null) {
 				title = result.getTitle();
@@ -91,34 +87,10 @@ public class Snippet implements Serializable{
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
 				updateSite = result.getUpdateSite();
-				
-				return true;
-			}else {
-				return false;
+				author = result.getAuthor();
+				genre = result.getGenre();
 			}
 		}
-		
-		/**
-		 * Method for get comic info
-		 * 
-		 * @param webScraper machine for web scraping
-		 * @return boolean if that have info
-		 * @see WebScraper
-		 */
-		public boolean checkInfo(WebScraper webScraper) {
-			Snippet result = webScraper.checkInfo(title, avaibleUpdateSite);
-			if(result != null) {
-				title = result.getTitle();
-				thumbnail = result.getThumbnail();
-				description = result.getDescription();
-				
-				return true;
-			}else {
-				return false;
-			}
-		}
-		
-		// Group of method for getter and setter
 		
 		public String getTitle() {
 			return title;
@@ -184,13 +156,31 @@ public class Snippet implements Serializable{
 		
 		@Override
 		public String toString() {
-			return "title :" + title
-					+ "\nthumbnail :" + thumbnail
-					+ "\ndescription :" + description
-					+ "\nupdateChapter :" + updateChapter
-					+ "\nupdateTime :" + updateTime
-					+ "\nupdateSite :" + updateSite
-					+ "\navaibleUpdateSite :" + avaibleUpdateSite
+			return      "title           : " + title
+					+ "\ndescription     : " + description
+					+ "\nauthor          : " + author
+					+ "\ngenre           : " + genre
+					+ "\nthumbnailUrl    : " + thumbnail
+					+ "\nnewChapterTitle : " + updateChapter
+					+ "\nnewChapterTime  : " + updateTime
+					+ "\nnewChapterUrl   : " + updateSite
+					+ "\nComicUrl        : " + avaibleUpdateSite
 					;
+		}
+
+		public String getGenre() {
+			return genre;
+		}
+
+		public void setGenre(String genre) {
+			this.genre = genre;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
 		}
 }
