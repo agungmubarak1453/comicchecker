@@ -34,6 +34,7 @@ import org.jsoup.select.Elements;
  * <br><br>
  * <b>Field:</b><br>
  * - {@link #webScraper}<br>
+ * - {@link #listComic}<br>
  * - {@link #listUserData}<br>
  * - {@link #userData}
  * 
