@@ -151,6 +151,8 @@ public class ComicCheckerApplication {
 				if(!input.equals("")) listComic.add(input);
 			}
 			
+			br.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
