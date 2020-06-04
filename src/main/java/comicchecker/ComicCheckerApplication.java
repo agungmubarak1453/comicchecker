@@ -34,6 +34,7 @@ import org.jsoup.select.Elements;
  * <br><br>
  * <b>Field:</b><br>
  * - {@link #webScraper}<br>
+ * - {@link #listComic}<br>
  * - {@link #listUserData}<br>
  * - {@link #userData}
  * 
@@ -149,6 +150,8 @@ public class ComicCheckerApplication {
 			while( (input = br.readLine()) != null) {
 				if(!input.equals("")) listComic.add(input);
 			}
+			
+			br.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
