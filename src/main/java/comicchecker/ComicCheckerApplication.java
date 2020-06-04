@@ -1,12 +1,17 @@
 package comicchecker;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +19,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * Class for application object
@@ -24,6 +34,7 @@ import java.util.TimerTask;
  * <br><br>
  * <b>Field:</b><br>
  * - {@link #webScraper}<br>
+ * - {@link #listComic}<br>
  * - {@link #listUserData}<br>
  * - {@link #userData}
  * 
@@ -32,6 +43,7 @@ import java.util.TimerTask;
  */
 public class ComicCheckerApplication {
 	private WebScraper webScraper;
+	private List<String> listComic;
 	private transient List<UserData> listUserData;
 	private UserData userData;
 	
@@ -45,6 +57,9 @@ public class ComicCheckerApplication {
 				, new Type2("https://guya.moe")
 				, new Type3("https://manganelo.com"
 				));
+		
+		listComic = new ArrayList<>();
+		searchListComicInLocal();
 		
 		// Load properties
 		try {
@@ -98,6 +113,14 @@ public class ComicCheckerApplication {
 		this.webScraper = webScraper;
 	}
 	
+	public List<String> getListComic() {
+		return listComic;
+	}
+
+	public void setListComic(List<String> listComic) {
+		this.listComic = listComic;
+	}
+
 	public List<UserData> getListUserData() {
 		return listUserData;
 	}
@@ -114,6 +137,53 @@ public class ComicCheckerApplication {
 		this.userData = userData;
 	}
 	
+	// Group of configuration method for list comic
+	
+	/**
+	 * Method for get list comic data from local
+	 */
+	public void searchListComicInLocal() {
+		try {
+			
+			BufferedReader br = new BufferedReader(new FileReader("userpreferences//listofcomic.txt"));
+			String input = "";
+			while( (input = br.readLine()) != null) {
+				if(!input.equals("")) listComic.add(input);
+			}
+			
+			br.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Method for get comic data from internet.
+	 * 
+	 * @see WebScraper#searchListComic(PrintWriter)
+	 */
+	public void searchListComicWithWebScraping() {
+		try {
+			
+			// Result of searching from internet is saved in local for efficiently.
+			PrintWriter pw = new PrintWriter(new FileWriter(new File("userpreferences//listofcomic.txt"), false));
+			
+			List<String> result = webScraper.searchListComic(pw);
+			if(!result.isEmpty()) {
+				listComic = result;
+			}
+			
+			pw.close();
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	// Group of configuration method for user data
+	
 	/**
 	 * Method for add user data
 	 * <br><br>
@@ -126,8 +196,6 @@ public class ComicCheckerApplication {
 		userData = new UserData(userName);
 		listUserData.add(userData);
 	}
-	
-	// Group of configuration method for user data
 	
 	/**
 	 * Method for remove user data
@@ -156,7 +224,7 @@ public class ComicCheckerApplication {
 		}
 	}
 	
-	// Group of configuration method for user data
+	// Group of configuration method for subScription
 	
 	/**
 	 * Method for add subscription to working user data

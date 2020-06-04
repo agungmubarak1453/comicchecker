@@ -1,7 +1,13 @@
 package comicchecker;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * Class for get data from comic website
@@ -131,4 +137,38 @@ public class WebScraper {
 		
 		return result;
 	}
+	
+	/**
+	 * Method for get data list comic from internet
+	 * 
+	 * @param writerForLocalData writer for writing in local data
+	 * @return list of comic title
+	 */
+	public List<String> searchListComic(PrintWriter writerForLocalData) {
+		List<String> result = new ArrayList<>();
+		
+		int mangaThatSearched = 0;
+		int amountOfManga = 100;
+		while(mangaThatSearched<=amountOfManga) {
+			try {
+				
+				Document doc = Jsoup.connect("https://myanimelist.net/topmanga.php?limit=" + mangaThatSearched)
+						.timeout(30000)
+						.get();
+				Elements comics = doc.select(".ranking-list .detail > a");
+				for(Element o : comics) {
+					writerForLocalData.println(o.text());
+					result.add(o.text());
+				}
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			mangaThatSearched += 50;
+		}
+		
+		return result;
+	}
+	
 }
