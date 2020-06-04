@@ -6,14 +6,21 @@ import java.util.List;
 /**
  * Class for get data from comic website
  * <br><br>
- * Please use method {@link #addSite(Site)} before use method {@link #check(String, List)}
+ * Please use method {@link #addSite(Site)} before use method {@link #check(String, List) or {@link #checkInfo(String, List)}
  * because that method not work properly with empty list of site.
+ * <br><br>
+ * <b>Field:</b><br>
+ * - {@link #listOfSite}<br>
  * 
  * @author AgungMubarak
+ * @see ComicCheckerApplication
  *
  */
 public class WebScraper {
-	// Field that contains list of website that can be used
+	/**
+	 * Field that contains list of website that can be used
+	 * @see Site
+	 */
 	public List<Site> listOfSite;
 	
 	public WebScraper() {
@@ -24,6 +31,7 @@ public class WebScraper {
 	 * Method for add site that can be used by WebScraper
 	 * 
 	 * @param sites websites can be used by WebScraper
+	 * @see Site
 	 */
 	public void addSite(Site... sites) {
 		for(Site o : sites) {
@@ -39,6 +47,8 @@ public class WebScraper {
 	 * @param title title of comic is searched
 	 * @param avaibleUpdateSite website can be used in this comic searching
 	 * @return {@link Snippet} (comic data)
+	 * @see Site
+	 * @see Site#search(String)
 	 */
 	public Snippet check(String title, List<String> avaibleUpdateSite) {
 		Snippet result = null;
@@ -95,6 +105,8 @@ public class WebScraper {
 	 * @param title title of comic is searched
 	 * @param avaibleUpdateSite website can be used in this comic searching
 	 * @return {@link Snippet} (comic data)
+	 * @see Site
+	 * @see Site#getInfo(String)
 	 */
 	public Snippet checkInfo(String title, List<String> avaibleUpdateSite) {
 		Snippet result = null;
