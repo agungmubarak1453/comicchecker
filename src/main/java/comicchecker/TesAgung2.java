@@ -21,7 +21,7 @@ public class TesAgung2 {
 
 	public static void main(String[] args) {
 		ComicCheckerApplication application= new ComicCheckerApplication();
-		application.addSubscription("Naruto", "https://manganelo.com");
+//		application.addSubscription("Naruto", "https://manganelo.com");
 		printTest(application.getUserData().getListOfSubscription());
 		application.saveData();
 		

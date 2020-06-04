@@ -10,6 +10,8 @@ import org.jsoup.select.Elements;
 /**
  * Class for handle web scraping method from various website type3
  * Knowing for: manganelo.com
+ * <br><br>
+ * Extends from {@link Site}<br>
  * 
  * @see Site
  * @author Agung Mubarak
@@ -26,6 +28,7 @@ public class Type3 extends Site{
 		Snippet result = null;
 		
 		try {
+			
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_").replace(",", "")).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
@@ -35,6 +38,7 @@ public class Type3 extends Site{
 			}
 			
 			try {
+				
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".story-info-right > h1").text();
@@ -62,6 +66,7 @@ public class Type3 extends Site{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -75,6 +80,7 @@ public class Type3 extends Site{
 	Snippet getInfo(String searchTitle) {
 		Snippet result = null;
 		try {
+			
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_").replace(",", "")).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
@@ -84,6 +90,7 @@ public class Type3 extends Site{
 			}
 			
 			try {
+				
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".story-info-right > h1").text();
@@ -103,6 +110,7 @@ public class Type3 extends Site{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

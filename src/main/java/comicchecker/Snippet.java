@@ -6,9 +6,17 @@ import java.util.List;
 
 /**
  * Class that contains data for comic
+ * <b>Field:</b><br>
+ * - {@link #title}<br>
+ * - {@link #thumbnail}<br>
+ * - {@link #description}<br>
+ * - {@link #updateChapter}<br>
+ * - {@link #updateTime}<br>
+ * - {@link #updateSite}<br>
+ * - {@link #avaibleUpdateSite}<br>
  * 
  * @author Agung Mubarak
- *
+ * @see UserData
  */
 
 public class Snippet implements Serializable{
@@ -25,6 +33,7 @@ public class Snippet implements Serializable{
 		 * Constructor method but only create data for title and avaibleUpdateSite, and others data in null or "".
 		 * 
 		 * @see WebScraper
+		 * @see WebScraper#checkInfo(String, List)
 		 * @param title title of comic
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
@@ -46,6 +55,14 @@ public class Snippet implements Serializable{
 		
 		/**
 		 * Constructor method for create Snippet template
+		 * 
+		 * @param title title of comic
+		 * @param thumbnail address of image
+		 * @param description description of comic
+		 * @param updateChapter last chapter of updated comic
+		 * @param updateTime time of comic updating
+		 * @param updateSite site of updated comic
+		 * @see Site
 		 */
 		public Snippet(String title, String thumbnail, String description, String updateChapter, String updateTime, String updateSite) {
 			this.title = title;
@@ -63,6 +80,7 @@ public class Snippet implements Serializable{
 		 * 
 		 * @param webScraper machine for web scraping
 		 * @return boolean if snippet update or not
+		 * @see WebScraper
 		 */
 		public boolean update(WebScraper webScraper) {
 			Snippet result = webScraper.check(title, avaibleUpdateSite);
@@ -85,6 +103,7 @@ public class Snippet implements Serializable{
 		 * 
 		 * @param webScraper machine for web scraping
 		 * @return boolean if that have info
+		 * @see WebScraper
 		 */
 		public boolean checkInfo(WebScraper webScraper) {
 			Snippet result = webScraper.checkInfo(title, avaibleUpdateSite);
@@ -98,6 +117,8 @@ public class Snippet implements Serializable{
 				return false;
 			}
 		}
+		
+		// Group of method for getter and setter
 		
 		public String getTitle() {
 			return title;
