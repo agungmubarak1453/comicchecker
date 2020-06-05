@@ -41,6 +41,9 @@ import java.util.Scanner;
 public class GUISimulator extends Application{
 	private ComicCheckerApplication app;
 	public ArrayList<String> cmclist = new ArrayList<String>();
+	public Snippet komika; 
+	public WebScraper webs;
+	
 	public GUISimulator() {
 		ComicCheckerApplication app = new ComicCheckerApplication();
 		Scanner s;
@@ -56,7 +59,7 @@ public class GUISimulator extends Application{
 			e.printStackTrace();
 		}
 		
-		
+		webs = app.getWebScraper();
 		
 	}
 	ArrayList<String> daftarKomik = new ArrayList<String>();
@@ -64,13 +67,14 @@ public class GUISimulator extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO: Be creative guys!
+		GUISimulator GUI = new GUISimulator();
 		Text ok = new Text("Input your name!");
     	Text ok2 = new Text("Welcome to comic checker");
     	Button but1 = new Button("Next");
     	Button but2 = new Button("Cancel");
     	Button but3 = new Button("Add");
     	Button but4 = new Button("Description");
-    	Button but5 = new Button("Print");
+    	Button but5 = new Button("Browse");
     	Button but6 = new Button("Show");
     	Button but7 = new Button("Save");
     	Button but8 = new Button("Back");
@@ -87,6 +91,7 @@ public class GUISimulator extends Application{
         TextField name = new TextField();
     	VBox scene1 = new VBox(10,ok,name,but1);
     	scene1.setAlignment(Pos.CENTER);
+    	
     	Scene layout = new Scene(scene1,500,500);
     	//scene2
     	GridPane gp = new GridPane();
@@ -94,11 +99,7 @@ public class GUISimulator extends Application{
         gp.setVgap(10);
         gp.setHgap(10);
         gp.setPadding(new Insets(25, 25, 25, 25));
-    	gp.add(ok2,0,0,2,1);
-    	but1.setOnAction(e -> 
-    	{
-    	
-    	});
+    	gp.add(ok2,0,0,2,1);  	
     	//choice box
     	gp.add(new Label("Comic subscription list: "), 0, 1);
     	ComboBox<String> genreCB =  new ComboBox<String>(FXCollections.observableArrayList(daftarKomik));
@@ -131,18 +132,20 @@ public class GUISimulator extends Application{
         Label namakomik = new Label();
         Hyperlink link = new Hyperlink();
         Label desc = new Label();
-        
-        
-        	
+        Label chap = new Label();
+        Label time = new Label();
+        komika = new Snippet(webs,genreCB.getValue() , websiteCB.getValue());	
         
         but6.setOnAction(e -> 
     	{
     		
     	namakomik.setText(genreCB.getValue());
-    	link.setText(web.get(cnt));
+    	link.setText("https://chap.manganelo.com/manga-os89986/chapter-244");
     	cnt++;
-    	Snippet komik = new Snippet(app.getWebScraper(),genreCB.getValue() , websiteCB.getValue());
-    	desc.setText(komik.getDescription());
+    	chap.setText(komika.getUpdateChapter());
+    	desc.setText(komika.getDescription());
+    	time.setText(komika.getUpdateTime());
+    	
     	});
         
         deskripsi.add(new Label("Nama Komik: "), 0, 2);
@@ -150,6 +153,7 @@ public class GUISimulator extends Application{
         deskripsi.add(new Label("Web: "), 0, 3);
         deskripsi.add(link, 1, 3);
         deskripsi.add(new Label("Description: "), 0, 4);
+        deskripsi.add(desc, 1, 4);
         
         //deskripsi.add(child, columnIndex, rowIndex);
         Desktop d = Desktop.getDesktop();
@@ -202,6 +206,7 @@ public class GUISimulator extends Application{
             	web.add(website);
             	genreCB.getItems().add(title);
             	app.addSubscription(title,website);
+            	app.saveData();
         	}
         	else {
         		labelresponse.setText("Comic isnot available");
@@ -228,7 +233,7 @@ public class GUISimulator extends Application{
     	{
     		System.out.println(name.getText());
     	primaryStage.setScene(lay2);
-    	//app.addUserData(name.getText());
+    	app.addUserData(name.getText());
     	
     	});
     	but2.setOnAction(e -> primaryStage.setScene(layout));
