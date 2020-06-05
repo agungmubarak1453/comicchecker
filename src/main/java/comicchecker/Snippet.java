@@ -23,6 +23,8 @@ public class Snippet implements Serializable{
 		private String title;
 		private String thumbnail;
 		private String description;
+		private String author;
+		private String genre;
 		private String updateChapter;
 		private String updateTime;
 		private List<String> updateSite;
@@ -42,6 +44,8 @@ public class Snippet implements Serializable{
 			this.title = title;
 			thumbnail = "";
 			description = "";
+			author = "";
+			genre = "";
 			updateChapter = "";
 			updateTime = "";
 			updateSite = new ArrayList<>();
@@ -75,6 +79,19 @@ public class Snippet implements Serializable{
 			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
 		}
 		
+		public Snippet(String title, String thumbnail, String description, String updateChapter, String updateTime, String updateSite, String genre, String author) {
+			this.title = title;
+			this.thumbnail = thumbnail;
+			this.description = description;
+			this.author = author;
+			this.genre = genre;
+			this.updateChapter = updateChapter;
+			this.updateTime = updateTime;
+			this.updateSite = new ArrayList<>();
+			this.updateSite.add(updateSite);
+			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
+		}
+		
 		/**
 		 * Method for update snippet. This use web scraping
 		 * 
@@ -91,6 +108,8 @@ public class Snippet implements Serializable{
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
 				updateSite = result.getUpdateSite();
+				author = result.getAuthor();
+				genre = result.getGenre();
 				
 				return true;
 			}else {
@@ -182,14 +201,43 @@ public class Snippet implements Serializable{
 			}
 		}
 		
+		/**
+		 * @return the author
+		 */
+		public String getAuthor() {
+			return author;
+		}
+
+		/**
+		 * @param author the author to set
+		 */
+		public void setAuthor(String author) {
+			this.author = author;
+		}
+
+		/**
+		 * @return the genre
+		 */
+		public String getGenre() {
+			return genre;
+		}
+
+		/**
+		 * @param genre the genre to set
+		 */
+		public void setGenre(String genre) {
+			this.genre = genre;
+		}
+
 		@Override
 		public String toString() {
-			return "title :" + title
-					+ "\nthumbnail :" + thumbnail
-					+ "\ndescription :" + description
-					+ "\nupdateChapter :" + updateChapter
-					+ "\nupdateTime :" + updateTime
-					+ "\nupdateSite :" + updateSite
+			return      "title             :" + title
+					+ "\nthumbnail         :" + thumbnail
+					+ "\ndescription       :" + description
+					+ "\nauthor            :" + author
+					+ "\nupdateChapter     :" + updateChapter
+					+ "\nupdateTime        :" + updateTime
+					+ "\nupdateSite        :" + updateSite
 					+ "\navaibleUpdateSite :" + avaibleUpdateSite
 					;
 		}
