@@ -93,10 +93,10 @@ public class WebtoonEn extends Site {
 	
 	public static void main(String[] args) {
 		System.out.println("--start--");
-		WebScraper sraperTest = new WebScraper();
-		sraperTest.addSite(new WebtoonEn("https://webtoons.com/en"));
-		Snippet comicTest = new Snippet("weak hero","https://webtoons.com/en");
-		comicTest.update(sraperTest);
+		WebScraper scraperTest = new WebScraper();
+		scraperTest.addSite(new WebtoonEn("https://webtoons.com/en"));
+		Snippet comicTest = new Snippet(scraperTest, "weak hero","https://webtoons.com/en");
+		comicTest.update(scraperTest);
 		System.out.println(comicTest);
 		System.out.println("---end---");
 	}

@@ -90,10 +90,10 @@ public class WebtoonId extends Site {
 	}
 	public static void main(String[] args) {
 		System.out.println("--start--");
-		WebScraper sraperTest = new WebScraper();
-		sraperTest.addSite(new WebtoonId("https://webtoons.com/id"));
-		Snippet comicTest = new Snippet("unlimited propose","https://webtoons.com/id");
-		comicTest.update(sraperTest);
+		WebScraper scraperTest = new WebScraper();
+		scraperTest.addSite(new WebtoonId("https://webtoons.com/id"));
+		Snippet comicTest = new Snippet(scraperTest, "unlimited propose","https://webtoons.com/id");
+		comicTest.update(scraperTest);
 		System.out.println(comicTest);
 		System.out.println("---end---");
 	}
