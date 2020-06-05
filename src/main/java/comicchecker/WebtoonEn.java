@@ -1,6 +1,7 @@
 package comicchecker;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -103,7 +104,40 @@ public class WebtoonEn extends Site {
 
 	@Override
 	Snippet getInfo(String title) {
-		// TODO Auto-generated method stub
-		return null;
+		Snippet result = null;
+		try {
+			Document doc = Jsoup.connect(getUrl()+"/genre").timeout(30000).get();
+			String comicUrl = "";
+			if(!doc.select("p.subj").isEmpty()) {
+				comicUrl = doc.select("a.card_item").first().attr("href");
+			} else {
+				return result;
+			}
+			try {
+				Document comicPage = Jsoup.connect(comicUrl).timeout(30000).get();
+				String comicTitle = comicPage.select("h1.subj").text();
+				String comicImage = comicPage.select("span.thmb > img").first().attr("src");
+				String comicDesc = comicPage.select("p.summary").text();
+				result = new Snippet(comicTitle
+						, comicImage
+						, comicDesc
+						, ""
+						, ""
+						, ""
+						);
+				return result;
+				
+			} catch (SocketTimeoutException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (SocketTimeoutException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
