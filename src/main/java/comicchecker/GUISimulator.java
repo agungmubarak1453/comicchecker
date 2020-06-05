@@ -23,11 +23,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class for build GUI of this application
@@ -37,13 +40,27 @@ import java.util.ArrayList;
  */
 public class GUISimulator extends Application{
 	private ComicCheckerApplication app;
-	
+	public ArrayList<String> cmclist = new ArrayList<String>();
 	public GUISimulator() {
 		ComicCheckerApplication app = new ComicCheckerApplication();
+		Scanner s;
+		try {
+			s = new Scanner(new File("userpreferences//listofcomic.txt"));
+			
+			while (s.hasNextLine()){
+			    cmclist.add(s.nextLine().toLowerCase());
+			  
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 	}
 	ArrayList<String> daftarKomik = new ArrayList<String>();
+	int cnt = 0;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO: Be creative guys!
@@ -65,6 +82,7 @@ public class GUISimulator extends Application{
         		"https://www.webtoons.com/en/",
         		"https://www.webtoons.com/en/"};
         ChoiceBox<String> websiteCB =  new ChoiceBox<>(FXCollections.observableArrayList(daftarWebsite));
+        ArrayList<String> web = new ArrayList<>();
     	//scene 1
         TextField name = new TextField();
     	VBox scene1 = new VBox(10,ok,name,but1);
@@ -79,7 +97,7 @@ public class GUISimulator extends Application{
     	gp.add(ok2,0,0,2,1);
     	but1.setOnAction(e -> 
     	{
-    	UserData user1 = new UserData(name.getText());
+    	
     	});
     	//choice box
     	gp.add(new Label("Comic subscription list: "), 0, 1);
@@ -119,9 +137,11 @@ public class GUISimulator extends Application{
         
         but6.setOnAction(e -> 
     	{
+    		
     	namakomik.setText(genreCB.getValue());
-    	link.setText(websiteCB.getValue());
-    	Snippet komik = new Snippet(app.getWebScraper(),genreCB.getValue() , websiteCB.getValue() );
+    	link.setText(web.get(cnt));
+    	cnt++;
+    	Snippet komik = new Snippet(app.getWebScraper(),genreCB.getValue() , websiteCB.getValue());
     	desc.setText(komik.getDescription());
     	});
         
@@ -139,7 +159,7 @@ public class GUISimulator extends Application{
         but5.setOnAction(e -> 
     	{
     	try {
-			d.browse(new URI("www.google.com"));
+			d.browse(new URI(websiteCB.getValue()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -173,13 +193,23 @@ public class GUISimulator extends Application{
         Label labelresponse = new Label();
         okbutton.setOnAction(e -> {
         	String title = tfs4.getText();
+        	if ( cmclist.contains(title)) {
+        		labelresponse.setText("You choose " +title);
+        		daftarKomik.add(title);
+        		String website = websiteCB.getValue();
+            	//System.out.println(website);
+            	title.toUpperCase();
+            	web.add(website);
+            	genreCB.getItems().add(title);
+            	app.addSubscription(title,website);
+        	}
+        	else {
+        		labelresponse.setText("Comic isnot available");
+        	}
         	System.out.println(title);
-        	String website = websiteCB.getValue();
-        	System.out.println(website);
-        	daftarKomik.add(title);
-        	genreCB.getItems().add(title);
-        	labelresponse.setText("You choose " +title);
-        	app.addSubscription(title,website);
+        	
+        	//labelresponse.setText("You choose " +title);
+        	
         	});
         gps4.add(labelresponse, 0,4,3, 1);
         Scene scene4 = new Scene(gps4,500,500);
@@ -193,13 +223,30 @@ public class GUISimulator extends Application{
         
         		
       //next scene actions
-    	but1.setOnAction(e -> primaryStage.setScene(lay2));
+        
+    	but1.setOnAction(e -> 
+    	{
+    		System.out.println(name.getText());
+    	primaryStage.setScene(lay2);
+    	//app.addUserData(name.getText());
+    	
+    	});
     	but2.setOnAction(e -> primaryStage.setScene(layout));
     	but3.setOnAction(e -> primaryStage.setScene(scene4));
     	but4.setOnAction(e -> primaryStage.setScene(lay3));
-    	cancelbutton.setOnAction(e -> primaryStage.setScene(lay2));
-    	but8.setOnAction(e -> primaryStage.setScene(lay2));
-           	
+    	cancelbutton.setOnAction(e -> 
+    			{
+    				primaryStage.setScene(lay2);
+    				tfs4.setText("");
+    				labelresponse.setText("");
+	});
+    	but8.setOnAction(e -> 
+    	{
+    		primaryStage.setScene(lay2);
+    		namakomik.setText("");
+    		link.setText("");
+    		desc.setText("");
+    	});
     	primaryStage.setScene(layout);
     	primaryStage.setTitle("Comic Checker");
     	primaryStage.show();
