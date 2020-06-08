@@ -53,6 +53,8 @@ public class addView extends GridPane implements View {
 		app.addSubscription(titleCB.getValue().toString(), sites);
 		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 		app.saveData();
+		parentView.getSnippetViews().add(new SnippetView(
+				parentView, app.getUserData().getListOfSubscription().size() - 1));
 		parentView.refresh();
 	}
 

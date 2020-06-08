@@ -118,15 +118,14 @@ public class UserData implements Serializable{
 		try{
 			
 		    SystemTray tray = SystemTray.getSystemTray();
-		    
+		    System.out.println(tray.isSupported()); 
 		    // Pop up notification for every updating comic
 		    for(Snippet o : listOfSubscription) {
 				if (o.update(webScraper)) {
 					Image image = ImageIO.read(new URL(o.getThumbnail()));
 					
-					TrayIcon trayIcon = new TrayIcon(image, o.getTitle());
+					TrayIcon trayIcon = new TrayIcon(image, o.getTitle() + " get updating");
 					trayIcon.setImageAutoSize(false);
-					tray.add(trayIcon);
 					
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()
@@ -134,6 +133,8 @@ public class UserData implements Serializable{
 					for(String so : o.getUpdateSite()) {
 						notificationText += "\n" + so;
 					}
+					
+					tray.add(trayIcon);
 					
 					trayIcon.displayMessage(o.getTitle() + " have updated", notificationText, MessageType.NONE);
 					
@@ -159,6 +160,27 @@ public class UserData implements Serializable{
 			                };
 						}
 					);
+					
+					trayIcon.addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent e) {
+							if (e.getClickCount() == 1) {
+								System.out.println("berhasil!");
+			                	
+								try {
+									
+									Desktop.getDesktop().browse(new URI(o.getUpdateSite().get(0)));
+									
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								} catch (URISyntaxException e1) {
+									e1.printStackTrace();
+								}
+								
+								tray.remove(trayIcon);
+							}
+						}
+					}); 
+					
 				}
 			}
 		    

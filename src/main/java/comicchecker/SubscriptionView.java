@@ -18,6 +18,7 @@ import javafx.stage.StageStyle;
 
 public class SubscriptionView extends BorderPane implements View {
 	private View parentView;
+	private List<SnippetView> snippetViews = new ArrayList<>();
 	private List<Stage> windows = new ArrayList<>();
 	@FXML ComboBox<UserData> workingUserDataCB;
 	@FXML Pagination subscriptionPage;
@@ -31,10 +32,12 @@ public class SubscriptionView extends BorderPane implements View {
 			if(newValue != oldValue) {
 				closeAllWindows();
 				app.setUserData(newValue);
+				refreshSnippetViews();
 				refresh();
 			}
 		});
 		
+		refreshSnippetViews();
 		refresh();
 	}
 	
@@ -55,6 +58,23 @@ public class SubscriptionView extends BorderPane implements View {
 	@FXML public void backButtonClicked(ActionEvent e) {
 		changeScene(e, "/HomeView.fxml");
 	}
+	
+	@FXML public void timeSetButtonClicked(ActionEvent e) {
+		Stage stage = new Stage();
+        addWindow(stage);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Set Time View");
+        stage.setScene(new Scene(new TimeSetView(this)));
+        stage.show();
+	}
+
+	public List<SnippetView> getSnippetViews() {
+		return snippetViews;
+	}
+
+	public void setSnippetViews(List<SnippetView> snippetViews) {
+		this.snippetViews = snippetViews;
+	}
 
 	public void addWindow(Stage window) {
 		windows.add(window);
@@ -66,14 +86,22 @@ public class SubscriptionView extends BorderPane implements View {
 		}
 	}
 	
+	public void refreshSnippetViews() {
+		snippetViews.clear();
+		for(int i=0; i<app.getUserData().getListOfSubscription().size() ; i++) {
+			snippetViews.add(new SnippetView(this, i));
+		}
+	}
+	
 	@Override
 	public void refresh() {
 		int currentPage = subscriptionPage.getCurrentPageIndex();
 		subscriptionPage.setPageCount(
-				(app.getUserData().getListOfSubscription().size() % 9 > 0 ? 1 : 0)
-				+ app.getUserData().getListOfSubscription().size() / 9
+				(snippetViews.size() % 9 > 0 ? 1 : 0)
+				+ snippetViews.size() / 9
 				);
 		
+		System.out.println(subscriptionPage.getPageCount() + " " + currentPage);
 		
 		subscriptionPage.setPageFactory((pageIndex) -> {
 			
@@ -81,12 +109,13 @@ public class SubscriptionView extends BorderPane implements View {
 				
 				Pane listOfSubscriptionPane = FXMLLoader.load(getClass()
 						.getResource("/ListOfSubscriptionView.fxml"));
+				
 				int lastIndexUsually = pageIndex * 9 + 9;
-				int lastIndex = (lastIndexUsually < app.getUserData().getListOfSubscription().size() ? lastIndexUsually : app.getUserData().getListOfSubscription().size());
+				int lastIndex = (lastIndexUsually < snippetViews.size() ? lastIndexUsually : snippetViews.size());
 				for(int i=pageIndex*9;
 						i < lastIndex; 
 						i++){
-					listOfSubscriptionPane.getChildren().add(new SnippetView(this, i));
+					listOfSubscriptionPane.getChildren().add(snippetViews.get(i));
 				}
 				
 				return listOfSubscriptionPane;
@@ -97,8 +126,6 @@ public class SubscriptionView extends BorderPane implements View {
 			
 			return null;
 		});
-		
-		System.out.println(subscriptionPage.getPageCount() + " " + currentPage);
 		
 		if(subscriptionPage.getPageCount() <= currentPage) {
 			subscriptionPage.setCurrentPageIndex(subscriptionPage.getPageCount() - 1);

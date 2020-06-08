@@ -31,7 +31,7 @@
                </font>
             </Text>
             <Region prefWidth="661.0" HBox.hgrow="ALWAYS" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#addComicButtonClicked" text="+" />
+            <Button layoutX="874.0" layoutY="15.0" mnemonicParsing="false" onAction="#addComicButtonClicked" text="+" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -48,11 +48,22 @@
       <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #BA55D3;" BorderPane.alignment="CENTER">
          <children>
             <ComboBox fx:id="workingUserDataCB" prefHeight="31.0" prefWidth="205.0" />
-            <Label prefHeight="21.0" prefWidth="493.0" text="Welcome my master! This is your subscription, have fun UwU ....." textFill="WHITE" />
+            <Label prefHeight="21.0" prefWidth="493.0" text="Welcome my master! This is your subscription, have fun UwU ....." textFill="#d7bb55">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#timeSetButtonClicked" prefHeight="10.0" prefWidth="8.0" style="-fx-background-color: f8c649;" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/timev2.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Button mnemonicParsing="false" onAction="#backButtonClicked" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../image/back.png" />
                      </image>

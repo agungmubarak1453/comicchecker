@@ -290,6 +290,39 @@ public class ComicCheckerApplication {
 		timer.schedule(timerCloseProgram, time.getTime());
 	}
 	
+	/**
+	 * Method for frequently look update subscription in working user data (modified for GUI)
+	 * <br><br>
+	 * This method can bring notification. Notification method write in {@link UserData#updateSubscription(WebScraper)}.
+	 * This method also save data after update.
+	 * <br><br>
+	 * Note: For now this is fixed in every one day for fixed time
+	 * 
+	 * @see UserData
+	 * @param hours 24 hour-clock format of time want to be scheduled
+	 * @param minutes minutes of time want to be scheduled
+	 * @param terminateAfterMinutes how minutes application can exit after updating
+	 */
+	public void frequentlyUpdateSubscription() {
+		// creating timer task
+		Timer timer = new Timer();  
+		TimerTask timerTask = new TimerTask() {  
+			@Override  
+			public void run() {  
+				updateSubscription();
+				saveData();
+			};
+		};
+		
+		Calendar time = Calendar.getInstance();
+		time.set(Calendar.HOUR_OF_DAY, hoursScheduledTime);
+		time.set(Calendar.MINUTE, minutesScheduledTime);
+		System.out.println(time.getTime());
+		
+		timer.schedule(timerTask, time.getTime());
+		System.out.println(time.getTime());
+	}
+	
 	// Opening method
 	/**
 	 * Method for load data from local

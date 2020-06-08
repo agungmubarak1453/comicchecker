@@ -25,7 +25,7 @@ public class GUISimulator extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-        stage.setTitle("Welcome ojii-san");
+        stage.setTitle("Comic Checker");
         stage.getIcons().add(new Image("file:image/icon.jpg"));
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/HomeView.fxml"))));
         stage.setResizable(false);

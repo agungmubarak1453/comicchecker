@@ -62,6 +62,7 @@ public class SnippetView extends GridPane implements View{
         			app.deleteSubscription(snippet.getTitle());
         			app.saveData();
         			closeAllWindows();
+        			parentView.getSnippetViews().remove(this);
         			parentView.refresh();
         		}
         		, e -> {

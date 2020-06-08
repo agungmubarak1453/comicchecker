@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class DetailsView extends GridPane implements View {
 	private SnippetView parentView;
@@ -85,6 +86,7 @@ public class DetailsView extends GridPane implements View {
 		Stage stage = new Stage();
 		parentView.addWindow(stage);
         stage.setTitle("Avaible Site");
+        stage.initStyle(StageStyle.UTILITY);
         stage.resizableProperty().setValue(false);
         stage.setScene(new Scene(new AvaibleUpdateSiteView(this)));
         stage.show();
