@@ -42,6 +42,9 @@ import org.jsoup.select.Elements;
  *
  */
 public class ComicCheckerApplication {
+	private int hoursScheduledTime = 14;
+	private int minutesScheduledTime = 0;
+	
 	private WebScraper webScraper;
 	private List<String> listComic;
 	private transient List<UserData> listUserData;
@@ -60,50 +63,23 @@ public class ComicCheckerApplication {
 		
 		listComic = new ArrayList<>();
 		searchListComicInLocal();
-		
-		// Load properties
-		try {
-			
-			InputStream input = new FileInputStream("userpreferences//application.properties");
-			
-            Properties prop = new Properties();
-            prop.load(input);
-
-            // Case with saved list
-            if(prop.getProperty("isListUserDataEmpty").equals("0")) {
-            	// Load list object
-            	try {
-                    FileInputStream fileIn = new FileInputStream("userpreferences//listuserdata");
-                    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-         
-                    List<UserData> obj = (List<UserData>) objectIn.readObject();
-         
-                    objectIn.close();
-                    
-                    listUserData = obj;
-                    
-                    // Case with no saved recent user data
-                    if(prop.getProperty("recentIndexUserData").equals("null")) {
-                    	userData = null;
-                    // Case with saved recent user data
-                    }else {
-                    	userData = listUserData.get(Integer.parseInt(prop.getProperty("recentIndexUserData")));
-                    }
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            // Case with no saved list
-            }else {
-            	listUserData = new ArrayList<>();
-            }
-            	
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+		loadData();
 	}
 	
 	// Group of method getter and setter
+	
+	public int getHoursScheduledTime() {
+		return hoursScheduledTime;
+	}
+
+	public int getMinutesScheduledTime() {
+		return minutesScheduledTime;
+	}
+
+	public void setScheduledTime(int hoursScheduledTime, int minutesScheduledTime) {
+		this.hoursScheduledTime = hoursScheduledTime;
+		this.minutesScheduledTime = minutesScheduledTime;
+	}
 	
 	public WebScraper getWebScraper() {
 		return webScraper;
@@ -238,6 +214,17 @@ public class ComicCheckerApplication {
 	}
 	
 	/**
+	 * Method for add subscription to working user data
+	 * 
+	 * @see UserData
+	 * @param title title of comic
+	 * @param sites sites of want to be scraped
+	 */
+	public void addSubscription(String title, List<String> sites) {
+		userData.addSubscription(webScraper, title, sites);
+	}
+	
+	/**
 	 * Method for delete subscription for working user data
 	 * 
 	 * @see UserData
@@ -273,13 +260,14 @@ public class ComicCheckerApplication {
 	 * @param minutes minutes of time want to be scheduled
 	 * @param terminateAfterMinutes how minutes application can exit after updating
 	 */
-	public void frequentlyUpdateSubscription(int hours, int minutes, int terminateAfterMinutes) {
+	public void frequentlyUpdateSubscription(int terminateAfterMinutes) {
 		// creating timer task
 		Timer timer = new Timer();  
 		TimerTask timerTask = new TimerTask() {  
 			@Override  
 			public void run() {  
-				updateSubscription();  
+				loadData();
+				updateSubscription();
 				saveData();
 			};
 		};
@@ -292,14 +280,64 @@ public class ComicCheckerApplication {
 		};
 		
 		Calendar time = Calendar.getInstance();
-		time.set(Calendar.HOUR_OF_DAY, hours);
-		time.set(Calendar.MINUTE, minutes);
+		time.set(Calendar.HOUR_OF_DAY, hoursScheduledTime);
+		time.set(Calendar.MINUTE, minutesScheduledTime);
 		System.out.println(time.getTime());
 		
 		timer.schedule(timerTask, time.getTime());
 		time.add(Calendar.MINUTE, terminateAfterMinutes);
 		System.out.println(time.getTime());
 		timer.schedule(timerCloseProgram, time.getTime());
+	}
+	
+	// Opening method
+	/**
+	 * Method for load data from local
+	 */
+	public void loadData() {
+		try {
+			
+			InputStream input = new FileInputStream("userpreferences//application.properties");
+			
+            Properties prop = new Properties();
+            prop.load(input);
+            
+            // Load scheduledTime
+            hoursScheduledTime = Integer.parseInt(prop.getProperty("hoursScheduledTime"));
+            minutesScheduledTime = Integer.parseInt(prop.getProperty("minutesScheduledTime"));
+
+            // Case with saved list
+            if(prop.getProperty("isListUserDataEmpty").equals("0")) {
+            	// Load list object
+            	try {
+                    FileInputStream fileIn = new FileInputStream("userpreferences//listuserdata");
+                    ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+         
+                    List<UserData> obj = (List<UserData>) objectIn.readObject();
+         
+                    objectIn.close();
+                    
+                    listUserData = obj;
+                    
+                    // Case with no saved recent user data
+                    if(prop.getProperty("recentIndexUserData").equals("null")) {
+                    	userData = null;
+                    // Case with saved recent user data
+                    }else {
+                    	userData = listUserData.get(Integer.parseInt(prop.getProperty("recentIndexUserData")));
+                    }
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            // Case with no saved list
+            }else {
+            	listUserData = new ArrayList<>();
+            }
+            	
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 	}
 	
 	// Exit method
@@ -311,6 +349,10 @@ public class ComicCheckerApplication {
 			try (OutputStream output = new FileOutputStream("userpreferences//application.properties")) {
 				
 				Properties prop = new Properties();
+				
+				// For scheduledTime
+				prop.setProperty("hoursScheduledTime", String.valueOf(minutesScheduledTime));
+				prop.setProperty("minutesScheduledTime", String.valueOf(hoursScheduledTime));
 				
 				// Handle case list in not null
 				if(!listUserData.isEmpty()) {

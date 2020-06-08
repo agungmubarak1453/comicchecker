@@ -33,13 +33,13 @@ public class Type1 extends Site{
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".story_item").isEmpty()) {
-				urlComicDetail = doc.select(".story_item").first().select("[href]").first().attr("href");
+				urlComicDetail = doc.select(".story_item").first().select("[href]").first().absUrl("href");
 			}else {
 				return result;
 			}
 			
 			try {
-				
+				System.out.println(urlComicDetail);
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
@@ -49,7 +49,7 @@ public class Type1 extends Site{
 				Element updateInfo = docComicDetail.select(".chapter-list > .row").first();
 				String updateChapter = updateInfo.select("span:eq(0) > a").text();
 				String updateTime = updateInfo.select("span:eq(2)").text();
-				String updateLink = updateInfo.select("span:eq(0) > a").attr("href");
+				String updateLink = updateInfo.select("span:eq(0) > a").first().absUrl("href");
 				
 				if(updateTime.contains("ago")) {
 					result = new Snippet(title
@@ -86,7 +86,7 @@ public class Type1 extends Site{
 			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".story_item").isEmpty()) {
-				urlComicDetail = doc.select(".story_item").first().select("[href]").first().attr("href");
+				urlComicDetail = doc.select(".story_item").first().select("[href]").first().absUrl("href");
 			}else {
 				return result;
 			}

@@ -72,6 +72,20 @@ public class UserData implements Serializable{
 	}
 	
 	/**
+	 * Method for add subscription
+	 * 
+	 * @param webScraper machine of webscraping
+	 * @param title title of comic
+	 * @param sites site that is used for webscraping
+	 * @see Snippet
+	 * @see WebScraper
+	 * @see Site
+	 */
+	public void addSubscription(WebScraper webScraper, String title, List<String> sites) {
+		listOfSubscription.add(new Snippet(webScraper, title, sites));
+	}
+	
+	/**
 	 * Method for delete subscription
 	 * 
 	 * @param title title of comic
@@ -151,6 +165,11 @@ public class UserData implements Serializable{
 		}catch(Exception ex){
 		    ex.printStackTrace();
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 	
 }

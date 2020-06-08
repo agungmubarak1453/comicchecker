@@ -132,7 +132,7 @@ public class WebScraper {
 			}
 			
 			result = o.getInfo(title);
-			System.out.println(title);
+			return result;
 		}
 		
 		return result;

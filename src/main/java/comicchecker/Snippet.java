@@ -54,6 +54,26 @@ public class Snippet implements Serializable{
 		}
 		
 		/**
+		 * Constructor method but only create data for title and avaibleUpdateSite, and others data in null or "".
+		 * 
+		 * @see WebScraper
+		 * @see WebScraper#checkInfo(String, List)
+		 * @param title title of comic
+		 * @param avaibleUpdateSite site for used in web sraping
+		 */
+		public Snippet(WebScraper webScraper, String title, List<String> avaibleUpdateSite) {
+			this.title = title;
+			thumbnail = "";
+			description = "";
+			updateChapter = "";
+			updateTime = "";
+			updateSite = new ArrayList<>();
+			this.avaibleUpdateSite = avaibleUpdateSite;
+			
+			checkInfo(webScraper);
+		}
+		
+		/**
 		 * Constructor method for create Snippet template
 		 * 
 		 * @param title title of comic

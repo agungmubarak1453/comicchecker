@@ -81,7 +81,7 @@ public class Type2 extends Site{
 					
 					String updateSite = chapterInfo.select(".chapter-title > a").first().absUrl("href");
 					
-					if(diff <= 50) {
+					if(diff <= 1) {
 						result = new Snippet(comicTitle
 								,image
 								,description

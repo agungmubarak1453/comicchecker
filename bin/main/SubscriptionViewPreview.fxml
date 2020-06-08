@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<StackPane prefHeight="136.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comicchecker.SubscriptionController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="900.0">
+         <bottom>
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #BA55D3;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" text="Info!" />
+                  <Button mnemonicParsing="false" text="New!" />
+                  <ImageView fitHeight="47.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" />
+                  <Region prefWidth="661.0" HBox.hgrow="ALWAYS" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#backButtonClicked" text="+" />
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </bottom>
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #BA55D3;" BorderPane.alignment="CENTER">
+               <children>
+                  <ComboBox fx:id="workingUserDataCB" prefHeight="31.0" prefWidth="205.0" />
+                  <Label prefHeight="21.0" prefWidth="493.0" text="Welcome my master! This is your subscription, have fun UwU ....." textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <StackPane prefHeight="539.0" prefWidth="880.0" BorderPane.alignment="TOP_CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+               <children>
+                  <FlowPane alignment="TOP_CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="441.0" prefWidth="880.0" vgap="10.0" StackPane.alignment="TOP_CENTER">
+                     <children>
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="10.0" layoutY="139.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="10.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="280.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="280.0" layoutY="139.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="280.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="550.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="550.0" layoutY="139.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+                                 <children>
+                                    <ImageView fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                       <image>
+                                          <Image url="@../../../image/icon.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+                                       <children>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/update.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../image/minus.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </StackPane.margin>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ggg" wrappingWidth="78.68505859375" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                                 <GridPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </FlowPane>
+                  <Pagination fx:id="subscriptionPage" currentPageIndex="1" pageCount="20" prefHeight="412.0" prefWidth="880.0" />
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

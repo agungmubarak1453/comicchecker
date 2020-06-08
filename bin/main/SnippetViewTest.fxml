@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="30.0" minWidth="-Infinity" prefHeight="129.0" prefWidth="270.0" type="GridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="-Infinity" prefWidth="109.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.75" minWidth="65.0" prefWidth="161.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="-Infinity" minHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="109.0">
+         <children>
+            <Rectangle fill="#ffc71f" height="126.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="INSIDE" strokeWidth="0.0" width="85.0" />
+            <ImageView fx:id="thumbnail" fitHeight="111.0" fitWidth="79.0" pickOnBounds="true">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../../../image/icon.jpg" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#updateButtonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/update.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#infoButtonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/info.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" onMouseClicked="#minusButtonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../image/minus.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </StackPane.margin>
+            </VBox>
+         </children>
+      </StackPane>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#snippetClicked" prefHeight="128.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.valignment="TOP">
+         <children>
+            <Text fx:id="snippetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Unknown" wrappingWidth="156.43505859375">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <VBox fx:id="linkPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefHeight="72.0" prefWidth="161.0" VBox.vgrow="SOMETIMES" />
+         </children>
+      </VBox>
+   </children>
+</fx:root>

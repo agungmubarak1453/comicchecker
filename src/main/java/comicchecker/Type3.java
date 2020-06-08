@@ -29,7 +29,7 @@ public class Type3 extends Site{
 		
 		try {
 			
-			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_").replace(",", "")).timeout(30000).get();
+			Document doc = Jsoup.connect(getUrl() + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
 				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
@@ -49,7 +49,6 @@ public class Type3 extends Site{
 				String updateChapter = updateInfo.select("a").text();
 				String updateTime = updateInfo.select(".chapter-time.text-nowrap").text();
 				String updateLink = updateInfo.select("a").attr("href");
-				
 				if(updateTime.contains("ago")) {
 					result = new Snippet(title
 							, image
@@ -81,7 +80,7 @@ public class Type3 extends Site{
 		Snippet result = null;
 		try {
 			
-			Document doc = Jsoup.connect(getUrl() + "/search/" + searchTitle.replace(" ", "_").replace(",", "")).timeout(30000).get();
+			Document doc = Jsoup.connect(getUrl() + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
 			String urlComicDetail = "";
 			if(!doc.select(".search-story-item").isEmpty()) {
 				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");

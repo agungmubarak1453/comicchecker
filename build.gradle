@@ -17,9 +17,16 @@ application {
     mainClassName = 'comicchecker.GUISimulator'
 }
 
+task runBackground(type: JavaExec) {
+    group = 'application'
+    description = 'Task to run background app'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'comicchecker.backgroundCheck'
+}
+
 javafx {
     version = "14"  // Change if needed.
-    modules = [ 'javafx.controls' ]  // Add more modules if needed.
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing']  // Add more modules if needed.
 }
 
 repositories {
@@ -36,7 +43,10 @@ dependencies {
     implementation 'com.google.guava:guava:28.0-jre'
     // jsoup HTML parser library @ https://jsoup.org/
 	compile 'org.jsoup:jsoup:1.13.1'
-
+	
+	// https://mvnrepository.com/artifact/org.controlsfx/controlsfx
+	compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'
+	
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
