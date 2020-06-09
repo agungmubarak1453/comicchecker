@@ -27,7 +27,6 @@ public class HomeView extends StackPane implements View{
 			if(name.equals(o.getName())) {
 				app.setUserData(o);
 				app.saveData();
-				System.out.println(app.getUserData().getListOfSubscription());
 				refresh();
 				changeScene(e, "/SubscriptionView.fxml");
 				return;

@@ -145,7 +145,6 @@ public class UserData implements Serializable{
 						new ActionListener() {
 			                @Override
 			                public void actionPerformed(ActionEvent e) {
-			                	System.out.println("berhasil!");
 			                	
 								try {
 									
@@ -163,7 +162,6 @@ public class UserData implements Serializable{
 					trayIcon.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent e) {
 							if (e.getClickCount() == 1) {
-								System.out.println("berhasil!");
 			                	
 								try {
 									

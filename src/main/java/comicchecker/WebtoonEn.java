@@ -54,7 +54,6 @@ public class WebtoonEn extends Site {
 			String x = comicItem.select("div.info > p.subj").text();
 			
 			if (x.equalsIgnoreCase(title)) {
-				
 				String author = comicItem.select("p.author").text();
 				
 				String thumbnail = comicItem.select("img").attr("src");

@@ -8,23 +8,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  * Class for application object
@@ -271,8 +264,10 @@ public class ComicCheckerApplication {
 			@Override  
 			public void run() {  
 				loadData();
-				updateSubscription();
-				saveData();
+				if(userData != null) {
+					updateSubscription();
+					saveData();
+				}
 			};
 		};
 		

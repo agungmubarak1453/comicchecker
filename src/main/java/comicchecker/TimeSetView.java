@@ -32,7 +32,6 @@ public class TimeSetView extends GridPane implements View {
 	@Override
 	public void refresh() {
 		hoursField.textProperty().addListener( (v, oldValue, newValue) -> {
-			System.out.println(!newValue.equals("0"));
 			
 			if(!newValue.equals("0"))
 			Platform.runLater(() -> { 

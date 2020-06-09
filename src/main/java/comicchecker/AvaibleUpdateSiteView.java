@@ -44,7 +44,6 @@ public class AvaibleUpdateSiteView extends VBox implements View {
 					avaibleUpdateSite.remove(cb.getText());
 					app.saveData();
 				}
-				System.out.println(avaibleUpdateSite);
 			});
 			
 			this.getChildren().add(cb);
