@@ -39,10 +39,11 @@ public class Type1 extends Site{
 			}
 			
 			try {
-				System.out.println(urlComicDetail);
 				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
+				String author = docComicDetail.select(".manga-info-text > li:eq(1)").text().replaceAll(",$", "").replaceAll("^Author\\(s\\) : ", "");
+				String genre = docComicDetail.select(".manga-info-text > li:eq(6)").text().replaceAll(",$", "").replaceAll("^Genres : ", "");
 				String image = docComicDetail.select(".manga-info-pic > img").attr("src");
 				String description = docComicDetail.select("#noidungm").text().replaceAll(".+? summary: ", "");
 				
@@ -54,6 +55,8 @@ public class Type1 extends Site{
 				if(updateTime.contains("ago")) {
 					result = new Snippet(title
 							, image
+							, author
+							, genre
 							, description
 							, updateChapter
 							, updateTime
@@ -97,12 +100,16 @@ public class Type1 extends Site{
 				
 				String title = docComicDetail.select(".manga-info-text h1").text();
 				String image = docComicDetail.select(".manga-info-pic > img").attr("src");
+				String author = docComicDetail.select(".manga-info-text > li:eq(1)").text().replaceAll(",$", "").replaceAll("^Author\\(s\\) : ", "");
+				String genre = docComicDetail.select(".manga-info-text > li:eq(6)").text().replaceAll(",$", "").replaceAll("^Genres : ", "");
 				String description = docComicDetail.select("#noidungm").text().replaceAll(".+? summary: ", "");
 				
 				Element updateInfo = docComicDetail.select(".chapter-list > .row").first();
 				
 				result = new Snippet(title
 						, image
+						, author
+						, genre
 						, description
 						, ""
 						, ""

@@ -131,6 +131,7 @@ public class WebScraper {
 				continue;
 			}
 			
+			// Only info for first website have taken
 			result = o.getInfo(title);
 			return result;
 		}

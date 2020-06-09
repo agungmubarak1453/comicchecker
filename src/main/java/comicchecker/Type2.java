@@ -67,6 +67,7 @@ public class Type2 extends Site{
 					}
 					
 					String image = comicDetails.select("picture > img").first().absUrl("src");
+					String author = docComicInfo.select(".card sidecard .text-sm").first().text();
 					String description = comicDetails.select("p").text();
 					
 					Element chapterInfo = docComicInfo.select("#chapterTable > .table-default").first();
@@ -84,6 +85,8 @@ public class Type2 extends Site{
 					if(diff <= 1) {
 						result = new Snippet(comicTitle
 								,image
+								,author
+								,"Romance, comedy, school"
 								,description
 								,updateChapter
 								,diff + " day ago" // I convert this data to format day like 2 days ago or 1 day ago
@@ -147,10 +150,13 @@ public class Type2 extends Site{
 					}
 					
 					String image = comicDetails.select("picture > img").first().absUrl("src");
+					String author = docComicInfo.select(".card sidecard .text-sm").first().text();
 					String description = comicDetails.select("p").text();
 					
 					result = new Snippet(comicTitle
 							,image
+							,author
+							,"Romance, comedy, school"
 							,description
 							,""
 							,""

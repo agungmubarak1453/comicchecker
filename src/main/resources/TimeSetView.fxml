@@ -45,18 +45,18 @@
          <children>
             <Button mnemonicParsing="false" onAction="#secondDigitHoursDownClicked" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="85.0" layoutY="82.0" mnemonicParsing="false" onAction="#firstDigitHoursDownClicked" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -66,64 +66,64 @@
                   <Font name="System Bold" size="37.0" />
                </font>
             </Text>
-            <TextField fx:id="minutesField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="80.0" promptText="08" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <TextField fx:id="minutesField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="77.0" promptText="08" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font></TextField>
-            <TextField fx:id="hoursField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="76.0" promptText="10" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <TextField fx:id="hoursField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="77.0" promptText="10" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Eras Bold ITC" size="19.0" />
                </font></TextField>
             <Button layoutX="81.0" layoutY="82.0" mnemonicParsing="false" onAction="#secondDigitMinutesDownClicked" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="234.0" layoutY="85.0" mnemonicParsing="false" onAction="#firstDigitMinutesDownClicked" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="346.0" layoutY="85.0" mnemonicParsing="false" onAction="#secondDigitHoursUpClicked" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="81.0" layoutY="16.0" mnemonicParsing="false" onAction="#firstDigitHoursUpClicked" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="122.0" layoutY="13.0" mnemonicParsing="false" onAction="#secondDigitMinutesUpClicked" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
             <Button layoutX="234.0" layoutY="13.0" mnemonicParsing="false" onAction="#firstDigitMinutesUpClicked" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
-                        <Image url="@../../../image/up.png" />
+                        <Image url="@image/down.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -43,6 +43,8 @@ public class Type3 extends Site{
 				
 				String title = docComicDetail.select(".story-info-right > h1").text();
 				String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
+				String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
+				String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
 				String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
 				
 				Element updateInfo = docComicDetail.select(".row-content-chapter > .a-h").first();
@@ -52,6 +54,8 @@ public class Type3 extends Site{
 				if(updateTime.contains("ago")) {
 					result = new Snippet(title
 							, image
+							, author
+							, genre
 							, description
 							, updateChapter
 							, updateTime
@@ -94,9 +98,14 @@ public class Type3 extends Site{
 				
 				String title = docComicDetail.select(".story-info-right > h1").text();
 				String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
+				String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
+				String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
 				String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
+				
 				result = new Snippet(title
 						, image
+						, author
+						, genre
 						, description
 						, ""
 						, ""

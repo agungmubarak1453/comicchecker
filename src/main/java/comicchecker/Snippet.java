@@ -9,6 +9,8 @@ import java.util.List;
  * <b>Field:</b><br>
  * - {@link #title}<br>
  * - {@link #thumbnail}<br>
+ * - {@link #author}<br>
+ * - {@link #genre}<br>
  * - {@link #description}<br>
  * - {@link #updateChapter}<br>
  * - {@link #updateTime}<br>
@@ -23,6 +25,8 @@ public class Snippet implements Serializable{
 		private String title;
 		private String thumbnail;
 		private String description;
+		private String author;
+		private String genre;
 		private String updateChapter;
 		private String updateTime;
 		private List<String> updateSite;
@@ -41,6 +45,8 @@ public class Snippet implements Serializable{
 			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = "";
+			author = "";
+			genre = "";
 			description = "";
 			updateChapter = "";
 			updateTime = "";
@@ -64,6 +70,8 @@ public class Snippet implements Serializable{
 		public Snippet(WebScraper webScraper, String title, List<String> avaibleUpdateSite) {
 			this.title = title;
 			thumbnail = "";
+			author = "";
+			genre = "";
 			description = "";
 			updateChapter = "";
 			updateTime = "";
@@ -78,15 +86,20 @@ public class Snippet implements Serializable{
 		 * 
 		 * @param title title of comic
 		 * @param thumbnail address of image
+		 * @param author author of comic
+		 * @param genre genre of comic
 		 * @param description description of comic
 		 * @param updateChapter last chapter of updated comic
 		 * @param updateTime time of comic updating
 		 * @param updateSite site of updated comic
 		 * @see Site
 		 */
-		public Snippet(String title, String thumbnail, String description, String updateChapter, String updateTime, String updateSite) {
+		public Snippet(String title, String thumbnail, String author, String genre, String description
+				,String updateChapter, String updateTime, String updateSite) {
 			this.title = title;
 			this.thumbnail = thumbnail;
+			this.author = author;
+			this.genre = genre;
 			this.description = description;
 			this.updateChapter = updateChapter;
 			this.updateTime = updateTime;
@@ -107,6 +120,8 @@ public class Snippet implements Serializable{
 			if(result != null) {
 				title = result.getTitle();
 				thumbnail = result.getThumbnail();
+				author = result.getAuthor();
+				genre = result.getGenre();
 				description = result.getDescription();
 				updateChapter = result.getUpdateChapter();
 				updateTime = result.getUpdateTime();
@@ -130,6 +145,8 @@ public class Snippet implements Serializable{
 			if(result != null) {
 				title = result.getTitle();
 				thumbnail = result.getThumbnail();
+				author = result.getAuthor();
+				genre = result.getGenre();
 				description = result.getDescription();
 				
 				return true;
@@ -154,6 +171,22 @@ public class Snippet implements Serializable{
 
 		public void setThumbnail(String thumbnail) {
 			this.thumbnail = thumbnail;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
+		}
+
+		public String getGenre() {
+			return genre;
+		}
+
+		public void setGenre(String genre) {
+			this.genre = genre;
 		}
 
 		public String getDescription() {

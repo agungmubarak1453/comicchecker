@@ -44,8 +44,8 @@ public class DetailsView extends GridPane implements View {
 		title.setText(parentView.getSnippet().getTitle());
 		description.setText(parentView.getSnippet().getDescription().length() > 200 ?
 				parentView.getSnippet().getDescription().substring(0, 200) : parentView.getSnippet().getDescription());
-		author.setText("");
-		genre.setText("");
+		author.setText(parentView.getSnippet().getAuthor());
+		genre.setText(parentView.getSnippet().getGenre());
 		updateChapter.setText(parentView.getSnippet().getUpdateChapter());
 		updateTime.setText(parentView.getSnippet().getUpdateTime());
 		

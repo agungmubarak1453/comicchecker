@@ -49,7 +49,7 @@ public class SubscriptionView extends BorderPane implements View {
 	@FXML public void addComicButtonClicked(ActionEvent e) {
 		Stage stage = new Stage();
         addWindow(stage);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Add Comic");
         stage.setScene(new Scene(new AddView(this)));
         stage.show();

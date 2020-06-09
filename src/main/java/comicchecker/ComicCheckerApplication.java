@@ -59,8 +59,10 @@ public class ComicCheckerApplication {
 		webScraper = new WebScraper();
 		webScraper.addSite(new Type1("https://mangakakalots.com")
 				, new Type2("https://guya.moe")
-				, new Type3("https://manganelo.com"
-				));
+				, new Type3("https://manganelo.com")
+				, new WebtoonEn("https://webtoons.com/en")
+				, new WebtoonId("https://webtoons.com/id")
+				);
 		
 		listComic = new ArrayList<>();
 		searchListComicInLocal();
