@@ -9,16 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Pagination;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public interface View extends Initializable{
 	static ComicCheckerApplication app = new ComicCheckerApplication();
-	
 	
 	@Override
 	abstract public void initialize(URL location, ResourceBundle resources);

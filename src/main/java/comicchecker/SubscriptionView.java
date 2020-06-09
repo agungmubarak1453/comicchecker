@@ -17,9 +17,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class SubscriptionView extends BorderPane implements View {
-	private View parentView;
 	private List<SnippetView> snippetViews = new ArrayList<>();
 	private List<Stage> windows = new ArrayList<>();
+	
 	@FXML ComboBox<UserData> workingUserDataCB;
 	@FXML Pagination subscriptionPage;
 	
@@ -96,12 +96,11 @@ public class SubscriptionView extends BorderPane implements View {
 	@Override
 	public void refresh() {
 		int currentPage = subscriptionPage.getCurrentPageIndex();
+		
 		subscriptionPage.setPageCount(
 				(snippetViews.size() % 9 > 0 ? 1 : 0)
 				+ snippetViews.size() / 9
 				);
-		
-		System.out.println(subscriptionPage.getPageCount() + " " + currentPage);
 		
 		subscriptionPage.setPageFactory((pageIndex) -> {
 			
@@ -122,9 +121,9 @@ public class SubscriptionView extends BorderPane implements View {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				return null;
 			}
 			
-			return null;
 		});
 		
 		if(subscriptionPage.getPageCount() <= currentPage) {

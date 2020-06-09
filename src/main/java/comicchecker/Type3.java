@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 import org.jsoup.Jsoup;
@@ -24,108 +25,72 @@ public class Type3 extends Site{
 	}
 
 	@Override
-	Snippet search(String searchTitle) {
-		Snippet result = null;
+	public Snippet search(String searchTitle) throws IOException {
+		Document doc = Jsoup.connect(url + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
 		
-		try {
-			
-			Document doc = Jsoup.connect(getUrl() + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
-			String urlComicDetail = "";
-			if(!doc.select(".search-story-item").isEmpty()) {
-				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
-			}else {
-				return result;
-			}
-			
-			try {
-				
-				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
-				
-				String title = docComicDetail.select(".story-info-right > h1").text();
-				String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
-				String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
-				String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
-				String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
-				
-				Element updateInfo = docComicDetail.select(".row-content-chapter > .a-h").first();
-				String updateChapter = updateInfo.select("a").text();
-				String updateTime = updateInfo.select(".chapter-time.text-nowrap").text();
-				String updateLink = updateInfo.select("a").attr("href");
-				if(updateTime.contains("ago")) {
-					result = new Snippet(title
-							, image
-							, author
-							, genre
-							, description
-							, updateChapter
-							, updateTime
-							, updateLink
-							);
-					return result;
-				}
-				
-			} catch (SocketTimeoutException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} catch (SocketTimeoutException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		String urlComicDetail = "";
+		if(!doc.select(".search-story-item").isEmpty()) {
+			urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
+		}else {
+			return null;
 		}
 		
-		return result;
+		Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
+		
+		String title = docComicDetail.select(".story-info-right > h1").text();
+		String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
+		String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
+		String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
+		String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
+		
+		Element updateInfo = docComicDetail.select(".row-content-chapter > .a-h").first();
+		String updateChapter = updateInfo.select("a").text();
+		String updateTime = updateInfo.select(".chapter-time.text-nowrap").text();
+		String updateLink = updateInfo.select("a").attr("href");
+		
+		if(updateTime.contains("ago")) {
+			return new Snippet(title
+					, image
+					, author
+					, genre
+					, description
+					, updateChapter
+					, updateTime
+					, updateLink
+					);
+		}else {
+			return null;
+		}
 	}
 
 	@Override
-	Snippet getInfo(String searchTitle) {
-		Snippet result = null;
-		try {
-			
-			Document doc = Jsoup.connect(getUrl() + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
-			String urlComicDetail = "";
-			if(!doc.select(".search-story-item").isEmpty()) {
-				urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
-			}else {
-				return result;
-			}
-			
-			try {
-				
-				Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
-				
-				String title = docComicDetail.select(".story-info-right > h1").text();
-				String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
-				String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
-				String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
-				String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
-				
-				result = new Snippet(title
-						, image
-						, author
-						, genre
-						, description
-						, ""
-						, ""
-						, ""
-						);
-				return result;
-				
-			} catch (SocketTimeoutException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} catch (SocketTimeoutException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public Snippet getInfo(String searchTitle) throws IOException {
+		Document doc = Jsoup.connect(url + "/search/story/" + searchTitle.replace(" ", "_").replaceAll("\\W", "")).timeout(30000).get();
+		
+		String urlComicDetail = "";
+		if(!doc.select(".search-story-item").isEmpty()) {
+			urlComicDetail = doc.select(".search-story-item").first().select("[href]").attr("href");
+		}else {
+			return null;
 		}
 		
-		return result;
+		Document docComicDetail = Jsoup.connect(urlComicDetail).timeout(30000).get();
+		
+		String title = docComicDetail.select(".story-info-right > h1").text();
+		String image = docComicDetail.select(".story-info-left .img-loading").attr("src");
+		String author = docComicDetail.select(".story-info-right .table-value").get(1).text();
+		String genre = docComicDetail.select(".story-info-right .table-value").get(3).text().replace("-", ",");
+		String description = docComicDetail.select(".panel-story-info-description").text().replaceAll("^Description : ", "");
+		
+		return new Snippet(title
+				, image
+				, author
+				, genre
+				, description
+				, ""
+				, ""
+				, ""
+				);
 	}
 	
 }

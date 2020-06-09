@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class AvaibleUpdateSiteView extends VBox implements View {
 	private DetailsView parentView;
@@ -25,9 +24,11 @@ public class AvaibleUpdateSiteView extends VBox implements View {
 	@Override
 	public void refresh() {
 		List<String> avaibleUpdateSite = parentView.getParentView().getSnippet().getAvaibleUpdateSite();
+		
 		for(Site o : app.getWebScraper().listOfSite) {
 			CheckBox cb = new CheckBox(o.getUrl());
 			cb.setTextFill(Color.rgb(255, 84, 192));
+			
 			for(String o2 : avaibleUpdateSite) {
 				if(o.getUrl().equals(o2)) {
 					cb.setSelected(true);

@@ -1,5 +1,7 @@
 package comicchecker;
 
+import java.io.IOException;
+
 /**
  * Class for handle web scraping method from various website
  * <br><br>
@@ -14,18 +16,18 @@ package comicchecker;
  *
  */
 public abstract class Site {
-	private String url;
+	protected String url;
 	
 	/**
 	 * Constructor method with create url data for web scraping
 	 * 
 	 * @param url url of site to web scraping
 	 */
-	public Site(String url) {
+	protected Site(String url) {
 		this.url = url;
 	}
 	
-	public String getUrl() {
+	protected String getUrl() {
 		return url;
 	}
 	
@@ -34,17 +36,19 @@ public abstract class Site {
 	 * 
 	 * @param title title is searched
 	 * @return {@link Snippet} (comic data)
+	 * @throws IOException web scraping failed to get data maybe connection or other
 	 * @see WebScraper#check(String, java.util.List)
 	 */
-	abstract Snippet search(String title);
+	abstract protected Snippet search(String title) throws IOException;
 	/**
 	 * Method for web scraping info of comic that is searched
 	 * 
 	 * @param title title is searched
 	 * @return {@link Snippet} (comic data)
+	 * @throws IOException web scraping failed to get data maybe connection or other
 	 * @see WebScraper#checkInfo(String, java.util.List)
 	 */
-	abstract Snippet getInfo(String title);
+	abstract protected Snippet getInfo(String title) throws IOException;
 	
 	@Override
 	public String toString() {

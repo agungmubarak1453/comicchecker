@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class WebScraper {
 	 */
 	public Snippet check(String title, List<String> avaibleUpdateSite) {
 		Snippet result = null;
+		
 		// Every comic data like title; thumbnail; description; etc. is taken from first site 
 		// Because that use this boolean
 		boolean doesFirstSiteFound = false;
@@ -77,26 +79,33 @@ public class WebScraper {
 			
 			// Mostly comic data is taken from first site
 			// URLs for chapter update are taken from many site
-			if(!doesFirstSiteFound) {
-				result = o.search(title);
-				if(result != null) {
-					doesFirstSiteFound = true;
+			try {
+				
+				if(!doesFirstSiteFound) {
+						result = o.search(title);
+						if(result != null) {
+							doesFirstSiteFound = true;
+						}
+				}else {
+					Snippet otherSite = o.search(title);
+					if(otherSite != null) {
+						if(!result.getUpdateChapter().equals(otherSite.getUpdateChapter())) {
+							result.setUpdateChapter(result.getUpdateChapter() + ", " + otherSite.getUpdateChapter());
+						}
+						
+						if(!result.getUpdateTime().equals(otherSite.getUpdateTime())) {
+							result.setUpdateTime(result.getUpdateTime() + ", " + otherSite.getUpdateTime());
+						}
+						
+						for(String o3 : otherSite.getUpdateSite()) {
+							result.addUpdateSite(o3);
+						}
+					}
 				}
-			}else {
-				Snippet otherSite = o.search(title);
-				if(otherSite != null) {
-					if(!result.getUpdateChapter().equals(otherSite.getUpdateChapter())) {
-						result.setUpdateChapter(result.getUpdateChapter() + ", " + otherSite.getUpdateChapter());
-					}
-					
-					if(!result.getUpdateTime().equals(otherSite.getUpdateTime())) {
-						result.setUpdateTime(result.getUpdateTime() + ", " + otherSite.getUpdateTime());
-					}
-					
-					for(String o3 : otherSite.getUpdateSite()) {
-						result.addUpdateSite(o3);
-					}
-				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+				continue;
 			}
 		}
 		
@@ -132,11 +141,15 @@ public class WebScraper {
 			}
 			
 			// Only info for first website have taken
-			result = o.getInfo(title);
-			return result;
+			try {
+				return o.getInfo(title);
+			} catch (IOException e) {
+				e.printStackTrace();
+				continue;
+			}
 		}
 		
-		return result;
+		return null;
 	}
 	
 	/**

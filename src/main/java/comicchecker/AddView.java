@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class AddView extends GridPane implements View {
 	private SubscriptionView parentView;
+	
 	@FXML private ComboBox titleCB;
 	@FXML private FlowPane sitesPane;
 	
@@ -51,8 +52,8 @@ public class AddView extends GridPane implements View {
 		}
 		
 		app.addSubscription(titleCB.getValue().toString(), sites);
-		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 		app.saveData();
+		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 		parentView.getSnippetViews().add(new SnippetView(
 				parentView, app.getUserData().getListOfSubscription().size() - 1));
 		parentView.refresh();
@@ -66,4 +67,5 @@ public class AddView extends GridPane implements View {
 		app.searchListComicWithWebScraping();
 		refresh();
 	}
+	
 }

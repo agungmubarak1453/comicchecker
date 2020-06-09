@@ -72,7 +72,7 @@ public class UserData implements Serializable{
 	}
 	
 	/**
-	 * Method for add subscription
+	 * Method for add subscription for GUI
 	 * 
 	 * @param webScraper machine of webscraping
 	 * @param title title of comic
@@ -118,7 +118,7 @@ public class UserData implements Serializable{
 		try{
 			
 		    SystemTray tray = SystemTray.getSystemTray();
-		    System.out.println(tray.isSupported()); 
+		    
 		    // Pop up notification for every updating comic
 		    for(Snippet o : listOfSubscription) {
 				if (o.update(webScraper)) {
@@ -130,6 +130,7 @@ public class UserData implements Serializable{
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()
 												;
+					
 					for(String so : o.getUpdateSite()) {
 						notificationText += "\n" + so;
 					}
@@ -149,10 +150,8 @@ public class UserData implements Serializable{
 								try {
 									
 									Desktop.getDesktop().browse(new URI(o.getUpdateSite().get(0)));
-									
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								} catch (URISyntaxException e1) {
+						
+								} catch (Exception e1) {
 									e1.printStackTrace();
 								}
 								
@@ -169,17 +168,15 @@ public class UserData implements Serializable{
 								try {
 									
 									Desktop.getDesktop().browse(new URI(o.getUpdateSite().get(0)));
-									
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								} catch (URISyntaxException e1) {
+
+								} catch (Exception e1) {
 									e1.printStackTrace();
 								}
 								
 								tray.remove(trayIcon);
 							}
 						}
-					}); 
+					});
 					
 				}
 			}

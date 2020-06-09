@@ -24,13 +24,10 @@ public class AlertView extends GridPane implements View {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -1,7 +1,6 @@
 package comicchecker;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -22,8 +20,10 @@ import javafx.stage.StageStyle;
 
 public class SnippetView extends GridPane implements View{
 	private Snippet snippet = null;
+	
 	private SubscriptionView parentView;
 	private List<Stage> windows = new ArrayList<>();
+	
 	@FXML private Text snippetText;
 	@FXML private ImageView thumbnail;
 	private Image image;
@@ -57,6 +57,7 @@ public class SnippetView extends GridPane implements View{
 		addWindow(stage);
         stage.setTitle("Delete Confirmation");
         stage.initStyle(StageStyle.UNDECORATED);
+        
         stage.setScene(new Scene(new AlertView("Are you sure to delete this subscription?"
         		, e -> {
         			app.deleteSubscription(snippet.getTitle());
@@ -69,6 +70,7 @@ public class SnippetView extends GridPane implements View{
         			stage.close();
         		}
         		)));
+        
         stage.show();
 	}
 	
@@ -102,9 +104,14 @@ public class SnippetView extends GridPane implements View{
 	
 	@Override
 	public void refresh() {
-		System.out.println(snippet.getThumbnail());
-		image = new Image(snippet.getThumbnail());
-		thumbnail.setImage(image);
+		try {
+			image = new Image(snippet.getThumbnail());
+			thumbnail.setImage(image);
+		} catch (Exception e) {
+			e.printStackTrace();
+			image = thumbnail.getImage();
+		}
+		
 		snippetText.setText(snippet.getTitle()
 				+ (snippet.getUpdateChapter().equals("") ? "" : "\n" + snippet.getUpdateChapter())
 				+ (snippet.getUpdateTime().equals("") ? "" : "\n" + snippet.getUpdateTime())

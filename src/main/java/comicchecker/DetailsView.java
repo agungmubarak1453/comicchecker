@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 
 public class DetailsView extends GridPane implements View {
 	private SnippetView parentView;
+	
 	@FXML private ImageView thumbnail;
 	@FXML private Text title;
 	@FXML private Text description;
@@ -42,8 +43,8 @@ public class DetailsView extends GridPane implements View {
 	public void refresh() {
 		thumbnail.setImage(parentView.getImage());
 		title.setText(parentView.getSnippet().getTitle());
-		description.setText(parentView.getSnippet().getDescription().length() > 200 ?
-				parentView.getSnippet().getDescription().substring(0, 200) : parentView.getSnippet().getDescription());
+		description.setText(parentView.getSnippet().getDescription().length() > 250 ?
+				parentView.getSnippet().getDescription().substring(0, 250) : parentView.getSnippet().getDescription());
 		author.setText(parentView.getSnippet().getAuthor());
 		genre.setText(parentView.getSnippet().getGenre());
 		updateChapter.setText(parentView.getSnippet().getUpdateChapter());
@@ -87,7 +88,6 @@ public class DetailsView extends GridPane implements View {
 		parentView.addWindow(stage);
         stage.setTitle("Avaible Site");
         stage.initStyle(StageStyle.UTILITY);
-        stage.resizableProperty().setValue(false);
         stage.setScene(new Scene(new AvaibleUpdateSiteView(this)));
         stage.show();
 	}

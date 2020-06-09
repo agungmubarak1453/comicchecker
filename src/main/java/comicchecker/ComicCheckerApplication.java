@@ -266,6 +266,7 @@ public class ComicCheckerApplication {
 	public void frequentlyUpdateSubscription(int terminateAfterMinutes) {
 		// creating timer task
 		Timer timer = new Timer();  
+		
 		TimerTask timerTask = new TimerTask() {  
 			@Override  
 			public void run() {  
@@ -288,8 +289,10 @@ public class ComicCheckerApplication {
 		System.out.println(time.getTime());
 		
 		timer.schedule(timerTask, time.getTime());
+		
 		time.add(Calendar.MINUTE, terminateAfterMinutes);
 		System.out.println(time.getTime());
+		
 		timer.schedule(timerCloseProgram, time.getTime());
 	}
 	
@@ -309,6 +312,7 @@ public class ComicCheckerApplication {
 	public void frequentlyUpdateSubscription() {
 		// creating timer task
 		Timer timer = new Timer();  
+		
 		TimerTask timerTask = new TimerTask() {  
 			@Override  
 			public void run() {  
@@ -323,7 +327,6 @@ public class ComicCheckerApplication {
 		System.out.println(time.getTime());
 		
 		timer.schedule(timerTask, time.getTime());
-		System.out.println(time.getTime());
 	}
 	
 	// Opening method
@@ -364,7 +367,8 @@ public class ComicCheckerApplication {
                     }
                     
                 } catch (Exception e) {
-                    e.printStackTrace();
+                	e.printStackTrace();
+                    listUserData = new ArrayList<>();
                 }
             // Case with no saved list
             }else {
@@ -373,6 +377,7 @@ public class ComicCheckerApplication {
             	
         } catch (IOException ex) {
             ex.printStackTrace();
+            listUserData = new ArrayList<>();
         }
 	}
 	
@@ -381,46 +386,41 @@ public class ComicCheckerApplication {
 	 * Method for save result of application working
 	 */
 	public void saveData() {
+		try {
 			// Playing with properties
-			try (OutputStream output = new FileOutputStream("userpreferences/application.properties")) {
-				
-				Properties prop = new Properties();
-				
-				// For scheduledTime
-				prop.setProperty("hoursScheduledTime", String.valueOf(minutesScheduledTime));
-				prop.setProperty("minutesScheduledTime", String.valueOf(hoursScheduledTime));
-				
-				// Handle case list in not null
-				if(!listUserData.isEmpty()) {
-					prop.setProperty("isListUserDataEmpty", "0");
-					// Save object in file
-					try {
-						FileOutputStream fileOut = new FileOutputStream("userpreferences/listuserdata");
-						ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-						objectOut.writeObject(listUserData);
-						objectOut.close();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				// Handle case list in null
-				}else {
-					prop.setProperty("isListUserDataEmpty", "1");
-				}
-				
-				// Handle working user data not null
-				if(userData != null) {
-					int recentIndexOfUserData = listUserData.indexOf(userData);
-					prop.setProperty("recentIndexUserData", String.valueOf(recentIndexOfUserData));
-				// Handle working user data null
-				}else {
-					prop.setProperty("recentIndexUserData", "null");
-				}
-				
-				prop.store(output, null);
-				
-			} catch (IOException io) {
-				io.printStackTrace();
+			OutputStream output = new FileOutputStream("userpreferences/application.properties");
+			Properties prop = new Properties();
+			
+			// For scheduledTime
+			prop.setProperty("hoursScheduledTime", String.valueOf(minutesScheduledTime));
+			prop.setProperty("minutesScheduledTime", String.valueOf(hoursScheduledTime));
+			
+			// Handle case list in not null
+			if(!listUserData.isEmpty()) {
+				prop.setProperty("isListUserDataEmpty", "0");
+				// Save object in file
+				FileOutputStream fileOut = new FileOutputStream("userpreferences/listuserdata");
+				ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+				objectOut.writeObject(listUserData);
+				objectOut.close();
+			// Handle case list in null
+			}else {
+				prop.setProperty("isListUserDataEmpty", "1");
 			}
+			
+			// Handle working user data not null
+			if(userData != null) {
+				int recentIndexOfUserData = listUserData.indexOf(userData);
+				prop.setProperty("recentIndexUserData", String.valueOf(recentIndexOfUserData));
+			// Handle working user data null
+			}else {
+				prop.setProperty("recentIndexUserData", "null");
+			}
+			
+			prop.store(output, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

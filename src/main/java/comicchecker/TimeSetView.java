@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class TimeSetView extends GridPane implements View {
 	private SubscriptionView parentView;
+	
 	@FXML private TextField hoursField;
 	@FXML private TextField minutesField;
 	

@@ -45,89 +45,68 @@ public class WebtoonId extends Site {
 	}
 
 	@Override
-	Snippet search(String title) {
-		Snippet result = null;
-		try {
-			Document doc = Jsoup.connect(getUrl()+"/genre").timeout(30000).get();
-			Elements comicList = doc.select("a.card_item");
-			for (Element comicItem : comicList) {
-				String x = comicItem.select("div.info > p.subj").text();
-				
-				if (x.equalsIgnoreCase(title)) {;
-					
-					String author = comicItem.select("p.author").text();
-					
-					String thumbnail = comicItem.select("img").attr("src");
-
-					String comicUrl = comicItem.select("a").attr("href");
-					
-					Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
-					String desc = comicPage.select("p.summary").text();
-					
-					String genre = comicPage.select("h2.genre").text();
-					
-					String chapterTitle = comicPage.select("span.subj > span").first().text();
-					
-					String chapterDate = comicPage.select("span.date").first().text();
-					chapterDate = webtoonIdDateConverter(chapterDate);
-					
-					result = new Snippet(x
-							,thumbnail
-							,author
-							,genre
-							,desc
-							,chapterTitle
-							,chapterDate
-							,comicUrl
-							);
-					return result;
-				}
-			}
+	public Snippet search(String title) throws IOException {
+		Document doc = Jsoup.connect(url + "/genre").timeout(30000).get();
+		Elements comicList = doc.select("a.card_item");
+		for (Element comicItem : comicList) {
+			String x = comicItem.select("div.info > p.subj").text();
 			
-		} catch (IOException e) {
-			e.printStackTrace();
+			if (x.equalsIgnoreCase(title)) {;
+				
+				String author = comicItem.select("p.author").text();
+				
+				String thumbnail = comicItem.select("img").attr("src");
+
+				String comicUrl = comicItem.select("a").attr("href");
+				
+				Document comicPage = Jsoup.connect(comicUrl).timeout(3000).get();
+				String desc = comicPage.select("p.summary").text();
+				
+				String genre = comicPage.select("h2.genre").text();
+				
+				String chapterTitle = comicPage.select("span.subj > span").first().text();
+				
+				String chapterDate = comicPage.select("span.date").first().text();
+				chapterDate = webtoonIdDateConverter(chapterDate);
+				
+				return new Snippet(x
+						,thumbnail
+						,author
+						,genre
+						,desc
+						,chapterTitle
+						,chapterDate
+						,comicUrl
+						);
+			}
 		}
-		return result;
+		
+		return null;
 	}
 
 	@Override
-	Snippet getInfo(String title) {
-		Snippet result = null;
-		try {
-			Document doc = Jsoup.connect(getUrl()+"/genre").timeout(30000).get();
-			String comicUrl = "";
-			if(!doc.select("p.subj").isEmpty()) {
-				comicUrl = doc.select("a.card_item").first().attr("href");
-			} else {
-				return result;
-			}
-			try {
-				Document comicPage = Jsoup.connect(comicUrl).timeout(30000).get();
-				String comicTitle = comicPage.select("h1.subj").text();
-				String comicImage = comicPage.select("span.thmb > img").first().attr("src");
-				String comicDesc = comicPage.select("p.summary").text();
-				result = new Snippet(comicTitle
-						, comicImage
-						, ""
-						, ""
-						, comicDesc
-						, ""
-						, ""
-						, ""
-						);
-				return result;
-				
-			} catch (SocketTimeoutException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (SocketTimeoutException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public Snippet getInfo(String title) throws IOException {
+		Document doc = Jsoup.connect(url +"/genre").timeout(30000).get();
+		
+		String comicUrl = "";
+		if(!doc.select("p.subj").isEmpty()) {
+			comicUrl = doc.select("a.card_item").first().attr("href");
+		} else {
+			return null;
 		}
 		
-		return result;
+		Document comicPage = Jsoup.connect(comicUrl).timeout(30000).get();
+		String comicTitle = comicPage.select("h1.subj").text();
+		String comicImage = comicPage.select("span.thmb > img").first().attr("src");
+		String comicDesc = comicPage.select("p.summary").text();
+		return new Snippet(comicTitle
+				, comicImage
+				, ""
+				, ""
+				, comicDesc
+				, ""
+				, ""
+				, ""
+				);
 	}
 }
