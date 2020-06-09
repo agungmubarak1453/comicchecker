@@ -33,10 +33,12 @@ public class HomeView extends StackPane implements View{
 			}
 		}
 		
-		app.addUserData(name);
-		app.saveData();
-		refresh();
-		changeScene(e, "/SubscriptionView.fxml");
+		if(!name.equals("")) {
+			app.addUserData(name);
+			app.saveData();
+			refresh();
+			changeScene(e, "/SubscriptionView.fxml");
+		}
 	}
 	
 	@FXML public void removeUserButtonClicked(ActionEvent e) {

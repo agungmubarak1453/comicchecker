@@ -1,12 +1,10 @@
 package comicchecker;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  * Class for handle web scraping method from various website type3

@@ -1,12 +1,17 @@
 package comicchecker;
 
 import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
@@ -105,7 +110,7 @@ public class SnippetView extends GridPane implements View{
 	@Override
 	public void refresh() {
 		try {
-			image = new Image(snippet.getThumbnail());
+			image = cacheImage(snippet.getThumbnail());
 			thumbnail.setImage(image);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,6 +138,26 @@ public class SnippetView extends GridPane implements View{
 			});
 			
 			linkPane.getChildren().add(linkUpdateSite);
+		}
+	}
+	
+	public Image cacheImage(String thumbnail) throws IOException 
+	{
+		String imageFileName = thumbnail.replaceAll("\\W", "");
+		File imageFile = new File("imgcache/" + imageFileName);
+		if(imageFile.createNewFile()) {
+			Image imageJavaFX = new Image(thumbnail);
+			
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(imageJavaFX, null), "jpg", imageFile);
+			} catch (Exception e) {
+				imageFile.delete();
+				throw e;
+			}
+				
+			return imageJavaFX;
+		}else {
+			return new Image(imageFile.toURI().toString());
 		}
 	}
 	

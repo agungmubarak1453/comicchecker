@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class AddView extends GridPane implements View {
 	private SubscriptionView parentView;
 	
-	@FXML private ComboBox titleCB;
+	@FXML private ComboBox<String> titleCB;
 	@FXML private FlowPane sitesPane;
 	
 	public AddView(SubscriptionView parentView) {

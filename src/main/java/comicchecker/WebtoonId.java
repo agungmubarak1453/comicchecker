@@ -1,7 +1,6 @@
 package comicchecker;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

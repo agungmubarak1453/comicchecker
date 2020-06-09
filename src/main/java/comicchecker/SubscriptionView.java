@@ -1,10 +1,14 @@
 package comicchecker;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +69,27 @@ public class SubscriptionView extends BorderPane implements View {
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Set Time View");
         stage.setScene(new Scene(new TimeSetView(this)));
+        stage.show();
+	}
+	
+	@FXML public void cleanButtonClicked() {
+		Stage stage = new Stage();
+        addWindow(stage);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Set Time View");
+        stage.setScene(new Scene(new AlertView(
+        		"You want to clean image cache, master? I'm very sad T-T"
+        		, e -> {
+        			File imageFiles = new File("imgcache");
+        			for(File o : imageFiles.listFiles()) {
+        				o.delete();
+        			}
+        			stage.close();
+        		}
+        		, e -> {
+        			stage.close();
+        		}
+        		)));
         stage.show();
 	}
 

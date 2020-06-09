@@ -124,9 +124,7 @@ public class WebScraper {
 	 * @see Site#getInfo(String)
 	 */
 	public Snippet checkInfo(String title, List<String> avaibleUpdateSite) {
-		Snippet result = null;
 		// Every comic general info like title; thumbnail; description is taken from a site 
-		
 		for(Site o : listOfSite) {
 			// Check site can be used for this snippet
 			boolean isSiteChecked = false;

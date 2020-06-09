@@ -344,7 +344,7 @@ public class ComicCheckerApplication {
             if(prop.getProperty("isListUserDataEmpty").equals("0")) {
             	// Load list object
             	try {
-                    InputStream fileIn = new FileInputStream("userpreferences/listuserdata");
+                    InputStream fileIn = new FileInputStream("userpreferences/listuserdata.ser");
                     ObjectInputStream objectIn = new ObjectInputStream(fileIn);
          
                     List<UserData> obj = (List<UserData>) objectIn.readObject();
@@ -369,8 +369,8 @@ public class ComicCheckerApplication {
             }else {
             	listUserData = new ArrayList<>();
             }
-            	
-        } catch (IOException ex) {
+        
+        } catch (Exception ex) {
             ex.printStackTrace();
             listUserData = new ArrayList<>();
         }
@@ -387,14 +387,14 @@ public class ComicCheckerApplication {
 			Properties prop = new Properties();
 			
 			// For scheduledTime
-			prop.setProperty("hoursScheduledTime", String.valueOf(minutesScheduledTime));
-			prop.setProperty("minutesScheduledTime", String.valueOf(hoursScheduledTime));
+			prop.setProperty("hoursScheduledTime", String.valueOf(hoursScheduledTime));
+			prop.setProperty("minutesScheduledTime", String.valueOf(minutesScheduledTime));
 			
 			// Handle case list in not null
 			if(!listUserData.isEmpty()) {
 				prop.setProperty("isListUserDataEmpty", "0");
 				// Save object in file
-				FileOutputStream fileOut = new FileOutputStream("userpreferences/listuserdata");
+				FileOutputStream fileOut = new FileOutputStream("userpreferences/listuserdata.ser");
 				ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 				objectOut.writeObject(listUserData);
 				objectOut.close();

@@ -17,6 +17,15 @@
    <bottom>
       <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #BA55D3;" BorderPane.alignment="CENTER">
          <children>
+            <Button layoutX="15.0" layoutY="16.0" mnemonicParsing="false" onAction="#cleanButtonClicked">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/cleanv3.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button mnemonicParsing="false" onAction="#allUpdateButtonClicked">
                <graphic>
                   <ImageView fitHeight="48.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
@@ -65,7 +74,7 @@
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/back.png" />
+                        <Image url="@image/back.png" />
                      </image>
                   </ImageView>
                </graphic>

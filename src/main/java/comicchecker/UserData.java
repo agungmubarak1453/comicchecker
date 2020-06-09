@@ -2,17 +2,18 @@ package comicchecker;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.TrayIcon.MessageType;
-import java.io.IOException;
 import java.io.Serializable;
+import java.awt.TrayIcon.MessageType;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
+/**
+	 * 
+	 */
 /**
  * Class for store user data
  * <br><br>
@@ -24,6 +25,8 @@ import javax.imageio.ImageIO;
  * @see ComicCheckerApplication
  */
 public class UserData implements Serializable{
+	private static final long serialVersionUID = 2L;
+	
 	private String name;
 	private List<Snippet> listOfSubscription;
 	
