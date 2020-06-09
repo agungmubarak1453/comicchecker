@@ -29,24 +29,24 @@
                   <Insets />
                </StackPane.margin>
                <image>
-                  <Image url="@../../../image/icon.jpg" />
+                  <Image url="@image/icon.jpg" />
                </image>
             </ImageView>
             <VBox prefHeight="126.0" prefWidth="70.0" spacing="2.0">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#updateButtonClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/update.png" />
+                        <Image url="@image/update.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#infoButtonClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/info.png" />
+                        <Image url="@image/info.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="21.0" onMouseClicked="#minusButtonClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/minus.png" />
+                        <Image url="@image/minus.png" />
                      </image>
                   </ImageView>
                </children>

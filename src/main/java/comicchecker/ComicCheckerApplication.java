@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -121,7 +122,7 @@ public class ComicCheckerApplication {
 	public void searchListComicInLocal() {
 		try {
 			
-			BufferedReader br = new BufferedReader(new FileReader("userpreferences//listofcomic.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("userpreferences/listofcomic.txt"));
 			String input = "";
 			while( (input = br.readLine()) != null) {
 				if(!input.equals("")) listComic.add(input);
@@ -144,7 +145,7 @@ public class ComicCheckerApplication {
 		try {
 			
 			// Result of searching from internet is saved in local for efficiently.
-			PrintWriter pw = new PrintWriter(new FileWriter(new File("userpreferences//listofcomic.txt"), false));
+			PrintWriter pw = new PrintWriter(new FileWriter(new File("userpreferences/listofcomic.txt"), false));
 			
 			List<String> result = webScraper.searchListComic(pw);
 			if(!result.isEmpty()) {
@@ -330,7 +331,7 @@ public class ComicCheckerApplication {
 	public void loadData() {
 		try {
 			
-			InputStream input = new FileInputStream("userpreferences//application.properties");
+			InputStream input = new FileInputStream("userpreferences/application.properties");
 			
             Properties prop = new Properties();
             prop.load(input);
@@ -343,7 +344,7 @@ public class ComicCheckerApplication {
             if(prop.getProperty("isListUserDataEmpty").equals("0")) {
             	// Load list object
             	try {
-                    FileInputStream fileIn = new FileInputStream("userpreferences//listuserdata");
+                    InputStream fileIn = new FileInputStream("userpreferences/listuserdata");
                     ObjectInputStream objectIn = new ObjectInputStream(fileIn);
          
                     List<UserData> obj = (List<UserData>) objectIn.readObject();
@@ -379,7 +380,7 @@ public class ComicCheckerApplication {
 	 */
 	public void saveData() {
 			// Playing with properties
-			try (OutputStream output = new FileOutputStream("userpreferences//application.properties")) {
+			try (OutputStream output = new FileOutputStream("userpreferences/application.properties")) {
 				
 				Properties prop = new Properties();
 				
@@ -392,7 +393,7 @@ public class ComicCheckerApplication {
 					prop.setProperty("isListUserDataEmpty", "0");
 					// Save object in file
 					try {
-						FileOutputStream fileOut = new FileOutputStream("userpreferences//listuserdata" );
+						FileOutputStream fileOut = new FileOutputStream("userpreferences/listuserdata");
 						ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 						objectOut.writeObject(listUserData);
 						objectOut.close();

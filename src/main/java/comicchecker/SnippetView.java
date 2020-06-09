@@ -75,6 +75,7 @@ public class SnippetView extends GridPane implements View{
 	@FXML public void snippetClicked() {
         Stage stage = new Stage();
         addWindow(stage);
+        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Details View");
         stage.setScene(new Scene(new DetailsView(this)));
         stage.show();

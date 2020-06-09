@@ -14,14 +14,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class addView extends GridPane implements View {
+public class AddView extends GridPane implements View {
 	private SubscriptionView parentView;
 	@FXML private ComboBox titleCB;
 	@FXML private FlowPane sitesPane;
 	
-	public addView(SubscriptionView parentView) {
+	public AddView(SubscriptionView parentView) {
 		this.parentView = parentView;
-		constructorHelper("/addView.fxml");
+		constructorHelper("/AddView.fxml");
 	}
 	
 	@Override

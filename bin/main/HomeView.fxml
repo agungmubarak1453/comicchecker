@@ -30,7 +30,7 @@
          <children>
             <ImageView fitHeight="209.0" fitWidth="303.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../../../image/icon.jpg" />
+                  <Image url="@image/icon.jpg" />
                </image></ImageView>
             <ComboBox fx:id="listUserDataCB" editable="true" prefHeight="33.0" prefWidth="176.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#enterAddUserButtonClicked" prefHeight="31.0" prefWidth="174.0" text="Enter or Add New User" GridPane.halignment="CENTER" GridPane.rowIndex="2" />

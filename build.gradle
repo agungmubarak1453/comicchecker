@@ -24,6 +24,17 @@ task runBackground(type: JavaExec) {
     main = 'comicchecker.backgroundCheck'
 }
 
+task customFatJar(type: Jar) {
+	group = 'build'
+	description = 'Task to build fat jar'
+    manifest {
+        attributes 'Main-Class': 'comicchecker.Starter'
+    }
+    baseName = 'ComicChecker'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 javafx {
     version = "14"  // Change if needed.
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing']  // Add more modules if needed.
@@ -35,6 +46,10 @@ repositories {
     jcenter()
 }
 
+configurations {
+    // configuration that holds jars to include in the jar
+}
+
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -43,9 +58,6 @@ dependencies {
     implementation 'com.google.guava:guava:28.0-jre'
     // jsoup HTML parser library @ https://jsoup.org/
 	compile 'org.jsoup:jsoup:1.13.1'
-	
-	// https://mvnrepository.com/artifact/org.controlsfx/controlsfx
-	compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'
 	
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

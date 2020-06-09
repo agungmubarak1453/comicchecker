@@ -25,7 +25,7 @@
          <children>
             <ImageView fx:id="thumbnail" fitHeight="442.0" fitWidth="273.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../../image/icon.jpg" />
+                  <Image url="@image/icon.jpg" />
                </image>
             </ImageView>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="309.0" spacing="10.0">
@@ -35,17 +35,17 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" onMouseClicked="#updateButtonClicked" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../image/update.png" />
+                        <Image url="@image/update.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#infoButtonClicked" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../image/info.png" />
+                        <Image url="@image/info.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="70.0" onMouseClicked="#minusButtonClicked" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../image/minus.png" />
+                        <Image url="@image/minus.png" />
                      </image>
                   </ImageView>
                </children>

@@ -2,6 +2,8 @@ package comicchecker;
 
 import java.net.URL;
 
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,14 +28,21 @@ public class GUISimulator extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
         stage.setTitle("Comic Checker");
-        stage.getIcons().add(new Image("file:image/icon.jpg"));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/icon.jpg")));
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/HomeView.fxml"))));
         stage.setResizable(false);
         stage.show();
 	}
 	
 	public static void main(String[] args) {
-		Application.launch(args);
+		if(args.length == 0) {
+			Application.launch(args);
+		}else if(args[0].equals("background")){
+			ComicCheckerApplication app = new ComicCheckerApplication();
+			app.frequentlyUpdateSubscription(30);
+		}else {
+			Application.launch(args);
+		}
 	}
 	
 }

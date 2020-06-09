@@ -51,7 +51,7 @@ public class SubscriptionView extends BorderPane implements View {
         addWindow(stage);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Add Comic");
-        stage.setScene(new Scene(new addView(this)));
+        stage.setScene(new Scene(new AddView(this)));
         stage.show();
 	}
 	
