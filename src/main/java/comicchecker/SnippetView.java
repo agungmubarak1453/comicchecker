@@ -47,14 +47,14 @@ public class SnippetView extends GridPane implements View{
 	
 	@FXML public void updateButtonClicked() {
 		snippet.update(app.getWebScraper());
-		app.saveData();
 		refresh();
+		app.saveData();
 	}
 	
 	@FXML public void infoButtonClicked() {
 		snippet.checkInfo(app.getWebScraper());
-		app.saveData();
 		refresh();
+		app.saveData();
 	}
 	
 	@FXML public void minusButtonClicked() {
@@ -65,11 +65,11 @@ public class SnippetView extends GridPane implements View{
         
         stage.setScene(new Scene(new AlertView("Are you sure to delete this subscription?"
         		, e -> {
-        			app.deleteSubscription(snippet.getTitle());
-        			app.saveData();
         			closeAllWindows();
+        			app.deleteSubscription(snippet.getTitle());
         			parentView.getSnippetViews().remove(this);
         			parentView.refresh();
+        			app.saveData();
         		}
         		, e -> {
         			stage.close();

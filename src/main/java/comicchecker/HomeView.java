@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class HomeView extends StackPane implements View{
 	@FXML private ComboBox<UserData> listUserDataCB;
@@ -26,18 +28,18 @@ public class HomeView extends StackPane implements View{
 		for(UserData o: app.getListUserData()) {
 			if(name.equals(o.getName())) {
 				app.setUserData(o);
-				app.saveData();
-				refresh();
+				SubscriptionView.setMainWindow((Stage) ((Node)e.getSource()).getScene().getWindow());
 				changeScene(e, "/SubscriptionView.fxml");
+				app.saveData();
 				return;
 			}
 		}
 		
 		if(!name.equals("")) {
 			app.addUserData(name);
-			app.saveData();
-			refresh();
+			SubscriptionView.setMainWindow((Stage) ((Node)e.getSource()).getScene().getWindow());
 			changeScene(e, "/SubscriptionView.fxml");
+			app.saveData();
 		}
 	}
 	
@@ -48,8 +50,8 @@ public class HomeView extends StackPane implements View{
 		for(UserData o: app.getListUserData()) {
 			if(name.equals(o.getName())) {
 				app.removeUserData(name);
-				app.saveData();
 				refresh();
+				app.saveData();
 				return;
 			}
 		}

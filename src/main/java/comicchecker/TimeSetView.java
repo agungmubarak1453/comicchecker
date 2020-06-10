@@ -24,13 +24,14 @@ public class TimeSetView extends GridPane implements View {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		hoursField.setText(String.valueOf(app.getHoursScheduledTime()));
-		minutesField.setText(String.valueOf(app.getMinutesScheduledTime()));
 		refresh();
 	}
 
 	@Override
 	public void refresh() {
+		hoursField.setText(String.valueOf(app.getHoursScheduledTime()));
+		minutesField.setText(String.valueOf(app.getMinutesScheduledTime()));
+		
 		hoursField.textProperty().addListener( (v, oldValue, newValue) -> {
 			
 			if(!newValue.equals("0"))
@@ -108,10 +109,10 @@ public class TimeSetView extends GridPane implements View {
 	
 	@FXML public void applyButtonClicked(ActionEvent e) {
 		app.setScheduledTime(Integer.parseInt(hoursField.getText()), Integer.parseInt(minutesField.getText()));
-		app.saveData();
-		app.frequentlyUpdateSubscription();
 		Stage window = (Stage) ((Node)e.getSource()).getScene().getWindow();
 		window.close();
+		app.frequentlyUpdateSubscription();
+		app.saveData();
 	}
 	
 	public void modifierTextField(TextField textField, int modifier) {

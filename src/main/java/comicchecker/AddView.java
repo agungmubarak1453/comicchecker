@@ -52,11 +52,11 @@ public class AddView extends GridPane implements View {
 		}
 		
 		app.addSubscription(titleCB.getValue().toString(), sites);
-		app.saveData();
 		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 		parentView.getSnippetViews().add(new SnippetView(
 				parentView, app.getUserData().getListOfSubscription().size() - 1));
 		parentView.refresh();
+		app.saveData();
 	}
 
 	@FXML public void cancelButtonClicked(ActionEvent e){

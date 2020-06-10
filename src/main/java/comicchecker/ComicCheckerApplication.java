@@ -8,10 +8,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +63,9 @@ public class ComicCheckerApplication {
 				, new WebtoonId("https://webtoons.com/id")
 				);
 		
+		
 		listComic = new ArrayList<>();
+		checkDirectory();
 		searchListComicInLocal();
 		loadData();
 	}
@@ -116,14 +124,17 @@ public class ComicCheckerApplication {
 	 */
 	public void searchListComicInLocal() {
 		try {
+			File listComicFile = new File("userpreferences/listofcomic.txt");
 			
-			BufferedReader br = new BufferedReader(new FileReader("userpreferences/listofcomic.txt"));
-			String input = "";
-			while( (input = br.readLine()) != null) {
-				if(!input.equals("")) listComic.add(input);
+			if(!listComicFile.createNewFile()) {
+				BufferedReader br = new BufferedReader(new FileReader("userpreferences/listofcomic.txt"));
+				String input = "";
+				while( (input = br.readLine()) != null) {
+					if(!input.equals("")) listComic.add(input);
+				}
+				
+				br.close();
 			}
-			
-			br.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -326,11 +337,34 @@ public class ComicCheckerApplication {
 	
 	// Opening method
 	/**
+	 * Method for check directory and create it if doesn't exist
+	 */
+	public void checkDirectory() {
+		File dir1 = new File("userpreferences");
+		File dir2 = new File("imgcache");
+		dir1.mkdir();
+		dir2.mkdir();
+		
+		if(new File("Read this! for daily updating.txt").exists()) {
+			return;
+		}
+		
+		try {
+			InputStream guideFile = getClass().getResourceAsStream("/guide/Read this! for daily updating.txt");
+			Path copied = Paths.get("Read this! for daily updating.txt");
+			Files.copy(guideFile, copied);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Method for load data from local
 	 */
 	public void loadData() {
+		// Load properties
 		try {
-			
+		
 			InputStream input = new FileInputStream("userpreferences/application.properties");
 			
             Properties prop = new Properties();
@@ -360,7 +394,7 @@ public class ComicCheckerApplication {
                     }else {
                     	userData = listUserData.get(Integer.parseInt(prop.getProperty("recentIndexUserData")));
                     }
-                    
+                // Exception for error in load listUserData object    
                 } catch (Exception e) {
                 	e.printStackTrace();
                     listUserData = new ArrayList<>();
@@ -369,7 +403,7 @@ public class ComicCheckerApplication {
             }else {
             	listUserData = new ArrayList<>();
             }
-        
+        // Exception in properties like file not found or properties have weird content
         } catch (Exception ex) {
             ex.printStackTrace();
             listUserData = new ArrayList<>();

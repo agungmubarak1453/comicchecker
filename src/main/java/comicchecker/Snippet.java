@@ -1,5 +1,6 @@
 package comicchecker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,9 @@ import java.util.List;
  * @see UserData
  */
 
-public class Snippet{
+public class Snippet implements Serializable{
+		private static final long serialVersionUID = 2L;
+		
 		private String title;
 		private String thumbnail;
 		private String description;

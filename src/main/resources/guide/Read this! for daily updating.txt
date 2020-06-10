@@ -1,0 +1,11 @@
+To daily updating you must create shortcut for this program
+and add parameter "background" after location target
+like this: 
+
+C:\Users\Budi\Desktop\Application\ComicChecker.jar background
+
+And add this schorcut to startup task in OS. So that can sure running
+every starting
+
+In windows 10, you put in C:\Users\Budi\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\
+and check task manager for make sure and look for startup section in task manager

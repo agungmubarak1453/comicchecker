@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class SubscriptionView extends BorderPane implements View {
+	private static Stage mainWindow;
+	
 	private List<SnippetView> snippetViews = new ArrayList<>();
 	private List<Stage> windows = new ArrayList<>();
 	
@@ -39,6 +42,10 @@ public class SubscriptionView extends BorderPane implements View {
 				refreshSnippetViews();
 				refresh();
 			}
+		});
+		
+		mainWindow.setOnCloseRequest( e -> {
+			closeAllWindows();
 		});
 		
 		refreshSnippetViews();
@@ -61,6 +68,7 @@ public class SubscriptionView extends BorderPane implements View {
 	
 	@FXML public void backButtonClicked(ActionEvent e) {
 		changeScene(e, "/HomeView.fxml");
+		closeAllWindows();
 	}
 	
 	@FXML public void timeSetButtonClicked(ActionEvent e) {
@@ -91,6 +99,14 @@ public class SubscriptionView extends BorderPane implements View {
         		}
         		)));
         stage.show();
+	}
+
+	public static Stage getMainWindow() {
+		return mainWindow;
+	}
+
+	public static void setMainWindow(Stage mainWindow) {
+		SubscriptionView.mainWindow = mainWindow;
 	}
 
 	public List<SnippetView> getSnippetViews() {
