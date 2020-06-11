@@ -15,6 +15,7 @@ plugins {
 
 application {
     mainClassName = 'comicchecker.GUISimulator'
+    applicationDefaultJvmArgs = ['--add-opens=javafx.base/com.sun.javafx.event=ALL-UNNAMED']
 }
 
 task runBackground(type: JavaExec) {
@@ -37,7 +38,7 @@ task customFatJar(type: Jar) {
 
 javafx {
     version = "14"  // Change if needed.
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing']  // Add more modules if needed.
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.swing', 'javafx.base']  // Add more modules if needed.
 }
 
 repositories {
@@ -58,6 +59,8 @@ dependencies {
     implementation 'com.google.guava:guava:28.0-jre'
     // jsoup HTML parser library @ https://jsoup.org/
 	compile 'org.jsoup:jsoup:1.13.1'
+	// controlsFX
+	compile 'org.controlsfx:controlsfx:11.0.1'
 	
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

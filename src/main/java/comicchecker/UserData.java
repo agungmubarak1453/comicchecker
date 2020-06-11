@@ -118,6 +118,10 @@ public class UserData implements Serializable{
 	 */
 	public void updateSubscription(WebScraper webScraper) {
 		// Pop up notification
+		if (!SystemTray.isSupported()) {
+			return;
+		}
+		
 		try{
 			
 		    SystemTray tray = SystemTray.getSystemTray();
@@ -128,7 +132,7 @@ public class UserData implements Serializable{
 					Image image = ImageIO.read(new URL(o.getThumbnail()));
 					
 					TrayIcon trayIcon = new TrayIcon(image, o.getTitle() + " get updating");
-					trayIcon.setImageAutoSize(false);
+					trayIcon.setImageAutoSize(true);
 					
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()

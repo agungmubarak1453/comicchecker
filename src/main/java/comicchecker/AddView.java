@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.TextFields;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -17,7 +19,7 @@ import javafx.stage.Stage;
 public class AddView extends GridPane implements View {
 	private SubscriptionView parentView;
 	
-	@FXML private ComboBox<String> titleCB;
+	@FXML private TextField titleField;
 	@FXML private FlowPane sitesPane;
 	
 	public AddView(SubscriptionView parentView) {
@@ -32,7 +34,7 @@ public class AddView extends GridPane implements View {
 
 	@Override
 	public void refresh() {
-		titleCB.getItems().setAll(app.getListComic());
+		TextFields.bindAutoCompletion(titleField, app.getListComic());
 		sitesPane.getChildren().clear();
 		
 		for(Site o : app.getWebScraper().listOfSite) {
@@ -51,10 +53,10 @@ public class AddView extends GridPane implements View {
 			}
 		}
 		
-		app.addSubscription(titleCB.getValue().toString(), sites);
+		app.addSubscription(titleField.getText(), sites);
 		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
 		parentView.getSnippetViews().add(new SnippetView(
-				parentView, app.getUserData().getListOfSubscription().size() - 1));
+				parentView, parentView.getSnippetViews().size()));
 		parentView.refresh();
 		app.saveData();
 	}

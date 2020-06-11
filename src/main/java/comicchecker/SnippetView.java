@@ -115,6 +115,7 @@ public class SnippetView extends GridPane implements View{
 		} catch (Exception e) {
 			e.printStackTrace();
 			image = thumbnail.getImage();
+			thumbnail.setImage(image);
 		}
 		
 		snippetText.setText(snippet.getTitle()
@@ -144,6 +145,11 @@ public class SnippetView extends GridPane implements View{
 	public Image cacheImage(String thumbnail) throws IOException 
 	{
 		String imageFileName = thumbnail.replaceAll("\\W", "");
+		
+		if(imageFileName.isEmpty()) {
+			throw new IOException("Url is empty");
+		}
+		
 		File imageFile = new File("imgcache/" + imageFileName);
 		if(imageFile.createNewFile()) {
 			Image imageJavaFX = new Image(thumbnail);

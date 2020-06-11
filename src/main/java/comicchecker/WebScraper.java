@@ -160,7 +160,7 @@ public class WebScraper {
 		List<String> result = new ArrayList<>();
 		
 		int mangaThatSearched = 0;
-		int amountOfManga = 100;
+		int amountOfManga = 600;
 		while(mangaThatSearched<=amountOfManga) {
 			try {
 				

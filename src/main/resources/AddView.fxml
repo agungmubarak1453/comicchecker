@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -23,7 +23,7 @@
    <children>
       <HBox spacing="3.0">
          <children>
-            <ComboBox fx:id="titleCB" editable="true" prefHeight="31.0" prefWidth="387.0" promptText="Comic title" />
+            <TextField fx:id="titleField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="402.0" />
             <Button mnemonicParsing="false" onAction="#updateListComicClicked">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
