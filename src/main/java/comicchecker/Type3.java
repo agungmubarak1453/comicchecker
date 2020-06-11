@@ -40,7 +40,7 @@ public class Type3 extends Site{
 		
 		String author = "";
 		String genre = "";
-		if(docComicDetail.select(".story-info-right .table-label").text().contains("Author")) {
+		if(docComicDetail.select(".story-info-right .table-label").first().text().contains("Author")) {
 			author = docComicDetail.select(".story-info-right .table-value").get(0).text();
 			genre = docComicDetail.select(".story-info-right .table-value").get(2).text().replace("-", ",");
 		}else {
@@ -88,7 +88,7 @@ public class Type3 extends Site{
 		
 		String author = "";
 		String genre = "";
-		if(docComicDetail.select(".story-info-right .table-label").text().contains("Author")) {
+		if(docComicDetail.select(".story-info-right .table-label").first().text().contains("Author")) {
 			author = docComicDetail.select(".story-info-right .table-value").get(0).text();
 			genre = docComicDetail.select(".story-info-right .table-value").get(2).text().replace("-", ",");
 		}else {
