@@ -131,9 +131,8 @@ public class UserData implements Serializable{
 				if (o.update(webScraper)) {
 					Image image = ImageIO.read(new URL(o.getThumbnail()));
 					
-					TrayIcon trayIcon = new TrayIcon(image, o.getTitle() + " get updating");
-					trayIcon.setImageAutoSize(true);
-					trayIcon.getImage();
+					TrayIcon trayIcon = new TrayIcon(image.getScaledInstance(SystemTray.getSystemTray().getTrayIconSize().width, -1, image.SCALE_SMOOTH)
+							, o.getTitle() + " get updating");
 					
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()
