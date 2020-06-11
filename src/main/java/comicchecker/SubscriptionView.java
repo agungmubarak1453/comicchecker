@@ -7,13 +7,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
@@ -38,11 +34,17 @@ public class SubscriptionView extends BorderPane implements View {
 		
 		workingUserDataCB.valueProperty().addListener( (v, oldValue, newValue) -> {
 			if(newValue != oldValue) {
+				new Thread( () -> {
+					app.setUserData(newValue);
+					app.saveData();
+					
+					Platform.runLater( () -> {
+						refreshSnippetViews();
+						refresh();
+					});
+				}).start();
+				
 				closeAllWindows();
-				app.setUserData(newValue);
-				refreshSnippetViews();
-				refresh();
-				app.saveData();
 			}
 		});
 		
