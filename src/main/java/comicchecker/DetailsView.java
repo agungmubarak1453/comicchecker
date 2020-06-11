@@ -6,6 +6,7 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -69,18 +70,54 @@ public class DetailsView extends GridPane implements View {
 	}
 	
 	@FXML public void updateButtonClicked() {
-		parentView.updateButtonClicked();
-		refresh();
+		new Thread( () -> {
+			parentView.getSnippet().update(app.getWebScraper());
+			app.saveData();
+			
+			Platform.runLater( () -> {
+				parentView.refresh();
+				refresh();
+			});
+		}).start();
 	}
 	
 	@FXML public void infoButtonClicked() {
-		parentView.infoButtonClicked();
-		refresh();
+		new Thread( () -> {
+			parentView.getSnippet().checkInfo(app.getWebScraper());
+			app.saveData();
+			
+			Platform.runLater( () -> {
+				parentView.refresh();
+				refresh();
+			});
+		}).start();
 	}
 	
 	@FXML public void minusButtonClicked() {
-		parentView.minusButtonClicked();
-		refresh();
+		Stage stage = new Stage();
+		parentView.addWindow(stage);
+        stage.setTitle("Delete Confirmation");
+        stage.initStyle(StageStyle.UNDECORATED);
+        
+        stage.setScene(new Scene(new AlertView("Are you sure to delete this subscription?"
+        		, e -> {
+        			new Thread( () -> {
+        				app.deleteSubscription(parentView.getSnippet().getTitle());
+        				parentView.getParentView().getSnippetViews().remove(parentView);
+        				app.saveData();
+        				
+        				Platform.runLater( () -> {
+        					parentView.getParentView().refresh();
+        				});
+        			}).start();
+        			parentView.closeAllWindows();
+        		}
+        		, e -> {
+        			stage.close();
+        		}
+        		)));
+        
+        stage.show();
 	}
 	
 	@FXML public void avaibleSiteInfoButtonClicked(ActionEvent e) {

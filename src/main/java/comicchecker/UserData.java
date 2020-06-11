@@ -133,6 +133,7 @@ public class UserData implements Serializable{
 					
 					TrayIcon trayIcon = new TrayIcon(image, o.getTitle() + " get updating");
 					trayIcon.setImageAutoSize(true);
+					trayIcon.getImage();
 					
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -41,6 +42,7 @@ public class SubscriptionView extends BorderPane implements View {
 				app.setUserData(newValue);
 				refreshSnippetViews();
 				refresh();
+				app.saveData();
 			}
 		});
 		
@@ -48,8 +50,13 @@ public class SubscriptionView extends BorderPane implements View {
 			closeAllWindows();
 		});
 		
-		refreshSnippetViews();
-		refresh();
+		new Thread( () -> {
+			refreshSnippetViews();
+			
+			Platform.runLater( () -> {
+				refresh();
+			});
+		}).start();
 	}
 	
 	@FXML public void allUpdateButtonClicked(ActionEvent e) {
@@ -88,10 +95,13 @@ public class SubscriptionView extends BorderPane implements View {
         stage.setScene(new Scene(new AlertView(
         		"You want to clean image cache, master? I'm very sad T-T"
         		, e -> {
-        			File imageFiles = new File("imgcache");
-        			for(File o : imageFiles.listFiles()) {
-        				o.delete();
-        			}
+        			Platform.runLater(() -> {
+        				File imageFiles = new File("imgcache");
+        				for(File o : imageFiles.listFiles()) {
+        					o.delete();
+        				}
+        			});
+        			
         			stage.close();
         		}
         		, e -> {

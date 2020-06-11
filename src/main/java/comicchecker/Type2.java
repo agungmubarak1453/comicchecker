@@ -61,7 +61,7 @@ public class Type2 extends Site{
 				}
 				
 				String image = comicDetails.select("picture > img").first().absUrl("src");
-				String author = docComicInfo.select(".card sidecard .text-sm").first().text();
+				String author = docComicInfo.select(".card.sidecard .text-sm").first().text();
 				String description = comicDetails.select("p").text();
 				
 				Element chapterInfo = docComicInfo.select("#chapterTable > .table-default").first();

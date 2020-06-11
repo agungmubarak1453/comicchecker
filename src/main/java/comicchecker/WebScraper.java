@@ -164,7 +164,7 @@ public class WebScraper {
 		while(mangaThatSearched<=amountOfManga) {
 			try {
 				
-				Document doc = Jsoup.connect("https://myanimelist.net/topmanga.php?limit=" + mangaThatSearched)
+				Document doc = Jsoup.connect("https://myanimelist.net/topmanga.php?type=bypopularity&limit=" + mangaThatSearched)
 						.timeout(30000)
 						.get();
 				Elements comics = doc.select(".ranking-list .detail > a");

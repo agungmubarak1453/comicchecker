@@ -2,6 +2,8 @@ package comicchecker;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -30,7 +32,11 @@ public class HomeView extends StackPane implements View{
 				app.setUserData(o);
 				SubscriptionView.setMainWindow((Stage) ((Node)e.getSource()).getScene().getWindow());
 				changeScene(e, "/SubscriptionView.fxml");
-				app.saveData();
+				
+				Platform.runLater( () -> {
+					app.saveData();
+				});
+				
 				return;
 			}
 		}
@@ -39,7 +45,10 @@ public class HomeView extends StackPane implements View{
 			app.addUserData(name);
 			SubscriptionView.setMainWindow((Stage) ((Node)e.getSource()).getScene().getWindow());
 			changeScene(e, "/SubscriptionView.fxml");
-			app.saveData();
+			
+			Platform.runLater( () -> {
+				app.saveData();
+			});
 		}
 	}
 	
@@ -51,7 +60,11 @@ public class HomeView extends StackPane implements View{
 			if(name.equals(o.getName())) {
 				app.removeUserData(name);
 				refresh();
-				app.saveData();
+				
+				Platform.runLater( () -> {
+					app.saveData();
+				});
+				
 				return;
 			}
 		}

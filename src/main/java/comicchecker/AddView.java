@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -44,21 +45,27 @@ public class AddView extends GridPane implements View {
 	}
 	
 	@FXML public void okButtonClicked(ActionEvent e){
-		List<String> sites = new ArrayList<>();
-		
-		for(Node o: sitesPane.getChildren()) {
-			CheckBox checkBox = (CheckBox) o;
-			if (checkBox.isSelected()) {
-				sites.add(checkBox.getText());
+		new Thread( () -> {
+			List<String> sites = new ArrayList<>();
+			for(Node o: sitesPane.getChildren()) {
+				CheckBox checkBox = (CheckBox) o;
+				if (checkBox.isSelected()) {
+					sites.add(checkBox.getText());
+				}
 			}
-		}
+			
+			app.addSubscription(titleField.getText(), sites);
+			parentView.getSnippetViews().add(new SnippetView(
+					parentView, parentView.getSnippetViews().size()));
+			app.saveData();
+			
+			Platform.runLater( () -> {
+				parentView.refresh();
+			});
+			
+		}).start();
 		
-		app.addSubscription(titleField.getText(), sites);
 		((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
-		parentView.getSnippetViews().add(new SnippetView(
-				parentView, parentView.getSnippetViews().size()));
-		parentView.refresh();
-		app.saveData();
 	}
 
 	@FXML public void cancelButtonClicked(ActionEvent e){
@@ -66,8 +73,13 @@ public class AddView extends GridPane implements View {
 	}
 	
 	@FXML public void updateListComicClicked(ActionEvent e) {
-		app.searchListComicWithWebScraping();
-		refresh();
+		new Thread( () -> {
+			app.searchListComicWithWebScraping();
+			Platform.runLater( () -> {
+				refresh();
+			});
+			
+		}).start();
 	}
 	
 }

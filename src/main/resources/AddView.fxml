@@ -23,7 +23,7 @@
    <children>
       <HBox spacing="3.0">
          <children>
-            <TextField fx:id="titleField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="402.0" />
+            <TextField fx:id="titleField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="383.0" />
             <Button mnemonicParsing="false" onAction="#updateListComicClicked">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">

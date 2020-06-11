@@ -11,8 +11,11 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -46,15 +49,25 @@ public class SnippetView extends GridPane implements View{
 	}
 	
 	@FXML public void updateButtonClicked() {
-		snippet.update(app.getWebScraper());
-		refresh();
-		app.saveData();
+		new Thread( () -> {
+			snippet.update(app.getWebScraper());
+			app.saveData();
+			
+			Platform.runLater( () -> {
+				refresh();
+			});
+		}).start();
 	}
 	
 	@FXML public void infoButtonClicked() {
-		snippet.checkInfo(app.getWebScraper());
-		refresh();
-		app.saveData();
+		new Thread( () -> {
+			snippet.checkInfo(app.getWebScraper());
+			app.saveData();
+			
+			Platform.runLater( () -> {
+				refresh();
+			});
+		}).start();
 	}
 	
 	@FXML public void minusButtonClicked() {
@@ -65,11 +78,17 @@ public class SnippetView extends GridPane implements View{
         
         stage.setScene(new Scene(new AlertView("Are you sure to delete this subscription?"
         		, e -> {
+        			new Thread( () -> {
+        				app.deleteSubscription(snippet.getTitle());
+        				parentView.getSnippetViews().remove(this);
+        				app.saveData();
+        				
+        				Platform.runLater( () -> {
+        					parentView.refresh();
+        				});
+        			}).start();
+        			
         			closeAllWindows();
-        			app.deleteSubscription(snippet.getTitle());
-        			parentView.getSnippetViews().remove(this);
-        			parentView.refresh();
-        			app.saveData();
         		}
         		, e -> {
         			stage.close();
@@ -88,6 +107,10 @@ public class SnippetView extends GridPane implements View{
         stage.show();
 	}
 	
+	public SubscriptionView getParentView() {
+		return parentView;
+	}
+
 	public Snippet getSnippet() {
 		return snippet;
 	}
