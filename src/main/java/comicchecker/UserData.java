@@ -8,6 +8,8 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -131,8 +133,10 @@ public class UserData implements Serializable{
 				if (o.update(webScraper)) {
 					Image image = ImageIO.read(new URL(o.getThumbnail()));
 					
+					Matcher digitChapter = Pattern.compile("\\d\\S*(?=[:-_|])+|\\d\\S*").matcher(o.getUpdateChapter());
+					
 					TrayIcon trayIcon = new TrayIcon(image.getScaledInstance(SystemTray.getSystemTray().getTrayIconSize().width, -1, image.SCALE_SMOOTH)
-							, o.getTitle() + " get updating");
+							, o.getTitle() + (digitChapter.find() ? " " + digitChapter.group() : "" ) + " get updating");
 					
 					String notificationText = o.getUpdateChapter()
 												+ "\n" + o.getUpdateTime()
