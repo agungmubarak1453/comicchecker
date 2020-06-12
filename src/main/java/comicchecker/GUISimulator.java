@@ -32,7 +32,7 @@ public class GUISimulator extends Application{
 			Application.launch(args);
 		}else if(args[0].equals("background")){
 			ComicCheckerApplication app = new ComicCheckerApplication();
-			app.frequentlyUpdateSubscription(30);
+			app.frequentlyUpdateSubscription(30, false);
 		}else {
 			Application.launch(args);
 		}

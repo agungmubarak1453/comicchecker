@@ -63,9 +63,13 @@ public class SubscriptionView extends BorderPane implements View {
 	
 	@FXML public void allUpdateButtonClicked(ActionEvent e) {
 		new Thread( () -> {
-			app.updateSubscription();
+			app.updateSubscription(true);
+			app.saveData();
 			
 			Platform.runLater( () -> {
+				for(SnippetView o : snippetViews) {
+					o.refresh();
+				}
 				refresh();
 			});
 		}).start();

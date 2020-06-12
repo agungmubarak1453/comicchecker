@@ -245,10 +245,11 @@ public class ComicCheckerApplication {
 	 * <br><br>
 	 * Note: mostly give data to one days ago in updating.
 	 * 
+	 * @param isFromGUI GUI have different method for this
 	 * @see UserData
 	 */
-	public void updateSubscription() {
-		userData.updateSubscription(webScraper);
+	public void updateSubscription(boolean isFromGUI) {
+		userData.updateSubscription(webScraper, isFromGUI);
 	}
 	
 	/**
@@ -260,11 +261,10 @@ public class ComicCheckerApplication {
 	 * Note: For now this is fixed in every one day for fixed time
 	 * 
 	 * @see UserData
-	 * @param hours 24 hour-clock format of time want to be scheduled
-	 * @param minutes minutes of time want to be scheduled
+	 * @param isFromGUI GUI have different method for this
 	 * @param terminateAfterMinutes how minutes application can exit after updating
 	 */
-	public void frequentlyUpdateSubscription(int terminateAfterMinutes) {
+	public void frequentlyUpdateSubscription(int terminateAfterMinutes, boolean isFromGUI) {
 		// creating timer task
 		Timer timer = new Timer();  
 		
@@ -273,7 +273,7 @@ public class ComicCheckerApplication {
 			public void run() {  
 				loadData();
 				if(userData != null) {
-					updateSubscription();
+					updateSubscription(isFromGUI);
 					saveData();
 				}
 			};
@@ -312,14 +312,14 @@ public class ComicCheckerApplication {
 	 * @param minutes minutes of time want to be scheduled
 	 * @param terminateAfterMinutes how minutes application can exit after updating
 	 */
-	public void frequentlyUpdateSubscription() {
+	public void frequentlyUpdateSubscription(boolean isFromGUI) {
 		// creating timer task
 		Timer timer = new Timer();  
 		
 		TimerTask timerTask = new TimerTask() {  
 			@Override  
 			public void run() {  
-				updateSubscription();
+				updateSubscription(isFromGUI);
 				saveData();
 			};
 		};

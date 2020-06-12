@@ -45,11 +45,26 @@ public class DetailsView extends GridPane implements View {
 		thumbnail.setImage(parentView.getImage());
 		title.setText(parentView.getSnippet().getTitle());
 		description.setText(parentView.getSnippet().getDescription().length() > 250 ?
-				parentView.getSnippet().getDescription().substring(0, 250) : parentView.getSnippet().getDescription());
+				parentView.getSnippet().getDescription().substring(0, 250).replace("<br>", "\n")
+				: parentView.getSnippet().getDescription().replace("<br>", "\n"));
 		author.setText(parentView.getSnippet().getAuthor());
 		genre.setText(parentView.getSnippet().getGenre());
-		updateChapter.setText(parentView.getSnippet().getUpdateChapter());
-		updateTime.setText(parentView.getSnippet().getUpdateTime());
+		
+		
+		String chapterText = "";
+		boolean firstItem = true;
+		for(String o : parentView.getSnippet().getUpdateChapter()) {
+			chapterText += (firstItem ? "" : ", ") + o;
+			if(firstItem == true) firstItem = false;
+		}
+		updateChapter.setText(chapterText);
+		String timeText = "";
+		firstItem = true;
+		for(String o : parentView.getSnippet().getUpdateTime()) {
+			timeText += (firstItem ? "" : ", ") + o;
+			if(firstItem == true) firstItem = false;
+		}
+		updateTime.setText(timeText);
 		
 		sitesPane.getChildren().clear();
 		for(String o : parentView.getSnippet().getUpdateSite()) {

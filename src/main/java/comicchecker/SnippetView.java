@@ -13,9 +13,7 @@ import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
@@ -29,7 +27,8 @@ import javafx.stage.StageStyle;
 public class SnippetView extends GridPane implements View{
 	private Snippet snippet = null;
 	
-	private SubscriptionView parentView;
+	private SubscriptionView parentView = null;
+	private DetailsView childView = null;
 	private List<Stage> windows = new ArrayList<>();
 	
 	@FXML private Text snippetText;
@@ -103,7 +102,8 @@ public class SnippetView extends GridPane implements View{
         addWindow(stage);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Details View");
-        stage.setScene(new Scene(new DetailsView(this)));
+        childView = (new DetailsView(this));
+        stage.setScene(new Scene(childView));
         stage.show();
 	}
 	
@@ -141,10 +141,22 @@ public class SnippetView extends GridPane implements View{
 			thumbnail.setImage(image);
 		}
 		
-		snippetText.setText(snippet.getTitle()
-				+ (snippet.getUpdateChapter().equals("") ? "" : "\n" + snippet.getUpdateChapter())
-				+ (snippet.getUpdateTime().equals("") ? "" : "\n" + snippet.getUpdateTime())
-				);
+		
+		String text = "";
+		text += snippet.getTitle() + "\n";
+		boolean firstItem = true;
+		for(String o : snippet.getUpdateChapter()) {
+			text += (firstItem ? "" : ", ") + o;
+			if(firstItem == true) firstItem = false;
+		}
+		text += "\n";
+		firstItem = true;
+		for(String o : snippet.getUpdateTime()) {
+			text += (firstItem ? "" : ", ") + o;
+			if(firstItem == true) firstItem = false;
+		}
+		
+		snippetText.setText(text);
 		
 		linkPane.getChildren().clear();
 		for(String o : snippet.getUpdateSite()) {
@@ -163,6 +175,8 @@ public class SnippetView extends GridPane implements View{
 			
 			linkPane.getChildren().add(linkUpdateSite);
 		}
+		
+		if (childView != null) childView.refresh();
 	}
 	
 	public Image cacheImage(String thumbnail) throws IOException 

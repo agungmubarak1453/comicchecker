@@ -18,13 +18,6 @@ application {
     applicationDefaultJvmArgs = ['--add-opens=javafx.base/com.sun.javafx.event=ALL-UNNAMED']
 }
 
-task runBackground(type: JavaExec) {
-    group = 'application'
-    description = 'Task to run background app'
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'comicchecker.backgroundCheck'
-}
-
 task customFatJar(type: Jar) {
 	group = 'build'
 	description = 'Task to build fat jar'

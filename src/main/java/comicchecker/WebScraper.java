@@ -89,12 +89,12 @@ public class WebScraper {
 				}else {
 					Snippet otherSite = o.search(title);
 					if(otherSite != null) {
-						if(!result.getUpdateChapter().equals(otherSite.getUpdateChapter())) {
-							result.setUpdateChapter(result.getUpdateChapter() + ", " + otherSite.getUpdateChapter());
+						for(String o3 : otherSite.getUpdateChapter()) {
+							if(!result.getUpdateChapter().contains(o3)) result.addUpdateChapter(o3);
 						}
 						
-						if(!result.getUpdateTime().equals(otherSite.getUpdateTime())) {
-							result.setUpdateTime(result.getUpdateTime() + ", " + otherSite.getUpdateTime());
+						for(String o3 : otherSite.getUpdateTime()) {
+							if(!result.getUpdateTime().contains(o3)) result.addUpdateTime(o3);
 						}
 						
 						for(String o3 : otherSite.getUpdateSite()) {

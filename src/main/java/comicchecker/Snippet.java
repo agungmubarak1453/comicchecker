@@ -29,8 +29,8 @@ public class Snippet implements Serializable{
 		private String description;
 		private String author;
 		private String genre;
-		private String updateChapter;
-		private String updateTime;
+		private List<String> updateChapter;
+		private List<String> updateTime;
 		private List<String> updateSite;
 		
 		private List<String> avaibleUpdateSite;
@@ -44,14 +44,13 @@ public class Snippet implements Serializable{
 		 * @param avaibleUpdateSite site for used in web sraping
 		 */
 		public Snippet(WebScraper webScraper, String title, String... sites) {
-			// I am confused for take others data with web scraping. I haven't found list of comic in mangakakalots
 			this.title = title;
 			thumbnail = "";
 			author = "";
 			genre = "";
 			description = "";
-			updateChapter = "";
-			updateTime = "";
+			updateChapter = new ArrayList<>();
+			updateTime = new ArrayList<>();
 			updateSite = new ArrayList<>();
 			avaibleUpdateSite = new ArrayList<>();
 			for(String o : sites) {
@@ -75,8 +74,8 @@ public class Snippet implements Serializable{
 			author = "";
 			genre = "";
 			description = "";
-			updateChapter = "";
-			updateTime = "";
+			updateChapter = new ArrayList<>();
+			updateTime = new ArrayList<>();
 			updateSite = new ArrayList<>();
 			this.avaibleUpdateSite = avaibleUpdateSite;
 			
@@ -103,8 +102,10 @@ public class Snippet implements Serializable{
 			this.author = author;
 			this.genre = genre;
 			this.description = description;
-			this.updateChapter = updateChapter;
-			this.updateTime = updateTime;
+			this.updateChapter = new ArrayList<>();
+			if(!updateChapter.equals("")) this.updateChapter.add(updateChapter);
+			this.updateTime = new ArrayList<>();
+			if(!updateTime.equals("")) this.updateTime.add(updateTime);
 			this.updateSite = new ArrayList<>();
 			this.updateSite.add(updateSite);
 			avaibleUpdateSite = new ArrayList<>(); // avaibleUpdateSite not be used, so this field in empty
@@ -199,20 +200,28 @@ public class Snippet implements Serializable{
 			this.description = description;
 		}
 		
-		public String getUpdateChapter() {
+		public List<String> getUpdateChapter() {
 			return updateChapter;
 		}
 
-		public void setUpdateChapter(String updateChapter) {
+		public void setUpdateChapter(List<String> updateChapter) {
 			this.updateChapter = updateChapter;
 		}
+		
+		public void addUpdateChapter(String updateChapter) {
+			this.updateChapter.add(updateChapter);
+		}
 
-		public String getUpdateTime() {
+		public List<String> getUpdateTime() {
 			return updateTime;
 		}
 
-		public void setUpdateTime(String updateTime) {
+		public void setUpdateTime(List<String> updateTime) {
 			this.updateTime = updateTime;
+		}
+		
+		public void addUpdateTime(String updateTime) {
+			this.updateTime.add(updateTime);
 		}
 
 		public List<String> getUpdateSite() {

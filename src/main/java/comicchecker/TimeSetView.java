@@ -110,7 +110,7 @@ public class TimeSetView extends GridPane implements View {
 	@FXML public void applyButtonClicked(ActionEvent e) {
 		new Thread( () -> {
 			app.setScheduledTime(Integer.parseInt(hoursField.getText()), Integer.parseInt(minutesField.getText()));
-			app.frequentlyUpdateSubscription();
+			app.frequentlyUpdateSubscription(true);
 			app.saveData();
 		}).start();
 		
