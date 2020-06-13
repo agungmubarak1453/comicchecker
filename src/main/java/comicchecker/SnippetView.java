@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -191,7 +192,10 @@ public class SnippetView extends GridPane implements View{
 		if(imageFile.createNewFile()) {
 			try {
 				
-				Image imageJavaFX = new Image(thumbnail);
+				URL url = new URL(thumbnail);
+				URLConnection connection = url.openConnection();
+				if(thumbnail.contains("webtoon")) connection.setRequestProperty("referer", "https://www.webtoons.com");
+				Image imageJavaFX = new Image(connection.getInputStream());
 				ImageIO.write(SwingFXUtils.fromFXImage(imageJavaFX, null), "jpg", imageFile);
 				return imageJavaFX;
 				

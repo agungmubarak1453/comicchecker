@@ -7,6 +7,7 @@ import java.awt.TrayIcon.MessageType;
 import java.awt.Window.Type;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -134,8 +135,12 @@ public class UserData implements Serializable{
 		    // Pop up notification for every updating comic
 		    for(Snippet o : listOfSubscription) {
 				if (o.update(webScraper)) {
-					Image image = ImageIO.read(new URL(o.getThumbnail()));
-					Frame frame = new Frame("");
+					
+					URL url = new URL(o.getThumbnail());
+					URLConnection connection = url.openConnection();
+					if(o.getThumbnail().contains("webtoon")) connection.setRequestProperty("referer", "https://www.webtoons.com");
+					Image image = ImageIO.read(connection.getInputStream());
+					Frame frame = new Frame();
 					
 					// Notification display
 					String notificationText = "";
@@ -151,7 +156,7 @@ public class UserData implements Serializable{
 						if(firstItem == true) firstItem = false;
 					}
 					for(String o2: o.getUpdateSite()) {
-						notificationText += "\n" + o;
+						notificationText += "\n" + o2;
 					}
 					
 					// Trayicon display
@@ -232,7 +237,7 @@ public class UserData implements Serializable{
 									tray.remove(trayIcon);
 								};
 							}
-							);
+					);
 					
 					trayIcon.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent e) {
@@ -268,9 +273,8 @@ public class UserData implements Serializable{
 					
 					// Display notification
 					trayIcon.displayMessage(o.getTitle() + " have updated", notificationText, MessageType.NONE);
-					
 				}
-			}
+		    }
 		    
 		}catch(Exception ex){
 		    ex.printStackTrace();
