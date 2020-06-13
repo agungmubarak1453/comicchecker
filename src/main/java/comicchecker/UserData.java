@@ -195,6 +195,7 @@ public class UserData implements Serializable{
 					TrayIcon trayIcon = new TrayIcon(image.getScaledInstance(SystemTray.getSystemTray().getTrayIconSize().width, -1, Image.SCALE_SMOOTH)
 							, toolTip);
 					
+					if(popup.getItemCount() > 0) popup.addSeparator();
 					
 					// GUI have different method
 					if(!isFromGUI) {
@@ -208,16 +209,13 @@ public class UserData implements Serializable{
 						popup.addSeparator();
 					}
 					
-					popup.addSeparator();
-					
 					MenuItem close = new MenuItem("Close");
 					close.addActionListener(e -> {
 						tray.remove(trayIcon);
 					});
 					popup.add(close);
 					
-					boolean canPopupShow = popup.getItemCount() > 0;
-					if(canPopupShow) trayIcon.setPopupMenu(popup); 
+					trayIcon.setPopupMenu(popup); 
 					
 					// If user click notification or similar for that, user is directed to browser for see updating comic
 					// I don't know what's happened. But use lambda make this function frequently in bug
@@ -254,7 +252,7 @@ public class UserData implements Serializable{
 								tray.remove(trayIcon);
 							}
 							
-							if (SwingUtilities.isRightMouseButton(e) && canPopupShow) {
+							if (SwingUtilities.isRightMouseButton(e)) {
 									frame.add(popup);
 						            popup.show(frame, e.getXOnScreen(), e.getYOnScreen());
 							}
