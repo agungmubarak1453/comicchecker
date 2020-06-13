@@ -150,6 +150,9 @@ public class UserData implements Serializable{
 						notificationText += (firstItem ? "" : ", ") + o2;
 						if(firstItem == true) firstItem = false;
 					}
+					for(String o2: o.getUpdateSite()) {
+						notificationText += "\n" + o;
+					}
 					
 					// Trayicon display
 					String toolTip = "";
