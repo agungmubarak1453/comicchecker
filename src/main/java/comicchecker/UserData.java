@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
-import javafx.application.Platform;
-
 /**
 	 * 
 	 */
@@ -189,27 +187,28 @@ public class UserData implements Serializable{
 					TrayIcon trayIcon = new TrayIcon(image.getScaledInstance(SystemTray.getSystemTray().getTrayIconSize().width, -1, Image.SCALE_SMOOTH)
 							, toolTip);
 					
-					boolean canPopupShow = popup.getItemCount() > 0;
 					
-					MenuItem app = new MenuItem("Open App");
-					app.addActionListener( e -> {
-						app.setEnabled(false);
-						GUISimulator.main(new String[] {});
-					});
+					// GUI have different method
+					if(!isFromGUI) {
+						MenuItem app = new MenuItem("Open App");
+						app.addActionListener( e -> {
+							app.setEnabled(false);
+							GUISimulator.main(new String[] {});
+						});
+						
+						popup.add(app);
+						popup.addSeparator();
+					}
+					
+					popup.addSeparator();
 					
 					MenuItem close = new MenuItem("Close");
 					close.addActionListener(e -> {
 						tray.remove(trayIcon);
 					});
-					
-					// GUI have different method
-					popup.addSeparator();
-					if(!isFromGUI) {
-						popup.add(app);
-						popup.addSeparator();
-					}
 					popup.add(close);
 					
+					boolean canPopupShow = popup.getItemCount() > 0;
 					if(canPopupShow) trayIcon.setPopupMenu(popup); 
 					
 					// If user click notification or similar for that, user is directed to browser for see updating comic

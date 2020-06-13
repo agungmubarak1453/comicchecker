@@ -189,16 +189,17 @@ public class SnippetView extends GridPane implements View{
 		
 		File imageFile = new File("imgcache/" + imageFileName);
 		if(imageFile.createNewFile()) {
-			Image imageJavaFX = new Image(thumbnail);
-			
 			try {
+				
+				Image imageJavaFX = new Image(thumbnail);
 				ImageIO.write(SwingFXUtils.fromFXImage(imageJavaFX, null), "jpg", imageFile);
+				return imageJavaFX;
+				
 			} catch (Exception e) {
 				imageFile.delete();
 				throw e;
 			}
 				
-			return imageJavaFX;
 		}else {
 			return new Image(imageFile.toURI().toString());
 		}

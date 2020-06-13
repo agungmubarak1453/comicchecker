@@ -57,7 +57,7 @@ public class ComicCheckerApplication {
 				, new Type2("https://guya.moe")
 				, new Type3("https://manganelo.com")
 				, new WebtoonEn("https://webtoons.com/en")
-				, new WebtoonId("https://webtoons.com/id")
+				, new WebtoonId("https://webtoons.com/id/")
 				);
 		
 		
